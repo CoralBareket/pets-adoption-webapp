@@ -4,10 +4,6 @@ require('dotenv').config(); // Load environment variables from a .env file
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true, // For automatically handling unique indexes
-      useFindAndModify: false, // To use native findOneAndUpdate() instead of findAndModify()
     });
 
     console.log(`MongoDB Connected: ${conn.connection.host}`);
