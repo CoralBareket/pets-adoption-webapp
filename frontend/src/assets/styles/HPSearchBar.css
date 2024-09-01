@@ -1,25 +1,111 @@
+/* Search Bar Container */
 .search-bar {
-    background-color: #f9f9f9;
+    background-color: white;
     padding: 20px;
+    margin: auto;
     text-align: center;
+    border-radius: 20px;
+    box-shadow: 0 -6px 15px rgba(160, 160, 160, 0.1), 0 8px 15px rgba(160, 160, 160, 0.1);
+    max-width: 90%;
+    direction: rtl;
+    font-size: larger;
+}
+
+/* Search Form Styling */
+.search-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .search-form {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
-.search-form select, .search-form button {
+.search-form .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: right;
+}
+
+.search-form label {
+    margin-bottom: 5px;
+    margin-right: 20px;
+}
+
+.search-form select {
+    width: 200px;
     padding: 10px 20px;
     border-radius: 25px;
     border: 1px solid #ccc;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    color: gray;
+}
+
+.search-form select:focus {
+    border-color: gray;
+}
+
+/* Search Button Styling */
+.search-btn {
+    background-color: #fb4e4e;
+    color: white; 
+    border: none;
+    padding: 10px 20px; 
+    border-radius: 25px;
+    font-size: 20px;
+    font-weight: bolder;
+    width: auto;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: 50px; /* Adjust height to match the selects */
+    align-self: flex-start;
+    margin-top: 25px; /* Optional: fine-tune button alignment */
+}
+
+.search-btn:hover {
+    background-color: #f96363;
+}
+
+/* Search Options Styling */
+.search-options {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
 .search-options button {
-    margin: 5px;
-    padding: 10px 20px;
-    border-radius: 25px;
-    border: 1px solid #ccc;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #7bd8de;
+    font-size: 14px;
+    color: #7bd8de;
+    background-color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-options button:hover {
+    background-color: #7bd8de;
+    color: white;
+    border-color: #7bd8de;
+}
+
+.search-options button .icon {
+    font-size: 24px; /* Adjust icon size */
+    color: #7bd8de; /* Match the color scheme */
+    margin-bottom: 5px;
 }
