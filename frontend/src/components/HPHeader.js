@@ -19,6 +19,7 @@ const Header = () => {
             <nav className="navbar">
                 <div className="header-logo">
                     <img src={logo} alt="Logo" />
+                    <div className="footer-logo-title">Pawfect match</div>
                 </div>
                 <ul className="navbar-menu">
                     <li
@@ -47,7 +48,7 @@ const Header = () => {
                             <li>התנדבות</li>
                         </ul>
                     </li>
-                    <li>בתים אומנים</li>
+                    <li>הצרכניה</li>
                     <li>
                         <span>לוח בעלי חיים אבודים</span>
                         <span className="SOS"> SOS </span>
@@ -56,13 +57,13 @@ const Header = () => {
             </nav>
             <div className="header">
                 <div className="header-image">
-                    <img src={familyImage} alt="My-Family" /> {/* Use the correct path to your family image */}
+                    <img src={familyImage} alt="My-Family" />
                 </div>
                 <div className="header-content">
                     <h1>לאמץ בלי להתאמץ</h1>
-                    <p>אלפי חברים על ארבע מחכים שתאמצו אותם והאלגוריתם שלנו יעזור לכם למצוא את החבר המושלם עבורכם! 
+                    <p>אלפי חברים על ארבע מחכים שתאמצו אותם והאלגוריתם שלנו יעזור לכם למצוא את החבר המושלם עבורכם 
                         <br /> 
-                        אז אל תתמהמהו - מלאו את שאלון ההתאמה והצטרפו אל המשפחות המאושרות שכבר אימצו </p>
+                    מלאו את שאלון ההתאמה והצטרפו אל המשפחות המאושרות שכבר אימצו </p>
                 </div>
             </div>
         </>

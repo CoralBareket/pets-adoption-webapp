@@ -10,7 +10,7 @@ header {
     margin-left: 10%;
     display: flex;
     align-items: center;
-    width: 70%;
+    width: 80%;
 }
 
 .SOS {
@@ -36,7 +36,7 @@ header {
 
 .navbar-menu li {
     position: relative;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     color: #333;
     cursor: pointer;
@@ -45,19 +45,19 @@ header {
 }
 
 .navbar-menu li:hover {
-    color: #e00e0e;
-    /* Change color on hover */
+    color: #7bd8de;
 }
 
 .navbar-menu li:hover .dropdown-menu {
     display: block;
+    pointer-events: auto; /* Allow interaction with the dropdown */
 }
 
 /* Dropdown Menu Styles */
 .navbar-menu .dropdown-menu {
     display: none; /* Hidden by default */
     position: absolute;
-    top: 40px;
+    top: 100%; /* Ensures dropdown appears directly below the parent */
     left: 50%;
     transform: translateX(-50%);
     background-color: white;
@@ -67,6 +67,7 @@ header {
     border-radius: 10px;
     min-width: fit-content;
     text-align: left;
+    pointer-events: none; /* Prevents accidental closing when moving the mouse */
 }
 
 .dropdown-menu li {
@@ -79,11 +80,12 @@ header {
 
 .dropdown-menu li:hover {
     background-color: #f1f1f1;
+    color: #333;
 }
 
 /* Header Content Styles */
 .header-content {
-    text-align: center; /* Center the text horizontally */
+    text-align: center;
     padding: 20px;
     color: #333;
     width: 60%;
@@ -114,17 +116,34 @@ header {
 }
 
 .header-image {
-    width: 35%;
-    margin-left: 15%;
+    width: 40%;
+    margin-left: 10%;
 }
 
 .header-image img {
     max-width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: 50%;
+}
+
+.header-logo {
+    display: flex; /* Use flexbox to center content */
+    flex-direction: column; /* Stack the logo and title vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    height: 100%; /* Make sure it takes the full height of the parent */
+    text-align: center;
 }
 
 .header-logo img {
-    height: 60px;
-    width: auto;
+    height: 120px;
+    width: 120px;
+    margin-bottom: 0;
+}
+
+.header-logo-title {
+    color: plum;
+    text-align: center;
+    margin: 0;
+    font-size: smaller; 
 }

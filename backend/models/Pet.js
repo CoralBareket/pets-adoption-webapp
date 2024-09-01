@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-// Define the schema for the Dog model
-const dogSchema = new mongoose.Schema({
+// Define the schema for the Pet model
+const petSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -36,6 +36,6 @@ const dogSchema = new mongoose.Schema({
     timestamps: true // Automatically manage createdAt and updatedAt fields
 });
 
-// Create and export the Dog model
-const Dog = mongoose.model('Dog', dogSchema);
-module.exports = Dog;
+// Create and export the Pet model
+const Pet = mongoose.model('Pet', petSchema);
+module.exports = Pet;
