@@ -1,0 +1,25 @@
+.search-bar {
+    background-color: #f9f9f9;
+    padding: 20px;
+    text-align: center;
+}
+
+.search-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-form select, .search-form button {
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+}
+
+.search-options button {
+    margin: 5px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+}
