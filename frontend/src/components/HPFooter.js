@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../src/assets/styles/HPFooter.css';
 import { FaFacebook, FaInstagram, FaYoutube, FaTwitter } from 'react-icons/fa'; 
-import logo from '../../src/assets/images/logo.png';
+import logo from '../../src/assets/images/Pawfect-match-logo.png';
 
 const HPFooter = () => {
     return (
@@ -37,7 +37,6 @@ const HPFooter = () => {
                 <div className="footer-section">
                     <div className="footer-logo">
                         <img src={logo} alt="Logo" />
-                        <div className="footer-logo-title">Pawfect match</div>
                     </div>
                     <div className="footer-social">
                         <a href="#youtube">
