@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import '../../src/assets/styles/HPHeader.css';
-import logo from '../../src/assets/images/logo.png';
+import logo from '../../src/assets/images/Pawfect-match-logo.png';
 import familyImage from '../../src/assets/images/my-family.png';
+
 
 const Header = () => {
     const [activeDropdown, setActiveDropdown] = useState(null);
@@ -19,7 +20,6 @@ const Header = () => {
             <nav className="navbar">
                 <div className="header-logo">
                     <img src={logo} alt="Logo" />
-                    <div className="footer-logo-title">Pawfect match</div>
                 </div>
                 <ul className="navbar-menu">
                     <li
@@ -36,7 +36,7 @@ const Header = () => {
                             <li>מדיניות פרטיות</li>
                         </ul>
                     </li>
-                    <li>שאלון התאמה</li>
+                    <li className="pulse-animation">שאלון התאמה</li>
                     <li
                         onMouseEnter={() => handleMouseEnter(1)}
                         onMouseLeave={handleMouseLeave}
@@ -61,9 +61,9 @@ const Header = () => {
                 </div>
                 <div className="header-content">
                     <h1>לאמץ בלי להתאמץ</h1>
-                    <p>אלפי חברים על ארבע מחכים שתאמצו אותם והאלגוריתם שלנו יעזור לכם למצוא את החבר המושלם עבורכם 
-                        <br /> 
-                    מלאו את שאלון ההתאמה והצטרפו אל המשפחות המאושרות שכבר אימצו </p>
+                    <p>אלפי חברים על ארבע מחכים שתאמצו אותם והאלגוריתם שלנו יעזור לכם למצוא את החבר המושלם עבורכם
+                        <br />
+                        מלאו את שאלון ההתאמה והצטרפו אל המשפחות המאושרות שכבר אימצו </p>
                 </div>
             </div>
         </>
