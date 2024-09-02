@@ -20,7 +20,7 @@
 }
 
 .logos-grid:hover {
-    animation-play-state: paused; /* Pause sliding on hover */
+    animation-play-state: paused;
 }
 
 .logo-card {
@@ -45,7 +45,8 @@
 }
 
 .logo-card:hover {
-    transform: scale(1.05); /* Slightly enlarge the card on hover */
+    transform: scale(1.05);
+    border-radius: 0%;
 }
 
 .logo-card:hover img {
@@ -60,18 +61,18 @@
     width: 100%;
     height: 100%;
     background-color: rgba(223, 40, 40, 0.8);
-    z-index: 1; /* Ensure it is on top of the image but below text */
+    z-index: 1;
 }
 
 .logo-card:hover::after {
     content: '+';
-    font-size: 50px;
+    font-size: calc(4rem + 2vw);
+    font-weight: lighter;
     color: white;
     position: absolute;
-    top: 40%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-weight: bold;
     z-index: 2;
 }
 
@@ -79,13 +80,12 @@
     content: 'לעמוד העמותה';
     display: block;
     position: absolute;
-    top: 55%;
+    top: 60%;
     left: 50%;
     transform: translateX(-50%);
     color: white;
     font-size: 18px;
-    font-weight: bold;
-    z-index: 2; /* Ensure it is above the transparent square */
+    z-index: 2; 
 }
 
 /* Initially hide the text */

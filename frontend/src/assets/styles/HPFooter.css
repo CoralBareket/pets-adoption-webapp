@@ -64,7 +64,10 @@
 }
 
 .footer-logo {
-    margin-bottom: 20px;
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
 }
 
@@ -72,6 +75,11 @@
     width: 150px;
     border-radius: 50%;
     height: auto;
-    display: center;
     margin-bottom: 10px;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 14px;
+    color: #666; 
 }
