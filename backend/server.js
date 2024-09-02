@@ -2,7 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
-const dogRoutes = require('./routes/dogRoutes');
+const petRoutes = require('./routes/petRoutes');
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes'); // will create this later
 
@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(cors());
 
 // Routes
-app.use('/api/dogs', dogRoutes);
+app.use('/api/pets', petRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes); 
 

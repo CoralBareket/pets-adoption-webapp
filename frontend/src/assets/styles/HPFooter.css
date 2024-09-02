@@ -2,7 +2,6 @@
     background-color: #d5f8fa; 
     padding: 40px 20px;
     color: #333;
-    font-family: Arial, sans-serif;
     font-size: 16px;
     position: relative; /* To position the icons absolutely within the footer */
 }
@@ -11,7 +10,7 @@
     display: flex;
     direction: rtl;
     flex-wrap: wrap;
-    padding-top: 80px; /* Added padding to move the text down */
+    padding-top: 80px;
 }
 
 .footer-section {
@@ -42,8 +41,8 @@
 
 .footer-social {
     position: absolute;
-    top: 20px; /* Position icons at the top of the footer */
-    right: 20px; /* Align icons to the right */
+    top: 20px; 
+    right: 20px;
     display: flex;
     gap: 15px;
     align-items: center;
@@ -73,13 +72,6 @@
     width: 150px;
     border-radius: 50%;
     height: auto;
-    display: inline-block;
+    display: center;
     margin-bottom: 10px;
-}
-
-.footer-logo-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: plum;
-    text-align: center;
 }
