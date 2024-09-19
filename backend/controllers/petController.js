@@ -1,14 +1,18 @@
-const Dog = require('../models/Pet');
+const Pet = require('../models/Pet');
 
 // @desc    Get all pets
 // @route   GET /api/pets
 // @access  Public
 exports.getPets = async (req, res) => {
     try {
-        const petss = await Pet.find({});
+        const pets = await Pet.find({});
+        console.log("Pets found:", JSON.stringify(pets, null, 2));
+        console.log("Number of pets found:", pets.length);
         res.json(pets);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Error fetching pets:", error);
+        console.error("Full error stack:", error.stack);
+        res.status(500).json({ message: error.message, stack: error.stack });
     }
 };
 
@@ -23,11 +27,10 @@ exports.getPetById = async (req, res) => {
         }
         res.json(pet);
     } catch (error) {
-        console.error("Error fetching pet by ID:", error);
+        console.error("Error fetching pet by ID:", error);  // Log the error for debugging
         res.status(500).json({ message: "Server Error" });
     }
 };
-
 
 // @desc    Create a new pet
 // @route   POST /api/pets
@@ -39,6 +42,7 @@ exports.createPet = async (req, res) => {
         const savedPet = await pet.save();
         res.status(201).json(savedPet);
     } catch (error) {
+        console.error("Error creating pet:", error);  // Log the error for debugging
         res.status(400).json({ message: error.message });
     }
 };
@@ -54,6 +58,7 @@ exports.updatePet = async (req, res) => {
         }
         res.json(updatedPet);
     } catch (error) {
+        console.error("Error updating pet:", error);  // Log the error for debugging
         res.status(400).json({ message: error.message });
     }
 };
@@ -69,6 +74,7 @@ exports.deletePet = async (req, res) => {
         }
         res.json({ message: 'Pet deleted' });
     } catch (error) {
+        console.error("Error deleting pet:", error);  // Log the error for debugging
         res.status(500).json({ message: error.message });
     }
 };

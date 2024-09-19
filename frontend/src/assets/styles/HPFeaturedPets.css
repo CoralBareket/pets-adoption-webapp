@@ -4,19 +4,32 @@
     background-color: white;
     border-radius: 15px;
     margin-top: 20px;
-    overflow: hidden; /* Ensure the container hides overflowing content */
+    overflow: hidden;
     position: relative;
 }
 
-.featured-pets h2{
+.featured-pets h2 {
     font-size: 30px;
+}
+
+.pets-container {
+    overflow: hidden;
 }
 
 .pets-grid {
     display: flex;
-    justify-content: center;
-    flex-wrap: nowrap; /* Prevent wrapping to maintain a single row */
-    animation: slide 15s linear infinite;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
 }
 
 .pets-grid .pet-card {
@@ -24,7 +37,7 @@
     padding: 20px;
     text-align: center;
     transition: transform 0.3s ease-in-out;
-    flex-shrink: 0; /* Prevent shrinking */
+    flex-shrink: 0;
 }
 
 .pet-card img {
@@ -43,31 +56,47 @@
 }
 
 .pet-card p {
-    color: #666;
     font-size: 16px;
     margin-bottom: 20px;
 }
 
 .pet-card button {
-    padding: 10px 20px;
-    border: gray;
-    border-radius: 35px;
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
     background-color: white;
-    color: black;
+    color: #333;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.3s;
 }
 
 .pet-card button:hover {
-    background-color: whitesmoke;
+    background-color: #f0f0f0;
 }
 
-@keyframes slide {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
+.pet-status {
+    background-color: #7bd8de;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 14px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.pet-info {
+    font-size: 14px;
+    color: #fb4e4e;
+    margin-bottom: 5px;
+}
+
+.pet-description {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.pets-grid:hover {
+    animation-play-state: paused;
 }

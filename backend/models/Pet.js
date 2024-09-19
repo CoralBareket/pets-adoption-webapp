@@ -1,41 +1,42 @@
 const mongoose = require('mongoose');
 
-// Define the schema for the Pet model
 const petSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
-        trim: true
+        required: true
     },
     age: {
-        type: Number,
+        type: String,
+        required: true
+    },
+    gender: {
+        type: String,
+        enum: ['זכר', 'נקבה'],
         required: true
     },
     breed: {
         type: String,
-        required: true,
-        trim: true
+        enum: ['מעורב', 'שועלי', 'פינצר', 'האסקי סיבירי' , 'טרייר', 'ביגל', 'חתול פרסי', 'לברדור', 'רועה גרמני', 'שיצו', ],
+        required: true
     },
     description: {
         type: String,
-        trim: true
-    },
-    isAdopted: {
-        type: Boolean,
-        default: false
-    },
-    adoptionDate: {
-        type: Date,
-        default: null
+        required: true
     },
     imageUrl: {
         type: String,
-        trim: true
-    }
+        required: true
+    },
+    status: {
+        type: String,
+        enum: ['חדש באתר', 'אומץ'],
+        default: 'חדש באתר'
+    },
+    location: String,
+    size: String
 }, {
-    timestamps: true // Automatically manage createdAt and updatedAt fields
+    timestamps: true // This will add createdAt and updatedAt fields
 });
 
-// Create and export the Pet model
 const Pet = mongoose.model('Pet', petSchema);
 module.exports = Pet;
