@@ -14,7 +14,8 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 
 // Protected routes
-router.get('/profile', protect, getUserProfile);
-router.put('/profile', protect, updateUserProfile);
+router.route('/profile')
+    .get(protect, getUserProfile)
+    .put(protect, updateUserProfile);
 
 module.exports = router;

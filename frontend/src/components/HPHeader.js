@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import '../../src/assets/styles/HPHeader.css';
 import logo from '../../src/assets/images/Pawfect-match-logo.png';
 import familyImage from '../../src/assets/images/my-family.png';
-
+import LoginModal from './LoginModal';
 
 const Header = () => {
     const [activeDropdown, setActiveDropdown] = useState(null);
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
     const handleMouseEnter = (index) => {
         setActiveDropdown(index);
@@ -15,6 +16,12 @@ const Header = () => {
         setActiveDropdown(null);
     };
 
+    const handleLogin = (userData) => {
+        // Handle the login process here
+        console.log('User logged in:', userData);
+        // You might want to update the app state or context with the user data
+    };
+
     return (
         <>
             <nav className="navbar">
@@ -22,6 +29,12 @@ const Header = () => {
                     <img src={logo} alt="Logo" />
                 </div>
                 <ul className="navbar-menu">
+                    <li className="login-button">
+                        <a href="#" onClick={() => setIsLoginModalOpen(true)}>
+                            <span>אזור אישי</span>
+                            <span>התחברות/הרשמה</span>
+                        </a>
+                    </li>
                     <li
                         onMouseEnter={() => handleMouseEnter(0)}
                         onMouseLeave={handleMouseLeave}
@@ -66,6 +79,11 @@ const Header = () => {
                         מלאו את שאלון ההתאמה והצטרפו אל המשפחות המאושרות שכבר אימצו </p>
                 </div>
             </div>
+            <LoginModal
+                isOpen={isLoginModalOpen}
+                onClose={() => setIsLoginModalOpen(false)}
+                onLogin={handleLogin}
+            />
         </>
     );
 };

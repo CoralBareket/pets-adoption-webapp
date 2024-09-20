@@ -1,24 +1,17 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
+require('dotenv').config(); // Load environment variables from .env file
 
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
+      useNewUrlParser: true,         // Ensures that MongoDB uses the new connection string parser
+      useUnifiedTopology: true       // Enables the new unified topology layer
     });
 
     console.log(`MongoDB Connected: ${conn.connection.host}`);
-    
-    // Add these lines to log more details about the connection
-    console.log(`Database Name: ${conn.connection.name}`);
-    console.log(`Connection State: ${mongoose.connection.readyState}`);
-    // 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
-    
   } catch (error) {
     console.error(`Error: ${error.message}`);
-    console.error(`Full error stack: ${error.stack}`);
-    process.exit(1);
+    process.exit(1); // Exit process with failure
   }
 };
 

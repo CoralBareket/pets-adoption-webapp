@@ -4,7 +4,6 @@ import HPSearchBar from '../components/HPSearchBar';
 import HPFeaturedPets from '../components/HPFeaturedPets';
 import HPPartnershipLogos from '../components/HPPartnershipLogos';
 import HPFooter from '../components/HPFooter';
-import '../../src/assets/styles/HomePage.css';
 
 const HomePage = () => {
     return (

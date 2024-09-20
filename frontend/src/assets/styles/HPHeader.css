@@ -3,17 +3,18 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
-    position: relative; /* Make header a positioned element */
-    padding-left: 40%; /* Add padding to the left to make room for the image */
+    position: relative;
+    padding-left: 40%;
 }
 
 .navbar {
-    padding: 10px 20px;
-    direction: rtl;
-    margin-left: 10%;
     display: flex;
     align-items: center;
-    width: 80%;
+    justify-content: center;
+    margin-left: 10%;
+    direction: rtl;
+    width: 90%;
+    background-color: white;
 }
 
 .SOS {
@@ -25,9 +26,11 @@
     list-style-type: none;
     display: flex;
     justify-content: space-around;
+    align-items: center;
     margin: 0;
     padding: 0;
-    flex-grow: 1;
+    width: 80%;
+    max-width: 1200px;
 }
 
 .navbar-menu ul {
@@ -45,6 +48,7 @@
     cursor: pointer;
     text-align: center;
     white-space: nowrap;
+    padding: 0 15px;
 }
 
 .navbar-menu li:hover {
@@ -53,14 +57,14 @@
 
 .navbar-menu li:hover .dropdown-menu {
     display: block;
-    pointer-events: auto; /* Allow interaction with the dropdown */
+    pointer-events: auto;
 }
 
 /* Dropdown Menu Styles */
 .navbar-menu .dropdown-menu {
-    display: none; /* Hidden by default */
+    display: none;
     position: absolute;
-    top: 100%; /* Ensures dropdown appears directly below the parent */
+    top: 100%;
     left: 50%;
     transform: translateX(-50%);
     background-color: white;
@@ -70,7 +74,7 @@
     border-radius: 10px;
     min-width: fit-content;
     text-align: left;
-    pointer-events: none; /* Prevents accidental closing when moving the mouse */
+    pointer-events: none;
 }
 
 .dropdown-menu li {
@@ -95,7 +99,6 @@
     margin-right: 10%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     z-index: 1;
 }
 
@@ -120,7 +123,7 @@
     height: 115%;
     margin-left: 3%;
     z-index: -1;
-    overflow: hidden; /* Ensure the image doesn't overflow */
+    overflow: hidden;
 }
 
 .header-image img {
@@ -156,4 +159,27 @@
 
 .pulse-animation:hover {
     animation-play-state: paused;
+}
+
+/* Login button styles */
+.login-button {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.login-button a {
+    color: #333;
+    text-decoration: none;
+    flex-direction: column;
+    font-weight: bold;
+    display: flex;
+    font-size: 14px;
+    border: 0 solid;
+}
+
+.login-button a:before {
+    content: '\1F464'; /* Unicode for person icon */
+    margin-left: 0;
+    font-size: 1.2em;
 }

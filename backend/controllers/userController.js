@@ -6,17 +6,18 @@ const generateToken = require('../utils/generateToken');
 // @route   POST /api/users/register
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body;
+    const { idNumber, phoneNumber, email, password } = req.body;
 
-    const userExists = await User.findOne({ email });
+    const userExists = await User.findOne({ idNumber });
 
     if (userExists) {
         res.status(400);
-        throw new Error('User already exists');
+        throw new Error('User with this ID number already exists');
     }
 
     const user = await User.create({
-        name,
+        idNumber,
+        phoneNumber,
         email,
         password,
     });
@@ -24,7 +25,8 @@ const registerUser = asyncHandler(async (req, res) => {
     if (user) {
         res.status(201).json({
             _id: user._id,
-            name: user.name,
+            idNumber: user.idNumber,
+            phoneNumber: user.phoneNumber,
             email: user.email,
             token: generateToken(user._id),
         });
@@ -34,24 +36,25 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 });
 
-// @desc    Authenticate user & get token
+// @desc    Auth user & get token
 // @route   POST /api/users/login
 // @access  Public
 const loginUser = asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
+    const { idNumber, phoneNumber } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ idNumber });
 
-    if (user && (await user.matchPassword(password))) {
+    if (user && user.phoneNumber === phoneNumber) {
         res.json({
             _id: user._id,
-            name: user.name,
+            idNumber: user.idNumber,
+            phoneNumber: user.phoneNumber,
             email: user.email,
             token: generateToken(user._id),
         });
     } else {
         res.status(401);
-        throw new Error('Invalid email or password');
+        throw new Error('Invalid ID number or phone number');
     }
 });
 
@@ -64,7 +67,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
     if (user) {
         res.json({
             _id: user._id,
-            name: user.name,
+            idNumber: user.idNumber,
+            phoneNumber: user.phoneNumber,
             email: user.email,
         });
     } else {
@@ -80,7 +84,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
 
     if (user) {
-        user.name = req.body.name || user.name;
+        user.idNumber = req.body.idNumber || user.idNumber;
+        user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
         user.email = req.body.email || user.email;
         if (req.body.password) {
             user.password = req.body.password;
@@ -90,7 +95,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
         res.json({
             _id: updatedUser._id,
-            name: updatedUser.name,
+            idNumber: updatedUser.idNumber,
+            phoneNumber: updatedUser.phoneNumber,
             email: updatedUser.email,
             token: generateToken(updatedUser._id),
         });
@@ -104,5 +110,5 @@ module.exports = {
     registerUser,
     loginUser,
     getUserProfile,
-    updateUserProfile,
+    updateUserProfile
 };

@@ -4,7 +4,7 @@ const cors = require('cors');
 const connectDB = require('./config/db');
 const petRoutes = require('./routes/petRoutes');
 const productRoutes = require('./routes/productRoutes');
-const userRoutes = require('./routes/userRoutes'); // will create this later
+const userRoutes = require('./routes/userRoutes');
 
 dotenv.config();
 
