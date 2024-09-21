@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../src/assets/styles/HPFooter.css';
-import { FaFacebook, FaInstagram, FaYoutube, FaTwitter } from 'react-icons/fa'; 
+import { FaFacebook, FaInstagram, FaYoutube, FaTwitter } from 'react-icons/fa';
 import logo from '../../src/assets/images/Pawfect-match-logo.png';
 
 const HPFooter = () => {
@@ -27,9 +27,6 @@ const HPFooter = () => {
                         <li>עמותות וכלביות</li>
                         <li>התנדבות</li>
                     </ul>
-                </div>
-                <div className="footer-section">
-                    <h3>הצרכניה</h3>
                 </div>
                 <div className="footer-section">
                     <h3>לוח בעלי חיים אבודים SOS</h3>

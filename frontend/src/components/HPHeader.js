@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../../src/assets/styles/HPHeader.css';
 import logo from '../../src/assets/images/Pawfect-match-logo.png';
 import familyImage from '../../src/assets/images/my-family.png';
@@ -30,10 +31,17 @@ const Header = () => {
                 </div>
                 <ul className="navbar-menu">
                     <li className="login-button">
-                        <a href="#" onClick={() => setIsLoginModalOpen(true)}>
-                            <span>אזור אישי</span>
-                            <span>התחברות/הרשמה</span>
-                        </a>
+                        <button onClick={() => setIsLoginModalOpen(true)}>
+                            <svg className="icon-person" viewBox="0 0 24 24">
+                                <path d="M20 22v-2a8 10 0 0 0-15 0v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                                <line x1="5" y1="22" x2="20" y2="22"></line>
+                            </svg>
+                            <span className="login-text">
+                                <span>אזור אישי</span>
+                                <span>התחברות/הרשמה</span>
+                            </span>
+                        </button>
                     </li>
                     <li
                         onMouseEnter={() => handleMouseEnter(0)}
@@ -49,7 +57,9 @@ const Header = () => {
                             <li>מדיניות פרטיות</li>
                         </ul>
                     </li>
-                    <li className="pulse-animation">שאלון התאמה</li>
+                    <li className="pulse-animation">
+                        <Link to="/matching-quiz">שאלון התאמה</Link>
+                    </li>
                     <li
                         onMouseEnter={() => handleMouseEnter(1)}
                         onMouseLeave={handleMouseLeave}
@@ -61,7 +71,6 @@ const Header = () => {
                             <li>התנדבות</li>
                         </ul>
                     </li>
-                    <li>הצרכניה</li>
                     <li>
                         <span>לוח בעלי חיים אבודים</span>
                         <span className="SOS"> SOS </span>
