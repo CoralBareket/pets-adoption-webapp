@@ -51,6 +51,11 @@
     padding: 0 15px;
 }
 
+.navbar-menu li a {
+    text-decoration: none;
+    color: #333;
+}
+
 .navbar-menu li:hover {
     color: #7bd8de;
 }
@@ -168,18 +173,32 @@
     align-items: center;
 }
 
-.login-button a {
-    color: #333;
-    text-decoration: none;
-    flex-direction: column;
-    font-weight: bold;
+.login-button button {
     display: flex;
-    font-size: 14px;
-    border: 0 solid;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: #333;
+    font-weight: bold;
 }
 
-.login-button a:before {
-    content: '\1F464'; /* Unicode for person icon */
-    margin-left: 0;
-    font-size: 1.2em;
+.icon-person {
+    width: 24px;
+    height: 26px;
+    margin-left: 8px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+.login-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 14px;
 }

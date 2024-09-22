@@ -16,7 +16,7 @@ exports.getPets = async (req, res) => {
     }
 };
 
-// @desc    Get a single pet
+// @desc    Get a single pet by ID
 // @route   GET /api/pets/:id
 // @access  Public
 exports.getPetById = async (req, res) => {
@@ -27,7 +27,7 @@ exports.getPetById = async (req, res) => {
         }
         res.json(pet);
     } catch (error) {
-        console.error("Error fetching pet by ID:", error);  // Log the error for debugging
+        console.error("Error fetching pet by ID:", error);
         res.status(500).json({ message: "Server Error" });
     }
 };
@@ -42,7 +42,7 @@ exports.createPet = async (req, res) => {
         const savedPet = await pet.save();
         res.status(201).json(savedPet);
     } catch (error) {
-        console.error("Error creating pet:", error);  // Log the error for debugging
+        console.error("Error creating pet:", error);
         res.status(400).json({ message: error.message });
     }
 };
@@ -58,7 +58,7 @@ exports.updatePet = async (req, res) => {
         }
         res.json(updatedPet);
     } catch (error) {
-        console.error("Error updating pet:", error);  // Log the error for debugging
+        console.error("Error updating pet:", error);
         res.status(400).json({ message: error.message });
     }
 };
@@ -74,7 +74,57 @@ exports.deletePet = async (req, res) => {
         }
         res.json({ message: 'Pet deleted' });
     } catch (error) {
-        console.error("Error deleting pet:", error);  // Log the error for debugging
+        console.error("Error deleting pet:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Match pet to user based on preferences
+// @route   POST /api/pets/match
+// @access  Public
+exports.matchPet = async (req, res) => {
+    const {
+        age, familyStatus, hasYard, hoursAway, petFriendlyWork,
+        housingType, previousPets, activityLevel, allergies,
+        petExpectations, budget, futurePlans
+    } = req.body;
+
+    let query = {};
+
+    // Filter based on yard, housing type, and allergies
+    if (housingType === 'apartment' && hasYard === 'no') {
+        query.size = { $ne: 'גדול' }; // No large pets for apartments without a yard
+    }
+
+    if (allergies === 'yes') {
+        query.breed = { $in: ['שיצו', 'מלטז', 'פודל'] }; // Hypoallergenic breeds
+    }
+
+    // Filter based on hours away from home
+    if (hoursAway === '10 hours at least') {
+        query.breed = { $in: ['חתול', 'חתול פרסי'] }; // Cats are suitable for long hours away
+    }
+
+    // Filter based on activity level
+    if (activityLevel === 'active') {
+        query.size = 'גדול'; // Active people are suitable for large dogs
+    } else if (activityLevel === 'moderate') {
+        query.size = { $in: ['בינוני', 'קטן'] }; // Medium or small pets for moderate activity
+    } else {
+        query.$or = [
+            { size: 'קטן' }, // Small pets
+            { breed: 'פרסי חתול' }, // Persian cats are calmer
+            { age: { $gte: 7 } } // Older pets (7 years or more)
+        ];
+    }
+
+    console.log("Query:", query);
+
+    try {
+        const filteredPets = await Pet.find(query);
+        res.json(filteredPets);
+    } catch (error) {
+        console.error("Error finding matching pets:", error);
         res.status(500).json({ message: error.message });
     }
 };

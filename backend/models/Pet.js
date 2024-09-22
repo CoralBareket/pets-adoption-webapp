@@ -33,7 +33,14 @@ const petSchema = new mongoose.Schema({
         default: 'חדש באתר'
     },
     location: String,
-    size: String
+    size: {
+        type: String,
+        enum: ['small', 'medium', 'large']
+    },
+    activity: {
+        type: String,
+        enum: ['low', 'moderate', 'high']
+    }
 }, {
     timestamps: true // This will add createdAt and updatedAt fields
 });

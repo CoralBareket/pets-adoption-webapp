@@ -2,9 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import PetsPage from './pages/PetsPage';
-import ProductsPage from './pages/ProductsPage';
-import AddProductPage from './pages/AddProductPage';
-import EditProductPage from './pages/EditProductPage';
+import MatchingQuiz from './pages/MatchingQuiz';
+import ResultsPage from './pages/ResultsPage';
 
 function App() {
     return (
@@ -12,11 +11,10 @@ function App() {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/pets" element={<PetsPage />} />
-                <Route path="/products/add" element={<AddProductPage />} />
-                <Route path="/products/edit/:id" element={<EditProductPage />} />
-                <Route path="/products" element={<ProductsPage />} />
+                <Route path="/matching-quiz" element={<MatchingQuiz />} />
+                <Route path="/results" element={<ResultsPage />} />
                 {/* Other routes here */}
-                <Route path="*" element={<PetsPage />} /> {/* Fallback Route */}
+                <Route path="*" element={<HomePage />} /> {/* Fallback Route */}
             </Routes>
         </Router>
     );

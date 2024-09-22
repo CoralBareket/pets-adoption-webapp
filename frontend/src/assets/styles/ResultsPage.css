@@ -1,0 +1,95 @@
+.results-page {
+    padding: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    direction: rtl;
+}
+
+.results-page h2 {
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.results-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.pet-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.pet-item:hover {
+    transform: translateY(-5px);
+}
+
+.pet-image img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-left: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pet-info {
+    flex: 1;
+}
+
+.pet-info h3 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.pet-info p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #666;
+}
+
+.adopt-button {
+    background-color: #7bd8de;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.adopt-button:hover {
+    background-color: #5cc0c7;
+}
+
+.no-results {
+    font-size: 20px;
+    color: #ff4444;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.view-all-link {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    font-size: 18px;
+    color: #7bd8de;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.view-all-link:hover {
+    color: #5cc0c7;
+}
