@@ -16,10 +16,8 @@ const AdoptionForm = ({ pet, onClose }) => {
   });
 
   useEffect(() => {
-    // הוספת class לגוף המסמך בעת פתיחת הטופס
     document.body.classList.add('adoption-form-open');
 
-    // הסרת class מגוף המסמך בעת סגירת הטופס
     return () => {
       document.body.classList.remove('adoption-form-open');
     };
