@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../src/assets/styles/HPSearchBar.css';
 
 const SearchBar = () => {
     const [breed, setBreed] = useState('');
     const [location, setLocation] = useState('');
     const [age, setAge] = useState('');
+    const navigate = useNavigate();
 
     const handleBreedChange = (e) => setBreed(e.target.value);
     const handleLocationChange = (e) => setLocation(e.target.value);
     const handleAgeChange = (e) => setAge(e.target.value);
+
+    const handleAdvancedSearch = () => {
+        navigate('/matching-quiz');
+    };
 
     return (
         <section className="search-bar">
@@ -49,7 +55,7 @@ const SearchBar = () => {
                 <button type="submit" className="search-btn">חיפוש</button>
             </div>
             <div className="search-options">
-                <button className="advanced-search">
+                <button className="advanced-search" onClick={handleAdvancedSearch}>
                     <span className="icon-container">
                         <span className="icon">≡</span>
                     </span>

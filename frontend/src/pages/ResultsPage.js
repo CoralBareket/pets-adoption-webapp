@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import AdoptionForm from '../components/AdoptionForm';
 import '../../src/assets/styles/ResultsPage.css';
 
 const ResultsPage = () => {
     const location = useLocation();
     const { matchedPets } = location.state || { matchedPets: [] };
+    const [selectedPet, setSelectedPet] = useState(null);
+
+    const handleAdoptClick = (pet) => {
+        setSelectedPet(pet);
+    };
+
+    const handleCloseForm = () => {
+        setSelectedPet(null);
+    };
 
     return (
         <div className="results-page">
@@ -23,7 +33,7 @@ const ResultsPage = () => {
                                     <p>גיל: {pet.age}</p>
                                     <p>גזע: {pet.breed}</p>
                                     <p>{pet.description}</p>
-                                    <button className="adopt-button">אמץ אותי</button>
+                                    <button className="adopt-button" onClick={() => handleAdoptClick(pet)}>אמץ אותי</button>
                                 </div>
                             </li>
                         ))}
@@ -36,6 +46,7 @@ const ResultsPage = () => {
                     <Link to="/pets" className="view-all-link">צפה בכל החיות לאימוץ</Link>
                 </div>
             )}
+            {selectedPet && <AdoptionForm pet={selectedPet} onClose={handleCloseForm} />}
         </div>
     );
 };

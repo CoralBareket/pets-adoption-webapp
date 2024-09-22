@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import AdoptionForm from '../components/AdoptionForm';
 import '../../src/assets/styles/PetsPage.css';
 
 const PetsPage = ({ petsToShow }) => {
     const [pets, setPets] = useState([]);
+    const [selectedPet, setSelectedPet] = useState(null);
 
     useEffect(() => {
         if (petsToShow) {
@@ -13,7 +15,7 @@ const PetsPage = ({ petsToShow }) => {
             const fetchPets = async () => {
                 try {
                     const { data } = await axios.get('/api/pets');
-                    console.log("API response:", data); // Log the API response
+                    console.log("API response:", data);
                     setPets(data);
                 } catch (error) {
                     console.error("Error fetching pets:", error);
@@ -23,7 +25,15 @@ const PetsPage = ({ petsToShow }) => {
         }
     }, [petsToShow]);
 
-    console.log("Current pets state:", pets); // Log the current state
+    const handleAdoptClick = (pet) => {
+        setSelectedPet(pet);
+    };
+
+    const handleCloseForm = () => {
+        setSelectedPet(null);
+    };
+
+    console.log("Current pets state:", pets);
 
     return (
         <div className="pets-page">
@@ -37,11 +47,12 @@ const PetsPage = ({ petsToShow }) => {
                             <p>גיל: {pet.age}</p>
                             <p>גזע: {pet.breed}</p>
                             <p>{pet.description}</p>
-                            <button className="adopt-button">אמץ אותי</button>
+                            <button className="adopt-button" onClick={() => handleAdoptClick(pet)}>אמץ אותי</button>
                         </div>
                     </li>
                 ))}
             </ul>
+            {selectedPet && <AdoptionForm pet={selectedPet} onClose={handleCloseForm} />}
         </div>
     );
 };
