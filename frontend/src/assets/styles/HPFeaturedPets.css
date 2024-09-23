@@ -33,6 +33,7 @@
     0% {
         transform: translateX(0);
     }
+
     100% {
         transform: translateX(-50%);
     }
@@ -51,7 +52,7 @@
     height: 250px;
     object-fit: cover;
     border-radius: 50%;
-    border: 5px solid #7bd8de; 
+    border: 5px solid #7bd8de;
     margin-bottom: 10px;
 }
 

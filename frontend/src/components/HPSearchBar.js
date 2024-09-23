@@ -16,6 +16,12 @@ const SearchBar = () => {
         navigate('/matching-quiz');
     };
 
+    const handleClearSearch = () => {
+        setBreed('');
+        setLocation('');
+        setAge('');
+    };
+
     return (
         <section className="search-bar">
             <h2>מצאו את השידוך המושלם</h2>
@@ -72,7 +78,7 @@ const SearchBar = () => {
                     </span>
                     <span className="text">חיפוש לפי תמונה</span>
                 </button>
-                <button className="clear-search">
+                <button className="clear-search" onClick={handleClearSearch}>
                     <span className="icon-container">
                         <span className="icon">×</span>
                     </span>
