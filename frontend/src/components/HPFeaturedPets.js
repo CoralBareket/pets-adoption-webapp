@@ -33,10 +33,12 @@ const FeaturedPets = () => {
                 alt={pet.name}
             />
             <div className="pet-card-content">
-                <h3>{pet.name}</h3>
-                <span className="pet-status">{pet.status}</span>
-                <p className="pet-info">{`${pet.gender} | ${pet.breed} | ${pet.age}`}</p>
-                <p className="pet-description">{pet.description}</p>
+                <div>
+                    <h3>{pet.name}</h3>
+                    <span className="pet-status">{pet.status}</span>
+                    <p className="pet-info">{`${pet.gender} | ${pet.breed} | ${pet.age}`}</p>
+                    <p className="pet-description">{pet.description}</p>
+                </div>
                 <button>לפרטים</button>
             </div>
         </div>

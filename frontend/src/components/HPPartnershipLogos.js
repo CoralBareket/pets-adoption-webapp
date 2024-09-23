@@ -30,7 +30,7 @@ const PartnershipLogos = () => {
                     <div className="logo-card" key={index}>
                         <a href={logo.link} target="_blank" rel="noopener noreferrer">
                             <img src={logo.image} alt={`Partner ${index + 1}`} />
-                            <div className="card-text">לעמוד העמותה</div> {/* Text element */}
+                            <div className="card-text">לעמוד העמותה</div>
                         </a>
                     </div>
                 ))}

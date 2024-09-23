@@ -56,6 +56,8 @@ const MatchingQuiz = () => {
 
             const matchedPets = await response.json();
             navigate('/results', { state: { matchedPets } });
+
+            window.scrollTo(0, 0);
         } catch (error) {
             console.error('Error:', error);
         }
