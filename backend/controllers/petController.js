@@ -1,8 +1,6 @@
-const Pet = require('../models/Pet');
+const Pet = require('../models/PetModel');
 
-// @desc    Get all pets
-// @route   GET /api/pets
-// @access  Public
+
 exports.getPets = async (req, res) => {
     try {
         const pets = await Pet.find({});
@@ -16,9 +14,7 @@ exports.getPets = async (req, res) => {
     }
 };
 
-// @desc    Get a single pet by ID
-// @route   GET /api/pets/:id
-// @access  Public
+
 exports.getPetById = async (req, res) => {
     try {
         const pet = await Pet.findById(req.params.id);
@@ -32,13 +28,11 @@ exports.getPetById = async (req, res) => {
     }
 };
 
-// @desc    Create a new pet
-// @route   POST /api/pets
-// @access  Admin
+
 exports.createPet = async (req, res) => {
     try {
-        const { name, age, breed, description, imageUrl } = req.body;
-        const pet = new Pet({ name, age, breed, description, imageUrl });
+        const { name, age, breed, description, imageUrl, gender, size, activity, location } = req.body; 
+        const pet = new Pet({ name, age, breed, description, imageUrl, gender, size, activity, location }); 
         const savedPet = await pet.save();
         res.status(201).json(savedPet);
     } catch (error) {
@@ -47,9 +41,7 @@ exports.createPet = async (req, res) => {
     }
 };
 
-// @desc    Update a pet
-// @route   PUT /api/pets/:id
-// @access  Admin
+
 exports.updatePet = async (req, res) => {
     try {
         const updatedPet = await Pet.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -63,9 +55,7 @@ exports.updatePet = async (req, res) => {
     }
 };
 
-// @desc    Delete a Pet
-// @route   DELETE /api/pets/:id
-// @access  Admin
+
 exports.deletePet = async (req, res) => {
     try {
         const deletedPet = await Pet.findByIdAndDelete(req.params.id);
@@ -79,9 +69,7 @@ exports.deletePet = async (req, res) => {
     }
 };
 
-// @desc    Match pet to user based on preferences
-// @route   POST /api/pets/match
-// @access  Public
+
 exports.matchPet = async (req, res) => {
     const {
         age, familyStatus, hasYard, hoursAway, petFriendlyWork,

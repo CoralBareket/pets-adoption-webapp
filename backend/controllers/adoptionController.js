@@ -1,6 +1,6 @@
 const User = require('../models/userModel');
 const Adoption = require('../models/adoptionModel');
-const Pet = require('../models/Pet');
+const Pet = require('../models/PetModel');
 const { createUserIfNotExists } = require('./userController');
 
 const createAdoption = async (adoptionData) => {

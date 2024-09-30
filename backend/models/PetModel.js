@@ -29,7 +29,7 @@ const petSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['חדש באתר', 'אומץ'],
+        enum: ['חדש באתר', 'אומץ', 'הוסר'],
         default: 'חדש באתר'
     },
     location: String,

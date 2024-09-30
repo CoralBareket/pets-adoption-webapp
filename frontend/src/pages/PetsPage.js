@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import AdoptionForm from '../components/AdoptionForm';
+import PetForm from '../components/PetForm'; // ייבוא טופס הוספת חיה חדשה
 import '../../src/assets/styles/PetsPage.css';
 
-const PetsPage = ({ petsToShow, isAdmin }) => { 
+const PetsPage = ({ petsToShow, isAdmin }) => {
     const [pets, setPets] = useState([]);
     const [selectedPet, setSelectedPet] = useState(null);
-    console.log("isAdmin: ", isAdmin); // בדיקת הערך של isAdmin
+    const [showAddPetForm, setShowAddPetForm] = useState(false); // מצב עבור טופס הוספת חיה
 
     useEffect(() => {
         if (petsToShow) {
-            console.log("Pets from props:", petsToShow);
             setPets(petsToShow);
         } else {
             const fetchPets = async () => {
                 try {
                     const { data } = await axios.get('/api/pets');
-                    console.log("API response:", data);
                     setPets(data);
                 } catch (error) {
                     console.error("Error fetching pets:", error);
@@ -43,13 +42,35 @@ const PetsPage = ({ petsToShow, isAdmin }) => {
         }
     };
 
+    /* עדכון סטטוס במקום מחיקה מהDB
+
+    const handleDeletePet = async (petId) => {
+    try {
+        // נשלח בקשת PATCH לעדכון הסטטוס של החיה
+        const response = await axios.patch(`/api/pets/${petId}`, {
+            status: 'הוסרה' // נעדכן את הסטטוס ל"הוסרה"
+        });
+
+        if (response.status === 200) {
+            // נעדכן את רשימת החיות על ידי שינוי הסטטוס של החיה ברשימה הקיימת
+            setPets(pets.map(pet => 
+                pet._id === petId ? { ...pet, status: 'הוסרה' } : pet
+            ));
+        }
+    } 
+    catch (error) {
+        console.error("Error updating pet status:", error);
+        }
+    };
+    */
+
     const handleAddPetClick = () => {
-        // הפונקציה שתטפל בלחיצה על הוספת חיה חדשה
-        console.log('הוספת חיה לאימוץ');
-        // כאן תוכל להוסיף פונקציה שתנווט לטופס הוספת חיה
+        setShowAddPetForm(true); // פתיחת טופס הוספת חיה
     };
 
-    console.log("Current pets state:", pets);
+    const handleCloseAddPetForm = () => {
+        setShowAddPetForm(false); // סגירת טופס הוספת חיה
+    };
 
     return (
         <div className="pets-page">
@@ -77,10 +98,14 @@ const PetsPage = ({ petsToShow, isAdmin }) => {
                 ))}
             </ul>
             {selectedPet && <AdoptionForm pet={selectedPet} onClose={handleCloseForm} />}
+            
             {isAdmin && (
-                <button className="add-pet-button" onClick={handleAddPetClick}>
-                    +
-                </button>
+                <div>
+                    <button className="add-pet-button" onClick={handleAddPetClick}>
+                        +
+                    </button>
+                    {showAddPetForm && <PetForm onClose={handleCloseAddPetForm} />} {/* הצגת טופס הוספת חיה */}
+                </div>
             )}
         </div>
     );
