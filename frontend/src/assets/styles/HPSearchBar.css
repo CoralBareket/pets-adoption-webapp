@@ -90,7 +90,7 @@
 /* Search Options Styling */
 .search-options {
     display: flex;
-    justify-content: right;
+    justify-content: center;
     gap: 20px;
     margin-top: 20px;
 }

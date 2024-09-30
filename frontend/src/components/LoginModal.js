@@ -4,7 +4,7 @@ import '../../src/assets/styles/LoginModal.css';
 
 const LoginModal = ({ isOpen, onClose, onLogin }) => {
     const [idNumber, setIdNumber] = useState('');
-    const [mobilePhone, setMobilePhone] = useState('');
+    const [phoneNumber , setPhoneNumber] = useState('');
     const [error, setError] = useState(null);
 
     if (!isOpen) return null;
@@ -12,7 +12,7 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/users/login-id', { idNumber, mobilePhone });
+            const response = await axios.post('/api/users/login', { idNumber, phoneNumber });
             onLogin(response.data.user);
             onClose();
         } catch (error) {
@@ -39,8 +39,8 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
                         <label>:מספר טלפון נייד</label>
                         <input
                             type="text"
-                            value={mobilePhone}
-                            onChange={(e) => setMobilePhone(e.target.value)}
+                            value={phoneNumber}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
                             required
                             className="form-input"
                         />
