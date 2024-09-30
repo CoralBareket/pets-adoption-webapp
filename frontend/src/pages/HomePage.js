@@ -5,10 +5,10 @@ import HPFeaturedPets from '../components/HPFeaturedPets';
 import HPPartnershipLogos from '../components/HPPartnershipLogos';
 import HPFooter from '../components/HPFooter';
 
-const HomePage = () => {
+const HomePage = ({ onLogin, onLogout }) => {
     return (
         <div className="homepage">
-            <section></section><HPHeader />
+            <HPHeader onLogin={onLogin} onLogout={onLogout} />
             <HPSearchBar />
             <HPFeaturedPets />
             <HPPartnershipLogos />

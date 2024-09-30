@@ -71,8 +71,47 @@
     display: inline-block;
 }
 
+.delete-button {
+    background-color: #ec7979;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+    display: inline-block;
+    margin-right: 10px
+}
+
 .adopt-button:hover {
     background-color: #5cc0c7;
+}
+
+.add-pet-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #5cc0c7; 
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000; 
+    transition: background-color 0.3s ease;
+}
+
+.add-pet-button:hover {
+    background-color: #45a049; 
 }
 
 .no-pets {
@@ -103,4 +142,14 @@
 
 .pet-item {
     animation: fadeIn 0.5s ease-in-out;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin-left: 10%;
+    direction: rtl;
+    width: 90%;
+    background-color: white;
 }

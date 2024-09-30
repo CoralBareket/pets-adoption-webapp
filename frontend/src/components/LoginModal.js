@@ -12,19 +12,22 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        // בדוק אם שני השדות מכילים את המילה "admin"
+        // אם השדות מכילים "admin", התחברות מנהל
         if (idNumber === 'admin' && phoneNumber === 'admin') {
-            // אם כן, קבע את המשתמש כאדמין
-            onLogin({ role: 'admin' });
+            onLogin({ fullName: 'מנהל', admin: true });
             onClose();
             return;
         }
 
-        // אם לא, המשך עם הבדיקה הרגילה
+        // התחברות הרגילה
         try {
             const response = await axios.post('/api/users/login', { idNumber, phoneNumber });
-            onLogin(response.data.user);
-            onClose();
+            if (response.data && response.data.fullName) {
+                onLogin(response.data);
+                onClose();
+            } else {
+                setError('ההתחברות נכשלה. אין שם משתמש.');
+            }
         } catch (error) {
             setError('ההתחברות נכשלה. אנא בדוק את מספר הזהות ומספר הטלפון הנייד שהזנת');
         }
