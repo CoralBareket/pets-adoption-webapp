@@ -3,16 +3,18 @@ import '../../src/assets/styles/AdoptionForm.css';
 
 const AdoptionForm = ({ pet, onClose }) => {
   const [formData, setFormData] = useState({
-    name: '',
+    fullName: '',
     email: '',
-    phone: '',
+    phoneNumber: '',
     address: '',
+    idNumber: '', // תעודת זהות של המאמץ
     cardNumber: '',
     cardExpiry: '',
     cardCVV: '',
     cardHolderID: '',
     adoptionPackage: false,
-    accessories: []
+    accessories: [],
+    petId: pet._id // שמירת מזהה החיה בטופס
   });
 
   useEffect(() => {
@@ -51,16 +53,47 @@ const AdoptionForm = ({ pet, onClose }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.adoptionPackage) {
-      alert('יש לבחור בסל האימוץ הבסיסי כדי להמשיך');
-      return;
+
+    const requestData = {
+        fullName: formData.fullName, 
+        phoneNumber: formData.phoneNumber,
+        email: formData.email,
+        idNumber: formData.idNumber,
+        address: formData.address,
+        petId: formData.petId,
+        cardNumber: formData.cardNumber,
+        cardExpiry: formData.cardExpiry,
+        cardCVV: formData.cardCVV,
+        cardHolderID: formData.cardHolderID,
+        adoptionPackage: formData.adoptionPackage,
+        accessories: formData.accessories,
+    };
+
+    try {
+      const response = await fetch('http://localhost:5000/api/adoptions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      if (response.ok) {
+        alert('אימוץ נשמר בהצלחה!');
+        onClose();
+      } else {
+        const errorData = await response.json();
+        console.error('Server error:', errorData); 
+        alert(`שגיאה בשליחת הטופס: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('שגיאה בשרת');
     }
-    console.log('Form submitted:', formData);
-    alert('טופס האימוץ נשלח בהצלחה!');
-    onClose();
-  };
+};
+
 
   return (
     <div className="adoption-form-overlay">
@@ -71,8 +104,8 @@ const AdoptionForm = ({ pet, onClose }) => {
             <h3>פרטים אישיים</h3>
             <input
               type="text"
-              name="name"
-              value={formData.name}
+              name="fullName"
+              value={formData.fullName}
               onChange={handleChange}
               placeholder="שם מלא"
               required
@@ -87,8 +120,8 @@ const AdoptionForm = ({ pet, onClose }) => {
             />
             <input
               type="tel"
-              name="phone"
-              value={formData.phone}
+              name="phoneNumber"
+              value={formData.phoneNumber}
               onChange={handleChange}
               placeholder="טלפון"
               required
@@ -99,6 +132,14 @@ const AdoptionForm = ({ pet, onClose }) => {
               value={formData.address}
               onChange={handleChange}
               placeholder="כתובת"
+              required
+            />
+            <input
+              type="text"
+              name="idNumber"
+              value={formData.idNumber}
+              onChange={handleChange}
+              placeholder="תעודת זהות"
               required
             />
 

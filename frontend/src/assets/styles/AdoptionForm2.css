@@ -1,0 +1,94 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e0f7fa; /* רקע כחול בהיר */
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    direction: rtl; /* יישור של הטקסט מימין לשמאל */
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #0077b6; /* גוון כחול לכותרת */
+    margin-bottom: 20px;
+}
+
+p {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #0077b6; /* גוון כחול לכותרת המשנית */
+}
+
+.product-selection {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.product-selection label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="radio"] {
+    margin-top: 10px;
+}
+
+.details-section, .delivery-section {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #0077b6; /* גוון כחול לטקסט */
+}
+
+input[type="text"], input[type="tel"], textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: none;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #0077b6; /* צבע כחול לכפתור */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px; /* ריווח בין הכפתורים */
+}
+
+button:hover {
+    background-color: #005f8c; /* צבע כהה יותר בעת מעבר */
+}
+
+.delivery-section {
+    display: flex;
+    flex-direction: column;
+}
+
