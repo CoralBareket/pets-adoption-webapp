@@ -4,13 +4,23 @@ import '../../src/assets/styles/LoginModal.css';
 
 const LoginModal = ({ isOpen, onClose, onLogin }) => {
     const [idNumber, setIdNumber] = useState('');
-    const [phoneNumber , setPhoneNumber] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
     const [error, setError] = useState(null);
 
     if (!isOpen) return null;
 
     const handleLogin = async (e) => {
         e.preventDefault();
+
+        // בדוק אם שני השדות מכילים את המילה "admin"
+        if (idNumber === 'admin' && phoneNumber === 'admin') {
+            // אם כן, קבע את המשתמש כאדמין
+            onLogin({ role: 'admin' });
+            onClose();
+            return;
+        }
+
+        // אם לא, המשך עם הבדיקה הרגילה
         try {
             const response = await axios.post('/api/users/login', { idNumber, phoneNumber });
             onLogin(response.data.user);
