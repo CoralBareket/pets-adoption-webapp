@@ -1,6 +1,9 @@
 const Pet = require('../models/PetModel');
 
 
+// @desc    Get all pets
+// @route   GET /api/pets
+// @access  Public
 exports.getPets = async (req, res) => {
     try {
         const pets = await Pet.find({});
@@ -14,7 +17,9 @@ exports.getPets = async (req, res) => {
     }
 };
 
-
+// @desc    Get a single pet by ID
+// @route   GET /api/pets/:id
+// @access  Public
 exports.getPetById = async (req, res) => {
     try {
         const pet = await Pet.findById(req.params.id);
@@ -28,11 +33,13 @@ exports.getPetById = async (req, res) => {
     }
 };
 
-
+// @desc    Create a new pet
+// @route   POST /api/pets
+// @access  Admin
 exports.createPet = async (req, res) => {
     try {
-        const { name, age, breed, description, imageUrl, gender, size, activity, location } = req.body; 
-        const pet = new Pet({ name, age, breed, description, imageUrl, gender, size, activity, location }); 
+        const { name, age, breed, description, imageUrl } = req.body;
+        const pet = new Pet({ name, age, breed, description, imageUrl });
         const savedPet = await pet.save();
         res.status(201).json(savedPet);
     } catch (error) {
@@ -41,7 +48,9 @@ exports.createPet = async (req, res) => {
     }
 };
 
-
+// @desc    Update a pet
+// @route   PUT /api/pets/:id
+// @access  Admin
 exports.updatePet = async (req, res) => {
     try {
         const updatedPet = await Pet.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -55,7 +64,9 @@ exports.updatePet = async (req, res) => {
     }
 };
 
-
+// @desc    Delete a Pet
+// @route   DELETE /api/pets/:id
+// @access  Admin
 exports.deletePet = async (req, res) => {
     try {
         const deletedPet = await Pet.findByIdAndDelete(req.params.id);
@@ -69,7 +80,9 @@ exports.deletePet = async (req, res) => {
     }
 };
 
-
+// @desc    Match pet to user based on preferences
+// @route   POST /api/pets/match
+// @access  Public
 exports.matchPet = async (req, res) => {
     const {
         age, familyStatus, hasYard, hoursAway, petFriendlyWork,
@@ -90,7 +103,7 @@ exports.matchPet = async (req, res) => {
 
     // Filter based on hours away from home
     if (hoursAway === '10 hours at least') {
-        query.breed = { $in: ['חתול', 'חתול פרסי'] }; // Cats are suitable for long hours away
+        query.animalType = { $in: ['cat'] }; // Cats are suitable for long hours away
     }
 
     // Filter based on activity level
@@ -101,7 +114,7 @@ exports.matchPet = async (req, res) => {
     } else {
         query.$or = [
             { size: 'קטן' }, // Small pets
-            { breed: 'פרסי חתול' }, // Persian cats are calmer
+            { animalType: 'cat' },
             { age: { $gte: 7 } } // Older pets (7 years or more)
         ];
     }
@@ -116,3 +129,84 @@ exports.matchPet = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+exports.searchPets = async (req, res) => {
+    try {
+        const { animalType, location, age } = req.body;
+
+        // Initialize match stage for aggregation
+        let matchStage = {};
+
+        // Add animalType to match stage if provided
+        if (animalType) {
+            matchStage.animalType = { $regex: new RegExp(`^${animalType}$`, 'i') };
+        }
+
+        // Add location to match stage if provided
+        if (location) {
+            matchStage.location = { $regex: new RegExp(location, 'i') };
+        }
+
+        // Handle age groups
+        if (age) {
+            switch (age) {
+                case 'puppy':
+                    matchStage.age = { $regex: /^([0-9]|1[01]) חודשים$/ };
+                    break;
+                case 'young':
+                    matchStage.age = { $regex: /^([1-2]) שנה$/ };
+                    break;
+                case 'adult':
+                    matchStage.age = { $regex: /^([3-7]) שנים$/ };
+                    break;
+                case 'senior':
+                    matchStage.age = { $regex: /^([8-9]|1[0-9]|20) שנים$/ };
+                    break;
+            }
+        }
+
+        // Perform the aggregation query
+        const results = await Pet.aggregate([
+            { $match: matchStage },
+            {
+                $group: {
+                    _id: {
+                        animalType: "$animalType",
+                        location: "$location",
+                        ageGroup: {
+                            $switch: {
+                                branches: [
+                                    { case: { $regexMatch: { input: "$age", regex: /^([0-9]|1[01]) חודשים$/ } }, then: "puppy" },
+                                    { case: { $regexMatch: { input: "$age", regex: /^([1-2]) שנה$/ } }, then: "young" },
+                                    { case: { $regexMatch: { input: "$age", regex: /^([3-7]) שנים$/ } }, then: "adult" },
+                                    { case: { $regexMatch: { input: "$age", regex: /^([8-9]|1[0-9]|20) שנים$/ } }, then: "senior" }
+                                ],
+                                default: "unknown"
+                            }
+                        }
+                    },
+                    count: { $sum: 1 },
+                    pets: { $push: "$$ROOT" }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    animalType: "$_id.animalType",
+                    location: "$_id.location",
+                    ageGroup: "$_id.ageGroup",
+                    count: 1,
+                    pets: 1
+                }
+            }
+        ]);
+
+        // Return the results to the front-end
+        res.json(results);
+    } catch (error) {
+        console.error("Error searching pets:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports = exports;

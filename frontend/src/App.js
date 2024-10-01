@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import PetsPage from './pages/PetsPage';
 import MatchingQuiz from './pages/MatchingQuiz';
-import ResultsPage from './pages/ResultsPage';
+import QuizResultsPage from './pages/QuizResultsPage';
+import SearchResultsPage from './pages/SearchResultsPage';
 
 function App() {
-
     const [loggedInUser, setLoggedInUser] = useState(() => {
         const savedUser = localStorage.getItem('loggedInUser');
         return savedUser ? JSON.parse(savedUser) : null;
@@ -14,15 +14,15 @@ function App() {
 
     // פונקציה שמבצעת התחברות ושמירת פרטי המשתמש
     const handleLogin = (user) => {
-        setLoggedInUser(user); 
-        localStorage.setItem('loggedInUser', JSON.stringify(user)); 
-        console.log("Logged in user:", user); 
+        setLoggedInUser(user);
+        localStorage.setItem('loggedInUser', JSON.stringify(user));
+        console.log("Logged in user:", user);
     };
 
     // פונקציה להתנתקות מהמשתמש
     const handleLogout = () => {
-        setLoggedInUser(null); 
-        localStorage.removeItem('loggedInUser'); 
+        setLoggedInUser(null);
+        localStorage.removeItem('loggedInUser');
     };
 
     useEffect(() => {
@@ -41,7 +41,8 @@ function App() {
                     element={<PetsPage isAdmin={loggedInUser?.admin} />} 
                 />
                 <Route path="/matching-quiz" element={<MatchingQuiz />} />
-                <Route path="/results" element={<ResultsPage />} />
+                <Route path="/results" element={<QuizResultsPage />} />
+                <Route path="/search-results" element={<SearchResultsPage />} /> {/* Add this new route */}
                 <Route 
                     path="*" 
                     element={<HomePage onLogin={handleLogin} onLogout={handleLogout} />} 
