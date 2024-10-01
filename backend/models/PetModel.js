@@ -14,9 +14,13 @@ const petSchema = new mongoose.Schema({
         enum: ['זכר', 'נקבה'],
         required: true
     },
+    animalType: {
+        type: String,
+        enum: ['dog', 'cat', 'other'],
+    },
     breed: {
         type: String,
-        enum: ['מעורב', 'שועלי', 'פינצר', 'האסקי סיבירי' , 'טרייר', 'ביגל', 'חתול פרסי', 'לברדור', 'רועה גרמני', 'שיצו', ],
+        enum: ['מעורב', 'שועלי', 'פינצר', 'האסקי סיבירי', 'טרייר', 'ביגל', 'חתול פרסי', 'לברדור', 'רועה גרמני', 'שיצו',],
         required: true
     },
     description: {
@@ -32,7 +36,10 @@ const petSchema = new mongoose.Schema({
         enum: ['חדש באתר', 'אומץ', 'הוסר'],
         default: 'חדש באתר'
     },
-    location: String,
+    location: {
+        type: String,
+        enum: ['צפון', 'מרכז', 'דרום'],
+    },
     size: {
         type: String,
         enum: ['small', 'medium', 'large']

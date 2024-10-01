@@ -6,20 +6,18 @@ import familyImage from '../../src/assets/images/my-family.png';
 import LoginModal from './LoginModal';
 
 const HPHeader = ({ onLogin, onLogout }) => {
-    const [activeDropdown, setActiveDropdown] = useState(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
     const [loggedInUser, setLoggedInUser] = useState(() => {
         const savedUser = localStorage.getItem('loggedInUser');
         return savedUser ? JSON.parse(savedUser) : null;
     });
 
-    // פונקציה שמטפלת בהתחברות ומעדכנת את המשתמש המחובר
     const handleLogin = (user) => {
         setLoggedInUser(user);
         onLogin(user);
     };
 
-    // פונקציה להתנתקות מהמשתמש
     const handleLogout = () => {
         setLoggedInUser(null);
         onLogout();
@@ -31,32 +29,31 @@ const HPHeader = ({ onLogin, onLogout }) => {
         }
     }, [loggedInUser]);
 
-    const handleMouseEnter = (index) => {
-        setActiveDropdown(index);
-    };
-
-    const handleMouseLeave = () => {
-        setActiveDropdown(null);
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
     };
 
     return (
         <>
             <nav className="navbar">
                 <div className="header-logo">
-                    <img 
-                        src={logo} 
-                        alt="Logo" 
-                        className="logo-clickable" 
-                        onClick={() => window.location.href = '/'} 
+                    <img
+                        src={logo}
+                        alt="Logo"
+                        className="logo-clickable"
+                        onClick={() => window.location.href = '/'}
                     />
                 </div>
-                <ul className="navbar-menu">
+                <div className="hamburger-menu" onClick={toggleMenu}>
+                    ☰
+                </div>
+                <div>
                     <li className="login-button">
                         {loggedInUser ? (
-                            <>
-                                <span className="greeting">שלום, {loggedInUser.fullName}</span> 
-                                <button onClick={handleLogout}>התנתקות</button>
-                            </>
+                            <div className="login-button">
+                                <span className="greeting">שלום, {loggedInUser.fullName}</span>
+                                <button className="logout-button" onClick={handleLogout}>התנתקות</button>
+                            </div>
                         ) : (
                             <button onClick={() => setIsLoginModalOpen(true)}>
                                 <svg className="icon-person" viewBox="0 0 24 24">
@@ -71,37 +68,22 @@ const HPHeader = ({ onLogin, onLogout }) => {
                             </button>
                         )}
                     </li>
-                    <li
-                        onMouseEnter={() => handleMouseEnter(0)}
-                        onMouseLeave={handleMouseLeave}
-                        className={activeDropdown === 0 ? 'active' : ''}
-                    >
-                        אודות
-                        <ul className="dropdown-menu">
-                            <li>מי אנחנו</li>
-                            <li>צור קשר</li>
-                            <li>תודות</li>
-                            <li>תקנון</li>
-                            <li>מדיניות פרטיות</li>
-                        </ul>
+                </div>
+                <ul className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
+                    <li>
+                        <Link to="/about">אודות</Link>
                     </li>
                     <li className="pulse-animation">
                         <Link to="/matching-quiz">שאלון התאמה</Link>
                     </li>
-                    <li
-                        onMouseEnter={() => handleMouseEnter(1)}
-                        onMouseLeave={handleMouseLeave}
-                        className={activeDropdown === 1 ? 'active' : ''}
-                    >
-                        שיתופי פעולה
-                        <ul className="dropdown-menu">
-                            <li>עמותות וכלביות</li>
-                            <li>התנדבות</li>
-                        </ul>
+                    <li>
+                        <Link to="/collaborations">שיתופי פעולה</Link>
                     </li>
                     <li>
-                        <span>לוח בעלי חיים אבודים</span>
-                        <span className="SOS"> SOS </span>
+                        <Link to="/lost-pets">
+                            לוח בעלי חיים אבודים
+                            <span className="SOS"> SOS </span>
+                        </Link>
                     </li>
                 </ul>
             </nav>
@@ -114,9 +96,9 @@ const HPHeader = ({ onLogin, onLogout }) => {
                     <p>
                         אלפי חברים על ארבע מחכים שתאמצו אותם והאלגוריתם שלנו יעזור לכם למצוא את החבר המושלם עבורכם
                         <br />
-                        מלאו את שאלון ההתאמה והצטרפו אל המשפחות המאושרות שכבר אימצו 
-                        <Link to="/pets" className="view-all-link">צפה בכל החיות לאימוץ</Link>
+                        מלאו את שאלון ההתאמה והצטרפו אל המשפחות המאושרות שכבר אימצו
                     </p>
+                    <Link to="/pets" className="view-all-link">צפה בכל החיות לאימוץ</Link>
                 </div>
             </div>
             <LoginModal

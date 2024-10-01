@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import '../../src/assets/styles/HPSearchBar.css';
 
 const SearchBar = () => {
-    const [breed, setBreed] = useState('');
+    const [animalType, setAnimalType] = useState('');
     const [location, setLocation] = useState('');
     const [age, setAge] = useState('');
     const navigate = useNavigate();
 
-    const handleBreedChange = (e) => setBreed(e.target.value);
+    const handleAnimalTypeChange = (e) => setAnimalType(e.target.value);
     const handleLocationChange = (e) => setLocation(e.target.value);
     const handleAgeChange = (e) => setAge(e.target.value);
 
@@ -17,9 +17,31 @@ const SearchBar = () => {
     };
 
     const handleClearSearch = () => {
-        setBreed('');
+        setAnimalType('');
         setLocation('');
         setAge('');
+    };
+
+    const handleSearch = async () => {
+        try {
+            const response = await fetch('/api/pets/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ animalType, location, age }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Search failed');
+            }
+
+            const searchResults = await response.json();
+            navigate('/search-results', { state: { searchResults } });
+        } catch (error) {
+            console.error('Error during search:', error);
+            // Handle error (e.g., show an error message to the user)
+        }
     };
 
     return (
@@ -28,8 +50,8 @@ const SearchBar = () => {
             <div className="search-form-container">
                 <form className="search-form">
                     <div className="form-group">
-                        <label htmlFor="breed">אני רוצה לאמץ</label>
-                        <select id="breed" value={breed} onChange={handleBreedChange}>
+                        <label htmlFor="animalType">אני רוצה לאמץ</label>
+                        <select id="animalType" value={animalType} onChange={handleAnimalTypeChange}>
                             <option value="" disabled hidden>כלב</option>
                             <option value="dog">כלב</option>
                             <option value="cat">חתול</option>
@@ -58,7 +80,7 @@ const SearchBar = () => {
                         </select>
                     </div>
                 </form>
-                <button type="submit" className="search-btn">חיפוש</button>
+                <button type="button" className="search-btn" onClick={handleSearch}>חיפוש</button>
             </div>
             <div className="search-options">
                 <button className="advanced-search" onClick={handleAdvancedSearch}>

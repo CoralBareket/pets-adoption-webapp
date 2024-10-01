@@ -1,0 +1,236 @@
+.results-page {
+    padding: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    direction: rtl;
+}
+
+.results-page h2 {
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.results-count {
+    text-align: right;
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.results-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.pet-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.pet-item:hover {
+    transform: translateY(-5px);
+}
+
+.pet-image {
+    flex: 0 0 200px;
+    margin-left: 30px;
+}
+
+.pet-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pet-info {
+    flex: 1;
+}
+
+.pet-info h3 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.pet-info p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #666;
+}
+
+.pet-details {
+    list-style-type: none;
+    padding: 0;
+}
+
+.pet-details li {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-left: 70%;
+    margin-bottom: 10px;
+}
+
+.pet-name {
+    font-weight: bold;
+}
+
+.pet-name a {
+    color: #333;
+    text-decoration: none;
+}
+
+.pet-name a:hover {
+    color: #7bd8de;
+}
+
+.pet-age {
+    color: #666;
+}
+
+.adopt-button {
+    background-color: #7bd8de;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.adopt-button:hover {
+    background-color: #5cc0c7;
+}
+
+.no-results {
+    font-size: 20px;
+    color: #ff4444;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.view-all-link {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    font-size: 18px;
+    color: #7bd8de;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.view-all-link:hover {
+    color: #5cc0c7;
+}
+
+/* AdoptionForm styles */
+.adoption-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-width: 500px;
+    width: 90%;
+}
+
+.adoption-form h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.adoption-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.adoption-form label {
+    margin-top: 10px;
+    color: #666;
+}
+
+.adoption-form input,
+.adoption-form textarea {
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.adoption-form button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #7bd8de;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.adoption-form button:hover {
+    background-color: #5cc0c7;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #666;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .pet-item {
+        flex-direction: column;
+    }
+
+    .pet-image {
+        width: 50%;
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+
+    .results-page h2 {
+        font-size: 36px;
+    }
+
+    .pet-details li {
+        gap: 22px;
+    }
+
+    .pet-info h3 {
+        font-size: 22px;
+    }
+
+    .pet-info p {
+        font-size: 14px;
+    }
+
+    .adopt-button {
+        font-size: 16px;
+        padding: 6px 12px;
+    }
+}
