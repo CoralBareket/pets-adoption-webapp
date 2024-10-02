@@ -13,7 +13,7 @@ const router = express.Router();
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 
-// Protected routes
+// Protected routes (only accessible when logged in)
 router.route('/profile')
     .get(protect, getUserProfile)
     .put(protect, updateUserProfile);

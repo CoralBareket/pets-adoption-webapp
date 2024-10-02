@@ -2,25 +2,24 @@ const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
 const generateToken = require('../utils/generateToken');
 
-// פונקציה שמטפלת ביצירת יוזר חדש אם לא קיים לפי תעודת זהות
+// Function to create a new user if they don't already exist based on ID number
 const createUserIfNotExists = async (idNumber, fullName, phoneNumber, email, address) => {
   try {
-    // בדיקה אם יש יוזר קיים עם תעודת הזהות
     let user = await User.findOne({ idNumber });
 
     if (user) {
-      // אם היוזר קיים, נעדכן את הפרטים
+      // If the user exists, update the details
       console.log('User already exists, updating details...');
       user.fullName = fullName || user.fullName;
       user.phoneNumber = phoneNumber || user.phoneNumber;
       user.email = email || user.email;
       user.address = address || user.address;
 
-      // שמירת השינויים
+      // Save updated user details
       await user.save();
       console.log('User details updated successfully:', user);
     } else {
-      // אם היוזר לא קיים, ניצור יוזר חדש
+      // If the user does not exist, create a new one
       console.log('Creating a new user...');
       user = new User({
         idNumber,
@@ -30,7 +29,7 @@ const createUserIfNotExists = async (idNumber, fullName, phoneNumber, email, add
         address
       });
 
-      // שמירת היוזר החדש
+      // Save the new user
       await user.save();
       console.log('User created successfully:', user);
     }
@@ -91,7 +90,7 @@ const loginUser = asyncHandler(async (req, res) => {
         res.json({
             _id: user._id,
             idNumber: user.idNumber,
-            fullName: user.fullName, // לוודא שהשם נשלח
+            fullName: user.fullName, // Ensure full name is sent
             phoneNumber: user.phoneNumber,
             email: user.email,
             admin: user.admin,
@@ -107,7 +106,7 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/profile
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id).populate('adoptionHistory.pet');
 
     if (user) {
         res.json({
@@ -115,6 +114,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
             idNumber: user.idNumber,
             phoneNumber: user.phoneNumber,
             email: user.email,
+            adoptionHistory: user.adoptionHistory, // Including adoption history
         });
     } else {
         res.status(404);

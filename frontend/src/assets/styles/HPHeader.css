@@ -1,25 +1,65 @@
-.header {
+/* Top bar styles */
+.top-bar {
+    background-color: rgb(255, 181, 44);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+    color: white;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.greeting {
+    font-weight: bold;
+}
+
+.personal-area-button,
+.logout-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.personal-area-button:hover,
+.logout-button:hover {
+    text-decoration: underline;
+}
+
+/* Navbar styles */
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
-    position: relative;
-    padding-left: 40%;
-}
-
-.navbar {
-    display: flex;
-    margin-left: 10%;
+    padding: 10px 20px;
+    background-color: white;
     direction: rtl;
     width: 100%;
 }
 
-/* Logo Styles */
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.hamburger-menu {
+    cursor: pointer;
+    font-size: 24px;
+    margin-right: 10px;
+    display: none;
+}
+
 .header-logo {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 10%;
 }
 
 .header-logo img {
@@ -28,7 +68,6 @@
     cursor: pointer;
 }
 
-/* Navigation Menu Styles */
 .navbar-menu {
     list-style-type: none;
     display: flex;
@@ -56,61 +95,10 @@
     color: #7bd8de;
 }
 
-/* Header Content Styles */
-.header-content {
-    text-align: center;
-    padding: 50px;
-    color: #333;
-    width: 70%;
-    margin-right: 10%;
-    display: flex;
-    flex-direction: column;
-    z-index: 1;
-}
-
-.header-content h1 {
-    font-size: 48px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.header-content p {
-    font-size: 22px;
-    line-height: 1.6;
-    color: #666;
-}
-
-/* Header Image Styles */
-.header-image {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 45%;
-    height: 115%;
-    margin-left: 3%;
-    z-index: -1;
-    overflow: hidden;
-}
-
-.header-image img {
-    width: 120%;
-    height: auto;
-}
-
-/* Login Button Styles */
-.login-button {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    white-space: nowrap; /* Prevent wrapping */
-    font-size: 24px;
-    color: #333;
-}
-
 .login-button button {
     display: flex;
     align-items: center;
+    margin-right: 100px;
     background: none;
     border: none;
     cursor: pointer;
@@ -141,23 +129,54 @@
     margin-bottom: 5px;
 }
 
-.greeting {
-    margin-right: 10px;
-    font-weight: bold;
+/* Header styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    position: relative;
+    padding-left: 40%;
 }
 
-.logout-button {
-    background: none;
-    border: none;
+.header-content {
+    text-align: center;
+    padding: 50px;
     color: #333;
-    cursor: pointer;
-    font-size: 16px;
-    margin-right: 5px;
-    margin-top: 8px;
+    width: 70%;
+    margin-right: 10%;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
 }
 
-.logout-button:hover {
-    color: #ff0000;
+.header-content h1 {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.header-content p {
+    font-size: 22px;
+    line-height: 1.6;
+    color: #666;
+}
+
+.header-image {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 45%;
+    height: 115%;
+    margin-left: 3%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.header-image img {
+    width: 120%;
+    height: auto;
 }
 
 /* SOS Style */
@@ -166,11 +185,20 @@
     font-weight: bold;
 }
 
-/* Hamburger Menu Styles */
-.hamburger-menu {
-    display: none;
-    cursor: pointer;
-    font-size: 24px;
+/* Animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.pulse-animation {
+    display: inline-block;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.pulse-animation:hover {
+    animation-play-state: paused;
 }
 
 /* Responsive Styles */
@@ -201,21 +229,39 @@
 }
 
 @media screen and (max-width: 768px) {
-    .header-logo {
-        margin-right: 5%;
+    .top-bar {
+        flex-direction: column;
+        align-items: flex-end;
     }
 
     .navbar {
-        justify-content: center;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-left {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .hamburger-menu {
+        display: block;
+        order: 1;
+    }
+
+    .header-logo {
+        order: 0;
     }
 
     .navbar-menu {
         display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
     }
 
     .navbar-menu.active {
         display: flex;
-        flex-direction: column;
         position: absolute;
         top: 60px;
         left: 0;
@@ -230,55 +276,26 @@
         border-bottom: 1px solid #eee;
     }
 
-    .hamburger-menu {
-        display: block;
-        order: 0;
-    }
-
     .login-button {
-        font-size: 18px;
-        order: 2;
-        position: absolute;
-        top: 5%;
-        left: 5%;
-        z-index: 1001;
+        align-self: flex-end;
+        margin-top: 10px;
     }
 
-    .logout-button {
-        font-size: 14px;
-    }
-
-    .header-text h1 {
+    .header-content h1 {
         font-size: 36px;
     }
 
-    .header-text p {
+    .header-content p {
         font-size: 18px;
     }
 }
 
 @media screen and (max-width: 480px) {
-    .header-text h1 {
+    .header-content h1 {
         font-size: 28px;
     }
 
-    .header-text p {
+    .header-content p {
         font-size: 16px;
     }
-}
-
-/* Animation */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-.pulse-animation {
-    display: inline-block;
-    animation: pulse 1.5s ease-in-out infinite;
-}
-
-.pulse-animation:hover {
-    animation-play-state: paused;
 }

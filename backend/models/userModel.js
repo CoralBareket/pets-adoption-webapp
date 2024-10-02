@@ -30,7 +30,12 @@ const userSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
-    }
+    },
+    // Adoption history stores information about pets adopted by the user
+    adoptionHistory: [{
+        pet: { type: mongoose.Schema.Types.ObjectId, ref: 'PetModel' },
+        adoptionDate: Date
+    }]
 }, {
     timestamps: true
 });
