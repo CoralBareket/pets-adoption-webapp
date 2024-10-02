@@ -5,6 +5,7 @@ import PetsPage from './pages/PetsPage';
 import MatchingQuiz from './pages/MatchingQuiz';
 import QuizResultsPage from './pages/QuizResultsPage';
 import SearchResultsPage from './pages/SearchResultsPage';
+import UserProfile from './pages/UserProfile';
 
 function App() {
     const [loggedInUser, setLoggedInUser] = useState(() => {
@@ -12,21 +13,19 @@ function App() {
         return savedUser ? JSON.parse(savedUser) : null;
     });
 
-    // פונקציה שמבצעת התחברות ושמירת פרטי המשתמש
     const handleLogin = (user) => {
         setLoggedInUser(user);
         localStorage.setItem('loggedInUser', JSON.stringify(user));
         console.log("Logged in user:", user);
     };
 
-    // פונקציה להתנתקות מהמשתמש
     const handleLogout = () => {
         setLoggedInUser(null);
         localStorage.removeItem('loggedInUser');
     };
 
     useEffect(() => {
-        
+        // Can add any additional side effects here if needed
     }, [loggedInUser]);
 
     return (
@@ -42,7 +41,11 @@ function App() {
                 />
                 <Route path="/matching-quiz" element={<MatchingQuiz />} />
                 <Route path="/results" element={<QuizResultsPage />} />
-                <Route path="/search-results" element={<SearchResultsPage />} /> {/* Add this new route */}
+                <Route path="/search-results" element={<SearchResultsPage />} />
+                <Route 
+                    path="/profile" 
+                    element={<UserProfile user={loggedInUser} />} 
+                />
                 <Route 
                     path="*" 
                     element={<HomePage onLogin={handleLogin} onLogout={handleLogout} />} 

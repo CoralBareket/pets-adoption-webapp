@@ -36,6 +36,7 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
     return (
         <div className="modal-overlay">
             <div className="modal-content">
+                <button onClick={onClose} className="close-button">X</button>
                 <form className="login-form" onSubmit={handleLogin}>
                     <h2>התחברות</h2>
                     <div className="form-group">
@@ -61,7 +62,7 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
                     {error && <p className="error-message">{error}</p>}
                     <button type="submit" className="modal-login-button">התחבר</button>
                 </form>
-                <button onClick={onClose} className="close-button">סגור</button>
+                <button onClick={onClose} className="close-button">X</button>
             </div>
         </div>
     );
