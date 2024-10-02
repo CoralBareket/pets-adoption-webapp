@@ -7,19 +7,18 @@ const AdoptionForm = ({ pet, onClose }) => {
     email: '',
     phoneNumber: '',
     address: '',
-    idNumber: '', // תעודת זהות של המאמץ
+    idNumber: '',
     cardNumber: '',
     cardExpiry: '',
     cardCVV: '',
     cardHolderID: '',
     adoptionPackage: false,
     accessories: [],
-    petId: pet._id // שמירת מזהה החיה בטופס
+    petId: pet._id 
   });
 
   useEffect(() => {
     document.body.classList.add('adoption-form-open');
-
     return () => {
       document.body.classList.remove('adoption-form-open');
     };
@@ -57,18 +56,18 @@ const AdoptionForm = ({ pet, onClose }) => {
     e.preventDefault();
 
     const requestData = {
-        fullName: formData.fullName, 
-        phoneNumber: formData.phoneNumber,
-        email: formData.email,
-        idNumber: formData.idNumber,
-        address: formData.address,
-        petId: formData.petId,
-        cardNumber: formData.cardNumber,
-        cardExpiry: formData.cardExpiry,
-        cardCVV: formData.cardCVV,
-        cardHolderID: formData.cardHolderID,
-        adoptionPackage: formData.adoptionPackage,
-        accessories: formData.accessories,
+      fullName: formData.fullName, 
+      phoneNumber: formData.phoneNumber,
+      email: formData.email,
+      idNumber: formData.idNumber,
+      address: formData.address,
+      petId: formData.petId,
+      cardNumber: formData.cardNumber,
+      cardExpiry: formData.cardExpiry,
+      cardCVV: formData.cardCVV,
+      cardHolderID: formData.cardHolderID,
+      adoptionPackage: formData.adoptionPackage,
+      accessories: formData.accessories,
     };
 
     try {
@@ -90,10 +89,9 @@ const AdoptionForm = ({ pet, onClose }) => {
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('שגיאה בשרת');
+      alert('שגיאה בשרת: ' + error.message);
     }
 };
-
 
   return (
     <div className="adoption-form-overlay">
@@ -124,6 +122,8 @@ const AdoptionForm = ({ pet, onClose }) => {
               value={formData.phoneNumber}
               onChange={handleChange}
               placeholder="טלפון"
+              pattern="[0-9]{10}" // וידוא 10 ספרות בלבד
+              title="הטלפון חייב לכלול 10 ספרות"
               required
             />
             <input
@@ -140,9 +140,10 @@ const AdoptionForm = ({ pet, onClose }) => {
               value={formData.idNumber}
               onChange={handleChange}
               placeholder="תעודת זהות"
+              pattern="^[0-9]{1,9}$" // הולידציה עבור עד 9 ספרות
+              title="תעודת הזהות חייבת להיות עד 9 ספרות (מספרים בלבד)" // הודעה למשתמש
               required
             />
-
             <h3>פרטי אשראי (עבור תשלום סל אימוץ)</h3>
             <label>
               <input
@@ -160,6 +161,8 @@ const AdoptionForm = ({ pet, onClose }) => {
               value={formData.cardNumber}
               onChange={handleChange}
               placeholder="מספר כרטיס אשראי"
+              pattern="[0-9]{12}" // ולידציה עבור 12 ספרות בלבד
+              title="מספר כרטיס האשראי חייב לכלול 12 ספרות"
               required
             />
             <input
@@ -168,6 +171,8 @@ const AdoptionForm = ({ pet, onClose }) => {
               value={formData.cardExpiry}
               onChange={handleChange}
               placeholder="תוקף הכרטיס (MM/YY)"
+              pattern="(?:0[1-9]|1[0-2])/[0-9]{2}" // ולידציה לפורמט תאריך MM/YY
+              title="התוקף חייב להיות בפורמט MM/YY"
               required
             />
             <input
@@ -176,6 +181,8 @@ const AdoptionForm = ({ pet, onClose }) => {
               value={formData.cardCVV}
               onChange={handleChange}
               placeholder="3 ספרות בגב הכרטיס"
+              pattern="[0-9]{3}" // ולידציה עבור 3 ספרות בלבד
+              title="ה-CVV חייב להיות 3 ספרות"
               required
             />
             <input
@@ -184,6 +191,8 @@ const AdoptionForm = ({ pet, onClose }) => {
               value={formData.cardHolderID}
               onChange={handleChange}
               placeholder="ת.ז. בעל הכרטיס"
+              pattern="[0-9]{1,9}" // תז בעל הכרטיס עד 9 ספרות
+              title="ת.ז. חייבת להיות עד 9 ספרות"
               required
             />
 

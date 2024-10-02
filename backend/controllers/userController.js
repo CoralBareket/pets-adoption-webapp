@@ -3,43 +3,44 @@ const User = require('../models/userModel');
 const generateToken = require('../utils/generateToken');
 
 // Function to create a new user if they don't already exist based on ID number
+
 const createUserIfNotExists = async (idNumber, fullName, phoneNumber, email, address) => {
-  try {
-    let user = await User.findOne({ idNumber });
-
-    if (user) {
-      // If the user exists, update the details
-      console.log('User already exists, updating details...');
-      user.fullName = fullName || user.fullName;
-      user.phoneNumber = phoneNumber || user.phoneNumber;
-      user.email = email || user.email;
-      user.address = address || user.address;
-
-      // Save updated user details
-      await user.save();
-      console.log('User details updated successfully:', user);
-    } else {
-      // If the user does not exist, create a new one
-      console.log('Creating a new user...');
-      user = new User({
-        idNumber,
-        fullName,
-        phoneNumber,
-        email,
-        address
-      });
-
-      // Save the new user
-      await user.save();
-      console.log('User created successfully:', user);
+    try {
+      let user = await User.findOne({ idNumber });
+  
+      if (user) {
+        // If the user exists, update the details
+        console.log('User already exists, updating details...');
+        user.fullName = fullName || user.fullName;
+        user.phoneNumber = phoneNumber || user.phoneNumber;
+        user.email = email || user.email;
+        user.address = address || user.address;
+  
+        // Save updated user details
+        await user.save();
+        console.log('User details updated successfully:', user);
+      } else {
+        // If the user does not exist, create a new one
+        console.log('Creating a new user...');
+        user = new User({
+          idNumber,
+          fullName,
+          phoneNumber,
+          email,
+          address
+        });
+  
+        // Save the new user
+        await user.save();
+        console.log('User created successfully:', user);
+      }
+  
+      return user;
+    } catch (error) {
+      console.error('Error in createUserIfNotExists function:', error);
+      throw new Error('Failed to create or update user');
     }
-
-    return user;
-  } catch (error) {
-    console.error('Error in createUserIfNotExists function:', error);
-    throw new Error('Failed to create or update user');
-  }
-};
+  };
 
 // @desc    Register a new user
 // @route   POST /api/users/register
