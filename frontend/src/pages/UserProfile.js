@@ -6,8 +6,8 @@ import logo2 from '../assets/images/logos/logo2.png';
 
 const UserProfile = () => {
   const [userData, setUserData] = useState(null);
-  const [isEditing, setIsEditing] = useState(false); // מצב עריכה
-  const [isSaving, setIsSaving] = useState(false); // מצב לטעינת השמירה
+  const [isEditing, setIsEditing] = useState(false); 
+  const [isSaving, setIsSaving] = useState(false); 
   const [editData, setEditData] = useState({
     phoneNumber: '',
     email: '',
@@ -44,11 +44,11 @@ const UserProfile = () => {
   }, [navigate]);
 
   const handleEdit = () => {
-    setIsEditing(true); // מעבר למצב עריכה
+    setIsEditing(true); 
   };
 
   const handleCancel = () => {
-    setIsEditing(false); // ביטול עריכה
+    setIsEditing(false); 
     setEditData({
       phoneNumber: userData.phoneNumber,
       email: userData.email,
@@ -56,19 +56,19 @@ const UserProfile = () => {
   };
 
   const handleSave = async () => {
-    setIsSaving(true); // התחלת טעינה
+    setIsSaving(true); 
     try {
       const response = await axios.put('/api/users/profile', editData, {
         headers: {
           Authorization: `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).token}`
         }
       });
-      setUserData(response.data); // עדכון המידע המוצג לאחר שמירה
-      setIsEditing(false); // יציאה ממצב עריכה
-      setIsSaving(false); // סיום טעינה
+      setUserData(response.data); 
+      setIsEditing(false); 
+      setIsSaving(false); 
     } catch (error) {
       console.error('Failed to update user data', error);
-      setIsSaving(false); // סיום טעינה גם במקרה של שגיאה
+      setIsSaving(false); 
     }
   };
 
@@ -96,6 +96,8 @@ const UserProfile = () => {
         {isEditing ? (
           <>
             <p>
+            <p>שם מלא: {userData.fullName}</p>
+            <p>תעודת זהות: {userData.idNumber}</p>
               מספר טלפון: 
               <input
                 type="text"
@@ -123,6 +125,7 @@ const UserProfile = () => {
         ) : (
           <>
             <p>שם מלא: {userData.fullName}</p>
+            <p>תעודת זהות: {userData.idNumber}</p>
             <p>מספר טלפון: {userData.phoneNumber}</p>
             <p>אימייל: {userData.email}</p>
             <button onClick={handleEdit}>ערוך</button>
