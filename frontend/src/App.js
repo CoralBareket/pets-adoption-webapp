@@ -7,6 +7,7 @@ import QuizResultsPage from './pages/QuizResultsPage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import UserProfile from './pages/UserProfile';
 
+
 function App() {
     const [loggedInUser, setLoggedInUser] = useState(() => {
         const savedUser = localStorage.getItem('loggedInUser');
@@ -31,25 +32,13 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route 
-                    path="/" 
-                    element={<HomePage onLogin={handleLogin} onLogout={handleLogout} />} 
-                />
-                <Route 
-                    path="/pets" 
-                    element={<PetsPage isAdmin={loggedInUser?.admin} />} 
-                />
+                <Route path="/" element={<HomePage onLogin={handleLogin} onLogout={handleLogout} />} />
+                <Route path="/pets" element={<PetsPage isAdmin={loggedInUser?.admin} />} />
                 <Route path="/matching-quiz" element={<MatchingQuiz />} />
                 <Route path="/results" element={<QuizResultsPage />} />
                 <Route path="/search-results" element={<SearchResultsPage />} />
-                <Route 
-                    path="/profile" 
-                    element={<UserProfile user={loggedInUser} />} 
-                />
-                <Route 
-                    path="*" 
-                    element={<HomePage onLogin={handleLogin} onLogout={handleLogout} />} 
-                />
+                <Route path="/profile" element={<UserProfile />} />
+                <Route path="*"  element={<HomePage onLogin={handleLogin} onLogout={handleLogout} />} />
             </Routes>
         </Router>
     );

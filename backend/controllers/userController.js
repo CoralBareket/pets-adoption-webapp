@@ -112,6 +112,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
         res.json({
             _id: user._id,
             idNumber: user.idNumber,
+            fullName: user.fullName,
             phoneNumber: user.phoneNumber,
             email: user.email,
             adoptionHistory: user.adoptionHistory, // Including adoption history
@@ -129,18 +130,13 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
 
     if (user) {
-        user.idNumber = req.body.idNumber || user.idNumber;
         user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
         user.email = req.body.email || user.email;
-        if (req.body.password) {
-            user.password = req.body.password;
-        }
 
         const updatedUser = await user.save();
 
         res.json({
             _id: updatedUser._id,
-            idNumber: updatedUser.idNumber,
             phoneNumber: updatedUser.phoneNumber,
             email: updatedUser.email,
             token: generateToken(updatedUser._id),
