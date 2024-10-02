@@ -6,6 +6,7 @@ import MatchingQuiz from './pages/MatchingQuiz';
 import QuizResultsPage from './pages/QuizResultsPage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import UserProfile from './pages/UserProfile';
+import SosPage from './pages/SosPage';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/results" element={<QuizResultsPage />} />
                 <Route path="/search-results" element={<SearchResultsPage />} />
                 <Route path="/profile" element={<UserProfile />} />
+                <Route path="/lost-pets" element={<SosPage />} />
                 <Route path="*"  element={<HomePage onLogin={handleLogin} onLogout={handleLogout} />} />
             </Routes>
         </Router>
