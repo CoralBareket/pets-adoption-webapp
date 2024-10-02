@@ -63,6 +63,21 @@ const HPHeader = ({ onLogin, onLogout }) => {
                             onClick={() => navigate('/')}
                         />
                     </div>
+                    {!loggedInUser && (
+                        <div className="login-button">
+                            <button onClick={() => setIsLoginModalOpen(true)}>
+                                <svg className="icon-person" viewBox="0 0 24 24">
+                                    <path d="M20 22v-2a8 10 0 0 0-15 0v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                    <line x1="5" y1="22" x2="20" y2="22"></line>
+                                </svg>
+                                <span className="login-text">
+                                    <span>אזור אישי</span>
+                                    <span>התחברות/הרשמה</span>
+                                </span>
+                            </button>
+                        </div>
+                    )}
                 </div>
                 <ul className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
                     <li>
@@ -81,21 +96,6 @@ const HPHeader = ({ onLogin, onLogout }) => {
                         </Link>
                     </li>
                 </ul>
-                {!loggedInUser && (
-                    <div className="login-button">
-                        <button onClick={() => setIsLoginModalOpen(true)}>
-                            <svg className="icon-person" viewBox="0 0 24 24">
-                                <path d="M20 22v-2a8 10 0 0 0-15 0v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                                <line x1="5" y1="22" x2="20" y2="22"></line>
-                            </svg>
-                            <span className="login-text">
-                                <span>אזור אישי</span>
-                                <span>התחברות/הרשמה</span>
-                            </span>
-                        </button>
-                    </div>
-                )}
             </nav>
             <div className="header">
                 <div className="header-image">
