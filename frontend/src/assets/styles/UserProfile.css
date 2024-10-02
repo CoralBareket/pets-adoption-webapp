@@ -1,40 +1,67 @@
-.user-profile {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-}
-
-.user-profile h1 {
-    color: #ff6600;
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.user-profile h2 {
+/* Header styles */
+.profile-header {
+    display: flex;
+    justify-content: space-between; /* מפזר את הכותרת בצד ימין ואת התמונה בצד שמאל */
+    align-items: center; /* מיישר את התוכן בצורה אנכית */
+    background-color: transparent;
+    padding: 0 0 20px 0;
     color: #333;
-    font-size: 20px;
-    margin-top: 30px;
-    margin-bottom: 15px;
 }
 
+.profile-header h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+    color: #7bd8de;
+}
+
+/* לוגו בעיצוב קטן ומיקום בצד שמאל */
+.logo-small {
+    width: 80px; /* הגדרת רוחב הלוגו */
+    height: auto; /* שומר על יחס הגובה-רוחב */
+    margin-right: auto; /* כדי לדחוף את הלוגו לצד שמאל */
+    cursor: pointer; /* סמן לחיץ */
+}
+
+/* Profile page styles */
+.user-profile {
+    background-color: #ffffff;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 30px;
+    color: #333;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    direction: rtl;
+    text-align: right;
+}
+
+/* User info styles */
 .user-info {
-    background-color: #f5f5f5;
-    border-radius: 5px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
     padding: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    border-right: 5px solid #7bd8de;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 .user-info p {
     margin: 10px 0;
     color: #555;
+    font-size: 16px;
+    line-height: 1.6;
 }
 
+/* Adoption history */
 .adoption-history {
-    background-color: #fff;
+    background-color: #ffffff;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 20px;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 .adoption-history ul {
@@ -43,36 +70,85 @@
 }
 
 .adoption-history li {
-    margin-bottom: 10px;
-    padding: 10px;
+    margin-bottom: 15px;
+    padding: 15px;
     background-color: #f9f9f9;
-    border-radius: 3px;
+    border-right: 5px solid #7bd8de;
+    border-radius: 5px;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
 }
 
+/* No adoption message */
 .no-adoptions {
-    color: #666;
+    color: #333;
     font-style: italic;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
 }
 
 .no-adoptions a {
-    color: #ff6600;
+    color: #7bd8de;
     text-decoration: none;
+    font-weight: bold;
 }
 
 .no-adoptions a:hover {
     text-decoration: underline;
 }
 
-@media screen and (max-width: 600px) {
+/* Responsive styles for smaller screens */
+@media screen and (max-width: 768px) {
     .user-profile {
-        padding: 10px;
+        padding: 20px;
     }
 
     .user-profile h1 {
+        font-size: 28px;
+    }
+
+    .user-profile h2 {
         font-size: 20px;
+    }
+
+    .adoption-history li {
+        padding: 10px;
+    }
+
+    .user-info {
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .user-profile h1 {
+        font-size: 24px;
     }
 
     .user-profile h2 {
         font-size: 18px;
     }
+}
+.user-info input {
+    padding: 5px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.user-info button {
+    background-color: #7bd8de;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.user-info button:hover {
+    background-color: #55c0c7;
 }
