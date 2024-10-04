@@ -154,7 +154,7 @@ exports.searchPets = async (req, res) => {
                     matchStage.age = { $regex: /^([0-9]|1[01]) חודשים$/ };
                     break;
                 case 'young':
-                    matchStage.age = { $regex: /^([1-2]) שנה$/ };
+                    matchStage.age = { $in: ["שנה", "שנתיים"] };
                     break;
                 case 'adult':
                     matchStage.age = { $regex: /^([3-7]) שנים$/ };
@@ -177,7 +177,7 @@ exports.searchPets = async (req, res) => {
                             $switch: {
                                 branches: [
                                     { case: { $regexMatch: { input: "$age", regex: /^([0-9]|1[01]) חודשים$/ } }, then: "puppy" },
-                                    { case: { $regexMatch: { input: "$age", regex: /^([1-2]) שנה$/ } }, then: "young" },
+                                    { case: { $in: ["$age", ["שנה", "שנתיים"]] }, then: "young" },
                                     { case: { $regexMatch: { input: "$age", regex: /^([3-7]) שנים$/ } }, then: "adult" },
                                     { case: { $regexMatch: { input: "$age", regex: /^([8-9]|1[0-9]|20) שנים$/ } }, then: "senior" }
                                 ],
@@ -201,11 +201,11 @@ exports.searchPets = async (req, res) => {
             }
         ]);
 
-        // Return the results to the front-end
+        // Send the response
         res.json(results);
     } catch (error) {
-        console.error("Error searching pets:", error);
-        res.status(500).json({ message: error.message });
+        console.error('Error in searchPets:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 };
 
