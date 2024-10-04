@@ -1,0 +1,251 @@
+/* SosPage.css */
+.sos-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.sos-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sos-header h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.sos-header p {
+    font-size: 18px;
+    color: #666;
+}
+
+.map-legend-container {
+    display: flex;
+    width: 90%;
+    max-width: 1000px;
+    margin-bottom: 20px;
+}
+
+.map-container {
+    flex: 1;
+    min-height: 400px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.legend {
+    width: fit-content;
+    height: fit-content;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+}
+
+.legend h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.dog-color {
+    background-color: red;
+}
+
+.cat-color {
+    background-color: blue;
+}
+
+.legend-text {
+    font-size: 14px;
+    color: #666;
+}
+
+.pulse-animation {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Custom marker styles */
+.custom-div-icon {
+    background: transparent;
+    border: none;
+}
+
+.marker-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dog-icon .marker-dot {
+    background-color: red;
+}
+
+.cat-icon .marker-dot {
+    background-color: blue;
+}
+
+/* Form overlay styles */
+.form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.form-overlay form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+    width: 100%;
+}
+
+.form-overlay select,
+.form-overlay input {
+    padding: 8px;
+    font-size: 16px;
+}
+
+.form-overlay .sos-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background-color: #ff4d4d;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-overlay .sos-button:hover {
+    background-color: #ff3333;
+}
+
+.cancel-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    background-color: lightgray;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Delete button styles */
+.delete-marker-btn {
+    background-color: lightgray;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px auto 0;
+    display: block;
+    width: fit-content;
+}
+
+.delete-marker-btn:hover {
+    background-color: #ff3333;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .sos-header h1 {
+        font-size: 28px;
+    }
+
+    .sos-header p {
+        font-size: 16px;
+    }
+
+    .map-legend-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .legend {
+        width: fit-content;
+        height: fit-content;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .map-container {
+        width: 100%;
+        min-height: 300px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .legend {
+        width: fit-content;
+        height: fit-content;
+    }
+
+    .sos-header h1 {
+        font-size: 24px;
+    }
+
+    .sos-header p {
+        font-size: 14px;
+    }
+
+    .map-container {
+        min-height: 250px;
+    }
+
+    .form-overlay form {
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    .form-overlay select,
+    .form-overlay input,
+    .form-overlay .sos-button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
