@@ -32,13 +32,17 @@ const SearchResults = () => {
                                     <h3>{group.breed} - {group.location} - {group.ageGroup}</h3>
                                     <p>מספר חיות מחמד: {group.count}</p>
                                     <ul className="pet-details">
-                                        {group.pets.map(pet => (
-                                            <li key={pet._id}>
-                                                <span className="pet-name"><Link to={`/pet/${pet._id}`}>{pet.name}</Link></span>
-                                                <span className="pet-age">גיל: {pet.age}</span>
-                                                <button className="adopt-button" onClick={() => handleAdoptClick(pet)}>אמץ אותי</button>
-                                            </li>
-                                        ))}
+                                        {group.pets
+                                            .filter(pet => pet.status === 'חדש באתר') 
+                                            .map(pet => (
+                                                <li key={pet._id}>
+                                                    <span className="pet-name">
+                                                        <Link to={`/pet/${pet._id}`}>{pet.name}</Link>
+                                                    </span>
+                                                    <span className="pet-age">גיל: {pet.age}</span>
+                                                    <button className="adopt-button" onClick={() => handleAdoptClick(pet)}>אמץ אותי</button>
+                                                </li>
+                                            ))}
                                     </ul>
                                 </div>
                             </li>
