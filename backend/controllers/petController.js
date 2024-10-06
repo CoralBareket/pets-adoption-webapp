@@ -38,8 +38,8 @@ exports.getPetById = async (req, res) => {
 // @access  Admin
 exports.createPet = async (req, res) => {
     try {
-        const { name, age, breed, description, imageUrl } = req.body;
-        const pet = new Pet({ name, age, breed, description, imageUrl });
+        const { name, age, gender, breed, description, imageUrl } = req.body;
+        const pet = new Pet({ name, age, gender, breed, description, imageUrl });
         const savedPet = await pet.save();
         res.status(201).json(savedPet);
     } catch (error) {
@@ -47,6 +47,12 @@ exports.createPet = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+
+/*animalType
+status
+location
+size
+activity*/
 
 // @desc    Update a pet
 // @route   PUT /api/pets/:id

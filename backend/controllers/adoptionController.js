@@ -45,6 +45,13 @@ const createAdoption = async (adoptionData) => {
         await adoption.save();
 
         console.log('8. Adoption saved successfully:', adoption);
+
+        // שלב 4: עדכון סטטוס החיה ל-"אומץ"
+        pet.status = 'אומץ';  
+        await pet.save(); 
+
+        console.log('9. Pet status updated to adopted:', pet);
+
         return adoption;
 
     } catch (error) {
@@ -52,6 +59,7 @@ const createAdoption = async (adoptionData) => {
         throw new Error(error.message);
     }
 };
+
 
 
 module.exports = { createAdoption };
