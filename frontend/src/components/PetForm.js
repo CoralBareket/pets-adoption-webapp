@@ -12,8 +12,19 @@ const PetForm = ({ onClose }) => {
     status: 'חדש באתר',
     location: '',
     size: '',
-    activity: ''
+    activity: '',
+    animalType: '' // הוספתי את animalType
   });
+
+  // רשימת הגזעים המותאמים לכל סוג חיה
+  const breeds = {
+    dog: ['מעורב', 'שועלי', 'פינצר', 'האסקי סיבירי', 'טרייר', 'ביגל', 'לברדור', 'רועה גרמני', 'שיצו'],
+    cat: ['חתול פרסי', 'חתול חבשי', 'חתול סיאמי'],  // הוספתי את הגזעים החדשים
+    other: ['אחר']
+  };
+
+  // הגזעים המוצגים בהתאם ל-animalType
+  const filteredBreeds = formData.animalType ? breeds[formData.animalType] : [];
 
   useEffect(() => {
     document.body.classList.add('pet-form-open');
@@ -33,6 +44,12 @@ const PetForm = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); 
+  
+    // Validate age input
+    if (isNaN(formData.age) || formData.age <= 0) {
+      alert("גיל חייב להיות מספר חיובי.");
+      return;
+    }
   
     const requestData = { ...formData }; 
     console.log('Data to be sent:', requestData); 
@@ -76,11 +93,12 @@ const PetForm = ({ onClose }) => {
               required
             />
             <input
-              type="text"
+              type="number"
               name="age"
               value={formData.age}
               onChange={handleChange}
-              placeholder="גיל החיה"
+              placeholder="גיל החיה (במספרים בלבד)"
+              min="0"
               required
             />
             <select
@@ -93,24 +111,34 @@ const PetForm = ({ onClose }) => {
               <option value="זכר">זכר</option>
               <option value="נקבה">נקבה</option>
             </select>
+
+            {/* שדה animalType */}
+            <select
+              name="animalType"
+              value={formData.animalType}
+              onChange={handleChange}
+              required
+            >
+              <option value="" disabled>בחר סוג חיה</option>
+              <option value="dog">כלב</option>
+              <option value="cat">חתול</option>
+              <option value="other">אחר</option>
+            </select>
+
+            {/* שדה breed, מציג את האפשרויות בהתאם ל-animalType */}
             <select
               name="breed"
               value={formData.breed}
               onChange={handleChange}
               required
+              disabled={!formData.animalType} // מאפשר בחירה רק לאחר שבוחרים animalType
             >
               <option value="" disabled>בחר גזע</option>
-              <option value="מעורב">מעורב</option>
-              <option value="שועלי">שועלי</option>
-              <option value="פינצר">פינצר</option>
-              <option value="האסקי סיבירי">האסקי סיבירי</option>
-              <option value="טרייר">טרייר</option>
-              <option value="ביגל">ביגל</option>
-              <option value="חתול פרסי">חתול פרסי</option>
-              <option value="לברדור">לברדור</option>
-              <option value="רועה גרמני">רועה גרמני</option>
-              <option value="שיצו">שיצו</option>
+              {filteredBreeds.map((breed) => (
+                <option key={breed} value={breed}>{breed}</option>
+              ))}
             </select>
+
             <textarea
               name="description"
               value={formData.description}
@@ -126,13 +154,17 @@ const PetForm = ({ onClose }) => {
               placeholder="קישור לתמונה"
               required
             />
-            <input
-              type="text"
+            <select
               name="location"
               value={formData.location}
               onChange={handleChange}
-              placeholder="מיקום"
-            />
+              required
+            >
+              <option value="" disabled>בחר מיקום</option>
+              <option value="צפון">צפון</option>
+              <option value="מרכז">מרכז</option>
+              <option value="דרום">דרום</option>
+            </select>
             <select
               name="size"
               value={formData.size}

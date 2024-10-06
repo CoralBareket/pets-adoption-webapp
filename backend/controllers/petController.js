@@ -53,8 +53,23 @@ const getPetByIdInternal = async (petId) => {
 // @access  Admin
 const createPet = async (req, res) => {
     try {
-        const { name, age, gender, breed, description, imageUrl } = req.body;
-        const pet = new Pet({ name, age, gender, breed, description, imageUrl });
+        const { 
+            name, 
+            age, 
+            gender, 
+            breed, 
+            description, 
+            imageUrl, 
+            animalType,  
+            status = 'חדש באתר',
+            location, 
+            size, 
+            activity 
+        } = req.body;
+
+
+        const pet = new Pet({ name, age, gender, breed,  description, imageUrl, animalType, status, location, size, activity });
+
         const savedPet = await pet.save();
         res.status(201).json(savedPet);
     } catch (error) {
@@ -63,16 +78,11 @@ const createPet = async (req, res) => {
     }
 };
 
-/*animalType
-status
-location
-size
-activity*/
 
 // @desc    Update a pet
 // @route   PUT /api/pets/:id
 // @access  Admin
-const updatePet = async (req, res) => {
+/*const updatePet = async (req, res) => {
     try {
         const updatedPet = await Pet.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!updatedPet) {
@@ -83,7 +93,7 @@ const updatePet = async (req, res) => {
         console.error("Error updating pet:", error);
         res.status(400).json({ message: error.message });
     }
-};
+};*/
 
 // @desc    Delete a Pet
 // @route   DELETE /api/pets/:id
@@ -235,7 +245,7 @@ module.exports = {
     getPetById,
     getPetByIdInternal,
     createPet,
-    updatePet,
+    //updatePet,
     deletePet,
     matchPet,
     searchPets

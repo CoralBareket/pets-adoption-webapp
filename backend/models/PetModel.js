@@ -6,7 +6,7 @@ const petSchema = new mongoose.Schema({
         required: true
     },
     age: {
-        type: String,
+        type: Number,
         required: true
     },
     gender: {
@@ -20,9 +20,24 @@ const petSchema = new mongoose.Schema({
     },
     breed: {
         type: String,
-        enum: ['מעורב', 'שועלי', 'פינצר', 'האסקי סיבירי', 'טרייר', 'ביגל', 'רחוב', 'חתול פרסי', 'לברדור', 'רועה גרמני', 'שיצו','אחר'],
+        enum: [
+            'מעורב', 
+            'שועלי', 
+            'פינצר', 
+            'האסקי סיבירי', 
+            'טרייר', 
+            'ביגל', 
+            'חתול פרסי', 
+            'לברדור', 
+            'רועה גרמני', 
+            'שיצו',
+            'אחר',         
+            'חתול חבשי',    
+            'חתול סיאמי'    
+        ],
         required: true
     },
+    
     description: {
         type: String,
         required: true
@@ -39,17 +54,14 @@ const petSchema = new mongoose.Schema({
     location: {
         type: String,
         enum: ['צפון', 'מרכז', 'דרום'],
-        default: 'מרכז'
     },
     size: {
         type: String,
-        enum: ['small', 'medium', 'large'],
-        default: 'medium'
+        enum: ['small', 'medium', 'large']
     },
     activity: {
         type: String,
-        enum: ['low', 'moderate', 'high'],
-        default: 'moderate'
+        enum: ['low', 'moderate', 'high']
     }
 }, {
     timestamps: true // This will add createdAt and updatedAt fields
