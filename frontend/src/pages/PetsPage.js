@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import AdoptionForm from '../components/AdoptionForm';
 import PetForm from '../components/PetForm';
 import '../../src/assets/styles/PetsPage.css';
+import logo2 from '../assets/images/logos/logo2.png';
 
 const PetsPage = ({ petsToShow, isAdmin }) => {
     const [pets, setPets] = useState([]);
     const [selectedPet, setSelectedPet] = useState(null);
     const [showAddPetForm, setShowAddPetForm] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (petsToShow) {
@@ -54,7 +57,17 @@ const PetsPage = ({ petsToShow, isAdmin }) => {
 
     return (
         <div className="pets-page">
-            <h1>{petsToShow ? '   חיות מחמד מתאימות' : '   כל החיות הזמינות לאימוץ'}</h1>
+            <div className="pets-header">
+                <div className="logo-container">
+                    <img
+                        src={logo2}
+                        alt="Logo"
+                        className="logo-small"
+                        onClick={() => navigate('/')}
+                    />
+                </div>
+                <h1>{petsToShow ? 'חיות מחמד מתאימות' : 'כל החיות הזמינות לאימוץ'}</h1>
+            </div>
             <ul className="pets-list">
                 {pets.map(pet => (
                     <li key={pet._id} className="pet-item">

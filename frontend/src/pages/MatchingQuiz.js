@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../src/assets/styles/MatchingQuiz.css';
+import logo2 from '../assets/images/logos/logo2.png';
 
 const MatchingQuiz = () => {
     const [answers, setAnswers] = useState({
@@ -9,7 +10,7 @@ const MatchingQuiz = () => {
         hasYard: '',
         hoursAway: '',
         petFriendlyWork: '',
-        houFngType: '',
+        housingType: '',
         previousPets: '',
         activityLevel: '',
         allergies: '',
@@ -65,7 +66,17 @@ const MatchingQuiz = () => {
 
     return (
         <div className="matching-quiz">
-            <h2>שאלון התאמה</h2>
+            <div className="quiz-header">
+                <div className="logo-container">
+                    <img
+                        src={logo2}
+                        alt="Logo"
+                        className="logo-small"
+                        onClick={() => navigate('/')}
+                    />
+                </div>
+                <h2>שאלון התאמה</h2>
+            </div>
             <form onSubmit={handleSubmit}>
                 <div className="question">
                     <label>1. בן/ת כמה את/ה? * </label>

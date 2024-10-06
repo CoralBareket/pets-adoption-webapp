@@ -9,6 +9,28 @@
     font-family: Arial, sans-serif;
 }
 
+.quiz-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.logo-container {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.logo-small {
+    width: 100px;
+    height: auto;
+    cursor: pointer;
+}
+
 .matching-quiz h2 {
     font-size: 30px;
     color: #333;

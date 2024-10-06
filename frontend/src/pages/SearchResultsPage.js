@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import AdoptionForm from '../components/AdoptionForm';
 import '../../src/assets/styles/SearchResultsPage.css';
+import logo2 from '../assets/images/logos/logo2.png';
 
 const SearchResults = () => {
     const location = useLocation();
     const { searchResults } = location.state || { searchResults: [] };
     const [selectedPet, setSelectedPet] = useState(null);
+    const navigate = useNavigate();
 
     const handleAdoptClick = (pet) => {
         setSelectedPet(pet);
@@ -18,7 +20,17 @@ const SearchResults = () => {
 
     return (
         <div className="results-page">
-            <h2>תוצאות החיפוש</h2>
+            <div className="results-header">
+                <div className="logo-container">
+                    <img
+                        src={logo2}
+                        alt="Logo"
+                        className="logo-small"
+                        onClick={() => navigate('/')}
+                    />
+                </div>
+                <h2>תוצאות החיפוש</h2>
+            </div>
             {searchResults.length > 0 ? (
                 <>
                     <p className="results-count">מצאנו {searchResults.length} תוצאות שמתאימות לחיפוש שלך!</p>
