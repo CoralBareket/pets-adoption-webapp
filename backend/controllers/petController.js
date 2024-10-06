@@ -78,23 +78,6 @@ const createPet = async (req, res) => {
     }
 };
 
-
-// @desc    Update a pet
-// @route   PUT /api/pets/:id
-// @access  Admin
-/*const updatePet = async (req, res) => {
-    try {
-        const updatedPet = await Pet.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!updatedPet) {
-            return res.status(404).json({ message: 'Pet not found' });
-        }
-        res.json(updatedPet);
-    } catch (error) {
-        console.error("Error updating pet:", error);
-        res.status(400).json({ message: error.message });
-    }
-};*/
-
 // @desc    Delete a Pet
 // @route   DELETE /api/pets/:id
 // @access  Admin
@@ -178,20 +161,19 @@ const searchPets = async (req, res) => {
             matchStage.location = { $regex: new RegExp(location, 'i') };
         }
 
-        // Handle age groups
+        // Handle age groups with the updated definition
         if (age) {
             switch (age) {
-                case 'puppy':
-                    matchStage.age = { $regex: /^([0-9]|1[01]) חודשים$/ };
-                    break;
                 case 'young':
-                    matchStage.age = { $in: ["שנה", "שנתיים"] };
+                    matchStage.age = { $gte: 1, $lte: 4 }; // age 1-4 for young
                     break;
                 case 'adult':
-                    matchStage.age = { $regex: /^([3-7]) שנים$/ };
+                    matchStage.age = { $gte: 5, $lte: 9 }; // age 5-9 for adult
                     break;
                 case 'senior':
-                    matchStage.age = { $regex: /^([8-9]|1[0-9]|20) שנים$/ };
+                    matchStage.age = { $gte: 9 }; // age 9+ for senior
+                    break;
+                default:
                     break;
             }
         }
@@ -207,10 +189,9 @@ const searchPets = async (req, res) => {
                         ageGroup: {
                             $switch: {
                                 branches: [
-                                    { case: { $regexMatch: { input: "$age", regex: /^([0-9]|1[01]) חודשים$/ } }, then: "puppy" },
-                                    { case: { $in: ["$age", ["שנה", "שנתיים"]] }, then: "young" },
-                                    { case: { $regexMatch: { input: "$age", regex: /^([3-7]) שנים$/ } }, then: "adult" },
-                                    { case: { $regexMatch: { input: "$age", regex: /^([8-9]|1[0-9]|20) שנים$/ } }, then: "senior" }
+                                    { case: { $and: [ { $gte: [ "$age", 1 ] }, { $lte: [ "$age", 4 ] } ] }, then: "young" },
+                                    { case: { $and: [ { $gte: [ "$age", 5 ] }, { $lte: [ "$age", 9 ] } ] }, then: "adult" },
+                                    { case: { $gte: [ "$age", 9 ] }, then: "senior" }
                                 ],
                                 default: "unknown"
                             }
@@ -240,12 +221,12 @@ const searchPets = async (req, res) => {
     }
 };
 
+
 module.exports = {
     getPets,
     getPetById,
     getPetByIdInternal,
     createPet,
-    //updatePet,
     deletePet,
     matchPet,
     searchPets

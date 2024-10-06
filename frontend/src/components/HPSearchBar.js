@@ -63,9 +63,9 @@ const SearchBar = () => {
                         <label htmlFor="location">באזור</label>
                         <select id="location" value={location} onChange={handleLocationChange}>
                             <option value="" disabled hidden>בחר אזור</option>
-                            <option value="north">צפון</option>
-                            <option value="center">מרכז</option>
-                            <option value="south">דרום</option>
+                            <option value="צפון">צפון</option>
+                            <option value="מרכז">מרכז</option>
+                            <option value="דרום">דרום</option>
                         </select>
                     </div>
 
@@ -73,7 +73,6 @@ const SearchBar = () => {
                         <label htmlFor="age">בגיל</label>
                         <select id="age" value={age} onChange={handleAgeChange}>
                             <option value="" disabled hidden>בחר גיל</option>
-                            <option value="puppy">גור</option>
                             <option value="young">צעיר</option>
                             <option value="adult">בוגר</option>
                             <option value="senior">מבוגר</option>

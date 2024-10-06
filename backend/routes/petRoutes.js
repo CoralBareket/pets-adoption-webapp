@@ -18,7 +18,6 @@ router.post('/search', searchPets); // Add this new route
 
 // Admin routes
 router.post('/', createPet);
-router.put('/:id', updatePet);
 router.delete('/:id', deletePet);
 
 module.exports = router;
