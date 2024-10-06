@@ -5,6 +5,28 @@
     direction: rtl;
 }
 
+.pets-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.logo-container {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.logo-small {
+    width: 100px;
+    height: auto;
+    cursor: pointer;
+}
+
 .pets-page h1 {
     font-size: 48px;
     font-weight: bold;
@@ -152,4 +174,73 @@
     direction: rtl;
     width: 90%;
     background-color: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .pets-header {
+        flex-direction: column;
+        align-items: center;
+        padding-top: 90px; /* Make room for the logo */
+    }
+
+    .logo-container {
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .pets-page h1 {
+        font-size: 36px;
+    }
+
+    .pet-item {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pet-item img {
+        width: 80%;
+        height: auto;
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+
+    .pet-info {
+        text-align: center;
+    }
+
+    .adopt-button,
+    .delete-button {
+        font-size: 14px;
+        padding: 10px 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .pets-header {
+        padding-top: 80px; /* Adjust for smaller logo size */
+    }
+
+    .logo-small {
+        width: 60px; /* Slightly smaller logo for very small screens */
+    }
+
+    .pets-page h1 {
+        font-size: 28px;
+    }
+
+    .pet-info h2 {
+        font-size: 20px;
+    }
+
+    .pet-info p {
+        font-size: 14px;
+    }
+
+    .adopt-button,
+    .delete-button {
+        font-size: 12px;
+        padding: 8px 14px;
+    }
 }

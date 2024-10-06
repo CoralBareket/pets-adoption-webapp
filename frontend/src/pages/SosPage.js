@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import L from 'leaflet';
+import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import '../../src/assets/styles/SosPage.css';
+import logo2 from '../assets/images/logos/logo2.png';
 
 const SosPage = () => {
   const mapRef = useRef(null);
@@ -9,6 +11,7 @@ const SosPage = () => {
   const [showForm, setShowForm] = useState(false);
   const [newMarker, setNewMarker] = useState({ type: 'dog', message: '', position: null });
   const [tempMarker, setTempMarker] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Load markers from local storage
@@ -24,18 +27,18 @@ const SosPage = () => {
   const handleMapClick = useCallback((e) => {
     const { lat, lng } = e.latlng;
     setNewMarker(prev => ({ ...prev, position: [lat, lng] }));
-    
+
     if (tempMarker) {
       mapRef.current.removeLayer(tempMarker);
     }
-    
+
     const icon = L.divIcon({
       className: `custom-div-icon ${newMarker.type}-icon`,
       html: `<div class="marker-dot"></div>`,
       iconSize: [10, 10],
       iconAnchor: [5, 5]
     });
-    
+
     const marker = L.marker([lat, lng], { icon }).addTo(mapRef.current);
     setTempMarker(marker);
     setShowForm(true);
@@ -143,8 +146,18 @@ const SosPage = () => {
   return (
     <div className="sos-page">
       <div className="sos-header">
-        <h1>SOS - חיות אבודות</h1>
-        <p>לחץ על המפה כדי לדווח על חיה אבודה</p>
+        <div className="logo-container">
+          <img
+            src={logo2}
+            alt="Logo"
+            className="logo-small"
+            onClick={() => navigate('/')}
+          />
+        </div>
+        <div className="sos-header-content">
+          <h1>SOS - חיות אבודות</h1>
+          <p>לחץ על המפה כדי לדווח על חיה אבודה</p>
+        </div>
       </div>
       <div className="map-legend-container">
         <div className="legend">
@@ -165,7 +178,7 @@ const SosPage = () => {
           <form onSubmit={handleFormSubmit}>
             <select
               value={newMarker.type}
-              onChange={(e) => setNewMarker(prev => ({...prev, type: e.target.value}))}
+              onChange={(e) => setNewMarker(prev => ({ ...prev, type: e.target.value }))}
             >
               <option value="dog">כלב</option>
               <option value="cat">חתול</option>
@@ -173,7 +186,7 @@ const SosPage = () => {
             <input
               type="text"
               value={newMarker.message}
-              onChange={(e) => setNewMarker(prev => ({...prev, message: e.target.value}))}
+              onChange={(e) => setNewMarker(prev => ({ ...prev, message: e.target.value }))}
               placeholder="הוסף תיאור"
               required
             />
