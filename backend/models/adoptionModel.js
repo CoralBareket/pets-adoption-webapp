@@ -9,7 +9,8 @@ const adoptionSchema = mongoose.Schema({
   cardCVV: { type: String, required: true },
   cardHolderID: { type: String, required: true },
   adoptionPackage: { type: Boolean, required: true },
-  accessories: [{ type: String }]
+  accessories: [{ type: String }],
+  adoptionDate: { type: Date, default: Date.now }
 });
 
 const Adoption = mongoose.model('Adoption', adoptionSchema);

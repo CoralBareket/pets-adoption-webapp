@@ -38,7 +38,8 @@ const createAdoption = async (adoptionData) => {
             cardCVV,
             cardHolderID,
             adoptionPackage,
-            accessories
+            accessories,
+            adoptionDate: Date.now()
         });
 
         console.log('7. Saving adoption...');

@@ -138,7 +138,11 @@ const UserProfile = () => {
           <ul>
             {userData.adoptionHistory.map(adoption => (
               <li key={adoption.pet._id}>
-                {adoption.pet.name} - אומץ בתאריך {new Date(adoption.adoptionDate).toLocaleDateString('he-IL')}
+                <h3>{adoption.pet.name}</h3> {/* שם החיה */}
+                <img src={adoption.pet.imageUrl} alt={adoption.pet.name} width="100" /> {/* תמונת החיה */}
+                <p>מין: {adoption.pet.gender}</p> {/* מין החיה */}
+                <p>גזע: {adoption.pet.breed}</p> {/* גזע החיה */}
+                <p>אומץ בתאריך: {new Date(adoption.adoptionDate).toLocaleDateString('he-IL')}</p>
               </li>
             ))}
           </ul>

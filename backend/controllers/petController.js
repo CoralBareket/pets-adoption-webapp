@@ -4,7 +4,7 @@ const Pet = require('../models/PetModel');
 // @desc    Get all pets
 // @route   GET /api/pets
 // @access  Public
-exports.getPets = async (req, res) => {
+const getPets = async (req, res) => {
     try {
         const pets = await Pet.find({});
         console.log("Pets found:", JSON.stringify(pets, null, 2));
@@ -17,10 +17,11 @@ exports.getPets = async (req, res) => {
     }
 };
 
+
 // @desc    Get a single pet by ID
 // @route   GET /api/pets/:id
 // @access  Public
-exports.getPetById = async (req, res) => {
+const getPetById = async (req, res) => {
     try {
         const pet = await Pet.findById(req.params.id);
         if (!pet) {
@@ -33,10 +34,24 @@ exports.getPetById = async (req, res) => {
     }
 };
 
+// פונקציה פנימית לשליפת חיה לפי מזהה
+const getPetByIdInternal = async (petId) => {
+    try {
+        const pet = await Pet.findById(petId);
+        if (!pet) {
+            throw new Error('Pet not found');
+        }
+        return pet;
+    } catch (error) {
+        console.error('Error fetching pet by ID:', error);
+        throw error;
+    }
+};
+
 // @desc    Create a new pet
 // @route   POST /api/pets
 // @access  Admin
-exports.createPet = async (req, res) => {
+const createPet = async (req, res) => {
     try {
         const { name, age, gender, breed, description, imageUrl } = req.body;
         const pet = new Pet({ name, age, gender, breed, description, imageUrl });
@@ -57,7 +72,7 @@ activity*/
 // @desc    Update a pet
 // @route   PUT /api/pets/:id
 // @access  Admin
-exports.updatePet = async (req, res) => {
+const updatePet = async (req, res) => {
     try {
         const updatedPet = await Pet.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!updatedPet) {
@@ -73,7 +88,7 @@ exports.updatePet = async (req, res) => {
 // @desc    Delete a Pet
 // @route   DELETE /api/pets/:id
 // @access  Admin
-exports.deletePet = async (req, res) => {
+const deletePet = async (req, res) => {
     try {
         const deletedPet = await Pet.findByIdAndDelete(req.params.id);
         if (!deletedPet) {
@@ -89,7 +104,7 @@ exports.deletePet = async (req, res) => {
 // @desc    Match pet to user based on preferences
 // @route   POST /api/pets/match
 // @access  Public
-exports.matchPet = async (req, res) => {
+const matchPet = async (req, res) => {
     const {
         age, familyStatus, hasYard, hoursAway, petFriendlyWork,
         housingType, previousPets, activityLevel, allergies,
@@ -136,7 +151,7 @@ exports.matchPet = async (req, res) => {
     }
 };
 
-exports.searchPets = async (req, res) => {
+const searchPets = async (req, res) => {
     try {
         const { animalType, location, age } = req.body;
 
@@ -215,4 +230,13 @@ exports.searchPets = async (req, res) => {
     }
 };
 
-module.exports = exports;
+module.exports = {
+    getPets,
+    getPetById,
+    getPetByIdInternal,
+    createPet,
+    updatePet,
+    deletePet,
+    matchPet,
+    searchPets
+};
