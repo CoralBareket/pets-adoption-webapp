@@ -3,7 +3,8 @@ const {
     registerUser,
     loginUser,
     getUserProfile,
-    updateUserProfile
+    updateUserProfile,
+    getUsersOverTime 
 } = require('../controllers/userController');
 const { protect } = require('../middleware/authMiddleware');
 
@@ -17,5 +18,9 @@ router.post('/login', loginUser);
 router.route('/profile')
     .get(protect, getUserProfile)
     .put(protect, updateUserProfile);
+
+router.get('/admin-dashboard', (req, res) => {
+    res.json({ message: 'Welcome to the Admin Dashboard' });
+});
 
 module.exports = router;

@@ -1,9 +1,5 @@
 const Pet = require('../models/PetModel');
 
-
-// @desc    Get all pets
-// @route   GET /api/pets
-// @access  Public
 const getPets = async (req, res) => {
     try {
         const pets = await Pet.find({});
@@ -17,10 +13,6 @@ const getPets = async (req, res) => {
     }
 };
 
-
-// @desc    Get a single pet by ID
-// @route   GET /api/pets/:id
-// @access  Public
 const getPetById = async (req, res) => {
     try {
         const pet = await Pet.findById(req.params.id);
@@ -48,8 +40,6 @@ const getPetByIdInternal = async (petId) => {
     }
 };
 
-// @desc    Create a new pet
-// @route   POST /api/pets
 // @access  Admin
 const createPet = async (req, res) => {
     try {
@@ -78,8 +68,6 @@ const createPet = async (req, res) => {
     }
 };
 
-// @desc    Delete a Pet
-// @route   DELETE /api/pets/:id
 // @access  Admin
 const deletePet = async (req, res) => {
     try {
@@ -94,9 +82,6 @@ const deletePet = async (req, res) => {
     }
 };
 
-// @desc    Match pet to user based on preferences
-// @route   POST /api/pets/match
-// @access  Public
 const matchPet = async (req, res) => {
     const {
         age, familyStatus, hasYard, hoursAway, petFriendlyWork,
@@ -219,8 +204,7 @@ const searchPets = async (req, res) => {
         console.error('Error in searchPets:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
-};
-
+};  
 
 module.exports = {
     getPets,

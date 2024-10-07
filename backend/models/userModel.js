@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    // Adoption history stores information about pets adopted by the user
+
     adoptionHistory: [{
         pet: { type: mongoose.Schema.Types.ObjectId, ref: 'Pet' },
         adoptionDate: Date

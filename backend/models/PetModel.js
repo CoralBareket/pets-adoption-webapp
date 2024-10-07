@@ -64,7 +64,7 @@ const petSchema = new mongoose.Schema({
         enum: ['low', 'moderate', 'high']
     }
 }, {
-    timestamps: true // This will add createdAt and updatedAt fields
+    timestamps: true 
 });
 
 const Pet = mongoose.model('Pet', petSchema);

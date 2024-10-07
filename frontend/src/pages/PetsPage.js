@@ -19,7 +19,6 @@ const PetsPage = ({ petsToShow, isAdmin }) => {
             const fetchPets = async () => {
                 try {
                     const { data } = await axios.get('/api/pets');
-                    // סינון חיות מחמד לפי סטטוס 'חדש באתר'
                     const filteredPets = data.filter(pet => pet.status === 'חדש באתר');
                     setPets(filteredPets);
                 } catch (error) {

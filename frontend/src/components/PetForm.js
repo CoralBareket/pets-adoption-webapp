@@ -13,17 +13,16 @@ const PetForm = ({ onClose }) => {
     location: '',
     size: '',
     activity: '',
-    animalType: '' // הוספתי את animalType
+    animalType: '' 
   });
 
-  // רשימת הגזעים המותאמים לכל סוג חיה
+  // רשימת הגזעים מסונן לפי סוג חיה
   const breeds = {
     dog: ['מעורב', 'שועלי', 'פינצר', 'האסקי סיבירי', 'טרייר', 'ביגל', 'לברדור', 'רועה גרמני', 'שיצו'],
     cat: ['חתול פרסי', 'חתול חבשי', 'חתול סיאמי'],  // הוספתי את הגזעים החדשים
     other: ['אחר']
   };
 
-  // הגזעים המוצגים בהתאם ל-animalType
   const filteredBreeds = formData.animalType ? breeds[formData.animalType] : [];
 
   useEffect(() => {
@@ -45,7 +44,6 @@ const PetForm = ({ onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault(); 
   
-    // Validate age input
     if (isNaN(formData.age) || formData.age <= 0) {
       alert("גיל חייב להיות מספר חיובי.");
       return;
@@ -112,7 +110,6 @@ const PetForm = ({ onClose }) => {
               <option value="נקבה">נקבה</option>
             </select>
 
-            {/* שדה animalType */}
             <select
               name="animalType"
               value={formData.animalType}
@@ -125,13 +122,12 @@ const PetForm = ({ onClose }) => {
               <option value="other">אחר</option>
             </select>
 
-            {/* שדה breed, מציג את האפשרויות בהתאם ל-animalType */}
             <select
               name="breed"
               value={formData.breed}
               onChange={handleChange}
               required
-              disabled={!formData.animalType} // מאפשר בחירה רק לאחר שבוחרים animalType
+              disabled={!formData.animalType} 
             >
               <option value="" disabled>בחר גזע</option>
               {filteredBreeds.map((breed) => (

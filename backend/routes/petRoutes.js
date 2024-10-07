@@ -7,14 +7,14 @@ const {
     updatePet,
     deletePet,
     matchPet,
-    searchPets // Add this new controller method
+    searchPets 
 } = require('../controllers/petController');
 
 // Public routes
 router.get('/', getPets);
 router.get('/:id', getPetById);
 router.post('/match', matchPet);
-router.post('/search', searchPets); // Add this new route
+router.post('/search', searchPets); 
 
 // Admin routes
 router.post('/', createPet);

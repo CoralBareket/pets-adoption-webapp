@@ -1,6 +1,6 @@
 const express = require('express');
-const { createAdoption } = require('../controllers/adoptionController');
-const { createUserIfNotExists } = require('../controllers/userController'); 
+const { createAdoption, getAdoptionsOverTime, getAdoptionsByAnimalType } = require('../controllers/adoptionController');
+const { createUserIfNotExists } = require('../controllers/userController');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
 
     console.log('Received adoption request with data:', { idNumber, fullName, phoneNumber, email, address });
 
-    // יצירת או איתור היוזר על בסיס ת"ז ופרטים נוספים
+    // יצירת או איתור היוזר על בסיס ת"ז
     const user = await createUserIfNotExists(idNumber, fullName, phoneNumber, email, address);
 
     if (!user) {
@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
     console.log('User found or created:', user);
 
     // יצירת ושמירת האימוץ עם מזהה היוזר
-    const adoption = await createAdoption({ userId: user._id, ...req.body }); // שים לב ששולחים גם את מזהה היוזר
+    const adoption = await createAdoption({ userId: user._id, ...req.body }); 
 
     console.log('Adoption saved successfully:', adoption);
     
@@ -30,5 +30,12 @@ router.post('/', async (req, res) => {
     res.status(500).json({ message: 'שגיאה בשרת' });
   }
 });
+
+
+//אימוצים לאורך זמן 
+router.get('/overtime', getAdoptionsOverTime);
+
+//אימוצים לפי סוג החיה
+router.get('/by-animal-type', getAdoptionsByAnimalType);
 
 module.exports = router;

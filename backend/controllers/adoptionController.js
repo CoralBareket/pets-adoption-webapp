@@ -2,12 +2,14 @@ const User = require('../models/userModel');
 const Adoption = require('../models/adoptionModel');
 const Pet = require('../models/PetModel');
 const { createUserIfNotExists } = require('./userController');
+const asyncHandler = require('express-async-handler');
+
 
 const createAdoption = async (adoptionData) => {
     const { idNumber, fullName, phoneNumber, email, address, petId, cardNumber, cardExpiry, cardCVV, cardHolderID, adoptionPackage, accessories } = adoptionData;
 
     try {
-        // שלב 1: יצירת יוזר אם לא קיים
+        // יצירת יוזר אם לא קיים
         console.log('1. Trying to find or create a user with ID number:', idNumber);
         const user = await createUserIfNotExists(idNumber, fullName, phoneNumber, email, address);
         
@@ -18,7 +20,7 @@ const createAdoption = async (adoptionData) => {
 
         console.log('3. User found or created:', user);
 
-        // שלב 2: בדיקת החיה
+        // בדיקת החיה
         console.log('4. Finding pet with ID:', petId);
         const pet = await Pet.findById(petId);
         if (!pet) {
@@ -28,11 +30,11 @@ const createAdoption = async (adoptionData) => {
 
         console.log('6. Pet found:', pet);
 
-        // שלב 3: יצירת האימוץ עם מזהה היוזר שנשמר
+        // יצירת האימוץ
         const adoption = new Adoption({
-            idNumber,  // שמירת ת"ז של המאמץ
-            petId,     // מקשר את האימוץ לחיה
-            address,   // כתובת המשתמש
+            idNumber,  
+            petId,     
+            address,  
             cardNumber,
             cardExpiry,
             cardCVV,
@@ -47,7 +49,7 @@ const createAdoption = async (adoptionData) => {
 
         console.log('8. Adoption saved successfully:', adoption);
 
-        // שלב 4: עדכון סטטוס החיה ל-"אומץ"
+        // עדכון סטטוס החיה
         pet.status = 'אומץ';  
         await pet.save(); 
 
@@ -56,11 +58,84 @@ const createAdoption = async (adoptionData) => {
         return adoption;
 
     } catch (error) {
+        if (error.code === 11000) { // בדיקת שגיאת כפילות (duplicate key error)
+            console.error('Duplicate key error:', error);
+            throw new Error('Email already exists in the system.');
+        }
         console.error('Error in createAdoption function:', error);
         throw new Error(error.message);
+    }
+}; 
+
+
+const getAdoptionsOverTime = asyncHandler(async (req, res) => {
+    try {
+        // Get the current date
+        const today = new Date();
+        
+        // Get the date from 7 days ago
+        const lastWeek = new Date();
+        lastWeek.setDate(today.getDate() - 7);
+
+        // Query adoptions made within the last 7 days based on adoptionDate
+        const adoptions = await Adoption.aggregate([
+            {
+                $match: {
+                    adoptionDate: { $gte: lastWeek } // Filter adoptions from the last 7 days
+                }
+            },
+            {
+                $group: {
+                    _id: { $dateToString: { format: "%Y-%m-%d", date: "$adoptionDate" } }, // Group by day
+                    count: { $sum: 1 } // Count the adoptions per day
+                }
+            },
+            { $sort: { _id: 1 } } // Sort by date ascending
+        ]);
+
+        res.json(adoptions);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching adoptions data over time' });
+    }
+});
+
+
+const getAdoptionsByAnimalType = async (req, res) => {
+    try {
+        const lastMonth = new Date();
+        lastMonth.setMonth(lastMonth.getMonth() - 1);
+
+        // מבצע join בין טבלת האימוצים לטבלת החיות
+        const adoptions = await Adoption.aggregate([
+            { $match: { adoptionDate: { $gte: lastMonth } } }, // אימוצים מהחודש האחרון
+            {
+                $lookup: {
+                    from: 'pets', // שם האוסף של החיות ב-DB
+                    localField: 'petId', // השדה ב-אימוצים שמקושר למזהה החיה
+                    foreignField: '_id', // השדה ב-חיות
+                    as: 'pet' // שם לשדה המחובר
+                }
+            },
+            { $unwind: '$pet' }, // פותח את המערך שנוצר מה-lookup
+            { 
+                $group: { 
+                    _id: "$pet.animalType", // קיבוץ לפי סוג החיה
+                    count: { $sum: 1 } // סופרים כמה חיות מאותו סוג אומצו
+                }
+            }
+        ]);
+
+        res.json(adoptions);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching adoptions by animal type' });
     }
 };
 
 
 
-module.exports = { createAdoption };
+
+module.exports = { 
+    createAdoption,
+    getAdoptionsOverTime,
+    getAdoptionsByAnimalType
+};

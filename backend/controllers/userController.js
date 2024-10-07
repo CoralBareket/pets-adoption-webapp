@@ -1,49 +1,48 @@
 const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
 const generateToken = require('../utils/generateToken');
-const Adoption = require('../models/adoptionModel');
-const { getPetByIdInternal } = require('./petController');
+
 
 // Function to create a new user if they don't already exist based on ID number
 const createUserIfNotExists = async (idNumber, fullName, phoneNumber, email, address) => {
-    try {
-        let user = await User.findOne({ idNumber });
+  try {
+    let user = await User.findOne({ idNumber });
 
-        if (user) {
-            // If the user exists, update the details
-            console.log('User already exists, updating details...');
-            user.fullName = fullName || user.fullName;
-            user.phoneNumber = phoneNumber || user.phoneNumber;
-            user.email = email || user.email;
-            user.address = address || user.address;
+    if (user) {
+      // If the user exists, update the details
+      console.log('User already exists, updating details...');
+      user.fullName = fullName || user.fullName;
+      user.phoneNumber = phoneNumber || user.phoneNumber;
+      user.email = email || user.email;
+      user.address = address || user.address;
 
-            // Save updated user details
-            await user.save();
-            console.log('User details updated successfully:', user);
-        } else {
-            // If the user does not exist, create a new one
-            console.log('Creating a new user...');
-            user = new User({
-                idNumber,
-                fullName,
-                phoneNumber,
-                email,
-                address
-            });
+      // Save updated user details
+      await user.save();
+      console.log('User details updated successfully:', user);
+    } else {
+      // If the user does not exist, create a new one
+      console.log('Creating a new user...');
+      user = new User({
+        idNumber,
+        fullName,
+        phoneNumber,
+        email,
+        address
+      });
 
-            // Save the new user
-            await user.save();
-            console.log('User created successfully:', user);
-        }
-
-        return user;
-    } catch (error) {
-        console.error('Error in createUserIfNotExists function:', error);
-        throw new Error('Failed to create or update user');
+      // Save the new user
+      await user.save();
+      console.log('User created successfully:', user);
     }
+
+    return user;
+  } catch (error) {
+    console.error('Error in createUserIfNotExists function:', error);
+    throw new Error('Failed to create or update user');
+  }
 };
 
-
+// @access  Public
 const registerUser = asyncHandler(async (req, res) => {
     const { idNumber, fullName, phoneNumber, email, address } = req.body;
 
@@ -78,7 +77,7 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 });
 
-
+// @access  Public
 const loginUser = asyncHandler(async (req, res) => {
     const { idNumber, phoneNumber } = req.body;
 
@@ -88,7 +87,7 @@ const loginUser = asyncHandler(async (req, res) => {
         res.json({
             _id: user._id,
             idNumber: user.idNumber,
-            fullName: user.fullName,
+            fullName: user.fullName, // Ensure full name is sent
             phoneNumber: user.phoneNumber,
             email: user.email,
             admin: user.admin,
@@ -100,55 +99,42 @@ const loginUser = asyncHandler(async (req, res) => {
     }
 });
 
-
+// @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id).populate('adoptionHistory.pet');
 
-    if (!user) {
+    if (user) {
+        res.json({
+            _id: user._id,
+            idNumber: user.idNumber,
+            phoneNumber: user.phoneNumber,
+            email: user.email,
+            adoptionHistory: user.adoptionHistory, // Including adoption history
+        });
+    } else {
         res.status(404);
         throw new Error('User not found');
     }
-
-    const adoptions = await Adoption.find({ idNumber: user.idNumber });
-
-    
-    const adoptionHistory = await Promise.all(
-        adoptions.map(async (adoption) => {
-            const pet = await getPetByIdInternal(adoption.petId);  
-            return {
-                ...adoption.toObject(),  
-                pet: {
-                    name: pet.name,
-                    imageUrl: pet.imageUrl,  
-                    gender: pet.gender,      
-                    breed: pet.breed         
-                }
-            };
-        })
-    );
-
-    res.json({
-        _id: user._id,
-        idNumber: user.idNumber,
-        fullName: user.fullName,
-        phoneNumber: user.phoneNumber,
-        email: user.email,
-        adoptionHistory: adoptionHistory, 
-    });
 });
 
 
+// @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
 
     if (user) {
+        user.idNumber = req.body.idNumber || user.idNumber;
         user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
         user.email = req.body.email || user.email;
+        if (req.body.password) {
+            user.password = req.body.password;
+        }
 
         const updatedUser = await user.save();
 
         res.json({
             _id: updatedUser._id,
+            idNumber: updatedUser.idNumber,
             phoneNumber: updatedUser.phoneNumber,
             email: updatedUser.email,
             token: generateToken(updatedUser._id),
@@ -159,10 +145,11 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     }
 });
 
+
 module.exports = {
     registerUser,
     loginUser,
     getUserProfile,
     updateUserProfile,
-    createUserIfNotExists
+    createUserIfNotExists,
 };

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../../src/assets/styles/HPHeader.css';
@@ -41,6 +42,10 @@ const HPHeader = ({ onLogin, onLogout }) => {
         navigate('/profile');
     };
 
+    const handleDashboard = () => {
+        navigate('/admin-dashboard');
+    };
+
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
         setOpenDropdown(null);
@@ -61,12 +66,22 @@ const HPHeader = ({ onLogin, onLogout }) => {
         }
     };
 
+    // Debugging: log the loggedInUser object to verify isAdmin field
+    useEffect(() => {
+        console.log("Logged in user:", loggedInUser);
+    }, [loggedInUser]);
+
     return (
         <>
             {loggedInUser && (
                 <div className="top-bar">
                     <div className="user-menu">
                         <button className="logout-button" onClick={handleLogout}>התנתקות</button>
+                        {loggedInUser.isAdmin && (
+                            <button className="dashboard-button" onClick={handleDashboard}>
+                                דשבורד מנהל
+                            </button>
+                        )}
                         <button className="personal-area-button" onClick={handlePersonalArea}>אזור אישי</button>
                         <span className="greeting">שלום, {loggedInUser.fullName}</span>
                     </div>

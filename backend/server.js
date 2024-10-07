@@ -20,7 +20,7 @@ app.use(cors());
 // Routes
 app.use('/api/pets', petRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/adoptions', adoptionRoutes); // הוסף את זה
+app.use('/api/adoptions', adoptionRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

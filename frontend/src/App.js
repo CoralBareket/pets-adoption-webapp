@@ -7,6 +7,7 @@ import QuizResultsPage from './pages/QuizResultsPage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import UserProfile from './pages/UserProfile';
 import SosPage from './pages/SosPage';
+import AdminDashboard from './pages/AdminDashboard'; 
 
 
 function App() {
@@ -27,7 +28,6 @@ function App() {
     };
 
     useEffect(() => {
-        // Can add any additional side effects here if needed
     }, [loggedInUser]);
 
     return (
@@ -41,6 +41,7 @@ function App() {
                 <Route path="/profile" element={<UserProfile />} />
                 <Route path="/lost-pets" element={<SosPage />} />
                 <Route path="*"  element={<HomePage onLogin={handleLogin} onLogout={handleLogout} />} />
+                <Route path="/admin-dashboard" element={<AdminDashboard />} />
             </Routes>
         </Router>
     );

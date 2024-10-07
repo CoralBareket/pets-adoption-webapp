@@ -33,6 +33,21 @@
     text-decoration: underline;
 }
 
+.personal-area-button,
+.dashboard-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.personal-area-button:hover,
+.dashboard-button:hover {
+    text-decoration: underline;
+}
+
 /* Navbar styles */
 .navbar {
     display: flex;

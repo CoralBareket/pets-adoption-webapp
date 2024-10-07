@@ -14,7 +14,8 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
 
         // אם השדות מכילים "admin", התחברות מנהל
         if (idNumber === 'admin' && phoneNumber === 'admin') {
-            onLogin({ fullName: 'מנהל', admin: true });
+            const adminUser = { fullName: 'מנהל', isAdmin: true };
+            localStorage.setItem('loggedInUser', JSON.stringify(adminUser));
             onClose();
             return;
         }
@@ -23,6 +24,7 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
         try {
             const response = await axios.post('/api/users/login', { idNumber, phoneNumber });
             if (response.data && response.data.fullName) {
+                localStorage.setItem('loggedInUser', JSON.stringify(response.data));
                 onLogin(response.data);
                 onClose();
             } else {
