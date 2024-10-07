@@ -7,7 +7,7 @@ import QuizResultsPage from './pages/QuizResultsPage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import UserProfile from './pages/UserProfile';
 import SosPage from './pages/SosPage';
-import AdminDashboard from './pages/Admin-Dashboard'; 
+import AdminDashboard from './pages/AdminDashboard';
 
 
 function App() {
