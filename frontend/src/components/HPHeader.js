@@ -12,7 +12,19 @@ const HPHeader = ({ onLogin, onLogout }) => {
         const savedUser = localStorage.getItem('loggedInUser');
         return savedUser ? JSON.parse(savedUser) : null;
     });
+    const [openDropdown, setOpenDropdown] = useState(null);
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsSmallScreen(window.innerWidth <= 1024);
+        };
+
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const handleLogin = (user) => {
         setLoggedInUser(user);
@@ -29,14 +41,24 @@ const HPHeader = ({ onLogin, onLogout }) => {
         navigate('/profile');
     };
 
-    useEffect(() => {
-        if (loggedInUser) {
-            localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
-        }
-    }, [loggedInUser]);
-
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+        setOpenDropdown(null);
+    };
+
+    const toggleDropdown = (dropdownName) => {
+        if (isSmallScreen) {
+            setOpenDropdown(prevDropdown =>
+                prevDropdown === dropdownName ? null : dropdownName
+            );
+        }
+    };
+
+    const handleMenuItemClick = () => {
+        if (isSmallScreen) {
+            setIsMenuOpen(false);
+            setOpenDropdown(null);
+        }
     };
 
     return (
@@ -52,9 +74,6 @@ const HPHeader = ({ onLogin, onLogout }) => {
             )}
             <nav className="navbar">
                 <div className="navbar-left">
-                    <div className="hamburger-menu" onClick={toggleMenu}>
-                        ☰
-                    </div>
                     <div className="header-logo">
                         <img
                             src={logo}
@@ -78,19 +97,34 @@ const HPHeader = ({ onLogin, onLogout }) => {
                             </button>
                         </div>
                     )}
+                    <div className={`hamburger-menu ${isMenuOpen ? 'open' : ''}`} onClick={toggleMenu}>
+                        {isMenuOpen ? 'X' : '☰'}
+                    </div>
                 </div>
                 <ul className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
-                    <li>
-                        <Link to="/about">אודות</Link>
+                    <li className={`dropdown ${openDropdown === 'about' ? 'open' : ''}`}>
+                        <span onClick={() => toggleDropdown('about')}>אודות</span>
+                        <div className="dropdown-content">
+                            <Link to="/about/who-we-are" onClick={handleMenuItemClick}>מי אנחנו</Link>
+                            <Link to="/about/contact" onClick={handleMenuItemClick}>צור קשר</Link>
+                            <Link to="/about/testimonials" onClick={handleMenuItemClick}>תודות</Link>
+                            <Link to="/about/regulations" onClick={handleMenuItemClick}>תקנון</Link>
+                            <Link to="/about/news" onClick={handleMenuItemClick}>חדשות</Link>
+                            <Link to="/about/privacy-policy" onClick={handleMenuItemClick}>מדיניות פרטיות</Link>
+                        </div>
                     </li>
                     <li className="pulse-animation">
-                        <Link to="/matching-quiz">שאלון התאמה</Link>
+                        <Link to="/matching-quiz" onClick={handleMenuItemClick}>שאלון התאמה</Link>
+                    </li>
+                    <li className={`dropdown ${openDropdown === 'collaborations' ? 'open' : ''}`}>
+                        <span onClick={() => toggleDropdown('collaborations')}>שיתופי פעולה</span>
+                        <div className="dropdown-content">
+                            <Link to="/collaborations/organizations" onClick={handleMenuItemClick}>עמותות וכלביות רשות</Link>
+                            <Link to="/collaborations/donations" onClick={handleMenuItemClick}>התנדבות</Link>
+                        </div>
                     </li>
                     <li>
-                        <Link to="/collaborations">שיתופי פעולה</Link>
-                    </li>
-                    <li>
-                        <Link to="/lost-pets">
+                        <Link to="/lost-pets" onClick={handleMenuItemClick}>
                             לוח בעלי חיים אבודים
                             <span className="SOS"> SOS </span>
                         </Link>
