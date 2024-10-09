@@ -4,7 +4,6 @@ const {
     getPets,
     getPetById,
     createPet,
-    updatePet,
     deletePet,
     matchPet,
     searchPets 
