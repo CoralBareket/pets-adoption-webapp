@@ -26,23 +26,28 @@ const FeaturedPets = () => {
     if (loading) return <p>Loading pets...</p>;
     if (error) return <p>{error}</p>;
 
-    const renderPetCard = (pet, uniqueKey) => (
-        <div className="pet-card" key={uniqueKey}>
-            <img
-                src={pet.imageUrl || 'https://via.placeholder.com/150'}
-                alt={pet.name}
-            />
-            <div className="pet-card-content">
-                <div>
-                    <h3>{pet.name}</h3>
-                    <span className="pet-status">{pet.status}</span>
-                    <p className="pet-info">{`${pet.gender} | ${pet.breed} | ${pet.age}`}</p>
-                    <p className="pet-description">{pet.description}</p>
+    const renderPetCard = (pet, uniqueKey) => {
+        // קביעת className דינמית עבור סטטוס
+        const statusClass = pet.status === 'אומץ' ? 'status-adopted' : 'status-new';
+
+        return (
+            <div className="pet-card" key={uniqueKey}>
+                <img
+                    src={pet.imageUrl || 'https://via.placeholder.com/150'}
+                    alt={pet.name}
+                />
+                <div className="pet-card-content">
+                    <div>
+                        <h3>{pet.name}</h3>
+                        {/* הוספת className דינמי לסטטוס */}
+                        <span className={`pet-status ${statusClass}`}>{pet.status}</span>
+                        <p className="pet-info">{`${pet.gender} | ${pet.breed} | ${pet.age}`}</p>
+                        <p className="pet-description">{pet.description}</p>
+                    </div>
                 </div>
-                <button>לפרטים</button>
             </div>
-        </div>
-    );
+        );
+    };
 
     const renderPetCards = () => {
         const allCards = [];
@@ -57,7 +62,6 @@ const FeaturedPets = () => {
             <h2>בעלי חיים לאימוץ</h2>
             <div className="pets-scroll-container">
                 <div className="pets-grid">
-                    {renderPetCards()}
                     {renderPetCards()}
                 </div>
             </div>

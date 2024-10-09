@@ -19,18 +19,30 @@ router.post('/', async (req, res) => {
 
     console.log('User found or created:', user);
 
-    // יצירת ושמירת האימוץ עם מזהה היוזר
-    const adoption = await createAdoption({ userId: user._id, ...req.body }); 
+    // יצירת ושמירת האימוץ עם מזהה היוזר ו-idNumber
+    const adoption = await createAdoption({
+      idNumber: user.idNumber, // שימוש ב-idNumber מהמשתמש
+      userId: user._id, 
+      ...req.body
+    }); 
 
     console.log('Adoption saved successfully:', adoption);
     
     res.status(201).json({ message: 'אימוץ נשמר בהצלחה!', adoption });
   } catch (error) {
     console.error('Error processing adoption request:', error);
+
+    if (error.message.includes('Email already exists')) {
+      return res.status(400).json({ message: 'המייל כבר קיים במערכת.' });
+    }
+
+    if (error.message.includes('Phone number already exists')) {
+      return res.status(400).json({ message: 'מספר הטלפון כבר קיים במערכת.' });
+    }
+
     res.status(500).json({ message: 'שגיאה בשרת' });
   }
 });
-
 
 //אימוצים לאורך זמן 
 router.get('/overtime', getAdoptionsOverTime);

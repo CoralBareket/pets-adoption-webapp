@@ -9,7 +9,7 @@ const createAdoption = async (adoptionData) => {
     const { idNumber, fullName, phoneNumber, email, address, petId, cardNumber, cardExpiry, cardCVV, cardHolderID, adoptionPackage, accessories } = adoptionData;
 
     try {
-        // יצירת יוזר אם לא קיים
+        // יצירת יוזר אם לא קיים, או עדכון אם קיים
         console.log('1. Trying to find or create a user with ID number:', idNumber);
         const user = await createUserIfNotExists(idNumber, fullName, phoneNumber, email, address);
         
@@ -30,9 +30,10 @@ const createAdoption = async (adoptionData) => {
 
         console.log('6. Pet found:', pet);
 
-        // יצירת האימוץ
+        // יצירת האימוץ וקישורו ליוזר
         const adoption = new Adoption({
-            idNumber,  
+            idNumber,  // ודא שאנחנו מעבירים את תעודת הזהות
+            userId: user._id,  // קישור האימוץ ליוזר הקיים או החדש
             petId,     
             address,  
             cardNumber,
@@ -58,30 +59,29 @@ const createAdoption = async (adoptionData) => {
         return adoption;
 
     } catch (error) {
-        if (error.code === 11000) { // בדיקת שגיאת כפילות (duplicate key error)
+        if (error.code === 11000) { 
             console.error('Duplicate key error:', error);
             throw new Error('Email already exists in the system.');
         }
         console.error('Error in createAdoption function:', error);
         throw new Error(error.message);
     }
-}; 
+};
 
 
 const getAdoptionsOverTime = asyncHandler(async (req, res) => {
     try {
-        // Get the current date
+        
         const today = new Date();
         
-        // Get the date from 7 days ago
         const lastWeek = new Date();
         lastWeek.setDate(today.getDate() - 7);
 
-        // Query adoptions made within the last 7 days based on adoptionDate
+        // Query adoptions made within the last 7 days 
         const adoptions = await Adoption.aggregate([
             {
                 $match: {
-                    adoptionDate: { $gte: lastWeek } // Filter adoptions from the last 7 days
+                    adoptionDate: { $gte: lastWeek } 
                 }
             },
             {
@@ -105,22 +105,22 @@ const getAdoptionsByAnimalType = async (req, res) => {
         const lastMonth = new Date();
         lastMonth.setMonth(lastMonth.getMonth() - 1);
 
-        // מבצע join בין טבלת האימוצים לטבלת החיות
+        //  join בין טבלת האימוצים לטבלת החיות
         const adoptions = await Adoption.aggregate([
             { $match: { adoptionDate: { $gte: lastMonth } } }, // אימוצים מהחודש האחרון
             {
                 $lookup: {
-                    from: 'pets', // שם האוסף של החיות ב-DB
-                    localField: 'petId', // השדה ב-אימוצים שמקושר למזהה החיה
-                    foreignField: '_id', // השדה ב-חיות
-                    as: 'pet' // שם לשדה המחובר
+                    from: 'pets', 
+                    localField: 'petId', 
+                    foreignField: '_id', 
+                    as: 'pet' 
                 }
             },
-            { $unwind: '$pet' }, // פותח את המערך שנוצר מה-lookup
+            { $unwind: '$pet' }, 
             { 
                 $group: { 
-                    _id: "$pet.animalType", // קיבוץ לפי סוג החיה
-                    count: { $sum: 1 } // סופרים כמה חיות מאותו סוג אומצו
+                    _id: "$pet.animalType", 
+                    count: { $sum: 1 } 
                 }
             }
         ]);
@@ -130,7 +130,6 @@ const getAdoptionsByAnimalType = async (req, res) => {
         res.status(500).json({ message: 'Error fetching adoptions by animal type' });
     }
 };
-
 
 
 

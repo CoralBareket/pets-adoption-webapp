@@ -17,6 +17,8 @@ const AdoptionForm = ({ pet, onClose }) => {
     petId: pet._id 
   });
 
+  const [errors, setErrors] = useState({}); // ניהול שגיאות ב-UI
+
   useEffect(() => {
     document.body.classList.add('adoption-form-open');
     return () => {
@@ -40,6 +42,7 @@ const AdoptionForm = ({ pet, onClose }) => {
       ...prevData,
       [name]: type === 'checkbox' ? checked : value
     }));
+    setErrors({ ...errors, [name]: '' }); // איפוס הודעות שגיאה בעת שינוי קלט
   };
 
   const handleAccessoryChange = (e) => {
@@ -84,14 +87,21 @@ const AdoptionForm = ({ pet, onClose }) => {
         onClose();
       } else {
         const errorData = await response.json();
-        console.error('Server error:', errorData); 
-        alert(`שגיאה בשליחת הטופס: ${errorData.message}`);
+        
+        // בדיקה האם השגיאה קשורה למייל או לטלפון כפולים
+        if (errorData.message.includes('Email already exists')) {
+          setErrors({ ...errors, email: 'מייל זה כבר קיים במערכת.' });
+        } else if (errorData.message.includes('Phone number already exists')) {
+          setErrors({ ...errors, phoneNumber: 'מספר הטלפון הזה כבר קיים במערכת.' });
+        } else {
+          alert(`שגיאה בשליחת הטופס: ${errorData.message}`);
+        }
       }
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('שגיאה בשרת: ' + error.message);
     }
-};
+  };
 
   return (
     <div className="adoption-form-overlay">
@@ -116,6 +126,8 @@ const AdoptionForm = ({ pet, onClose }) => {
               placeholder="אימייל"
               required
             />
+            {errors.email && <p className="error-message">{errors.email}</p>} {/* הודעת שגיאה על מייל */}
+            
             <input
               type="tel"
               name="phoneNumber"
@@ -126,6 +138,8 @@ const AdoptionForm = ({ pet, onClose }) => {
               title="הטלפון חייב לכלול 10 ספרות"
               required
             />
+            {errors.phoneNumber && <p className="error-message">{errors.phoneNumber}</p>} {/* הודעת שגיאה על טלפון */}
+            
             <input
               type="text"
               name="address"
@@ -140,7 +154,7 @@ const AdoptionForm = ({ pet, onClose }) => {
               value={formData.idNumber}
               onChange={handleChange}
               placeholder="תעודת זהות"
-              pattern="^[0-9]{1,9}$" // הולידציה עבור עד 9 ספרות
+              pattern="^[0-9]{1,9}$" // ולידציה עבור עד 9 ספרות
               title="תעודת הזהות חייבת להיות עד 9 ספרות (מספרים בלבד)" 
               required
             />

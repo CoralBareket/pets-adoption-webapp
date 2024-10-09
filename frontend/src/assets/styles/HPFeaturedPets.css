@@ -84,7 +84,6 @@
 }
 
 .pet-status {
-    background-color: #7bd8de;
     color: white;
     padding: 3px 8px;
     border-radius: 12px;
@@ -92,6 +91,15 @@
     display: inline-block;
     margin-bottom: 10px;
 }
+
+.status-new {
+    background-color: #7bd8de;
+}
+
+.status-adopted {
+    background-color: #6dc087;
+}
+
 
 .pet-info {
     font-size: 14px;

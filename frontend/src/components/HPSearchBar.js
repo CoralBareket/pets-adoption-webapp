@@ -40,7 +40,6 @@ const SearchBar = () => {
             navigate('/search-results', { state: { searchResults } });
         } catch (error) {
             console.error('Error during search:', error);
-            // Handle error (e.g., show an error message to the user)
         }
     };
 
@@ -52,17 +51,17 @@ const SearchBar = () => {
                     <div className="form-group">
                         <label htmlFor="animalType">אני רוצה לאמץ</label>
                         <select id="animalType" value={animalType} onChange={handleAnimalTypeChange}>
-                            <option value="" disabled hidden>כלב</option>
-                            <option value="dog">כלב</option>
-                            <option value="cat">חתול</option>
-                            <option value="other">אחר</option>
+                            <option value="" disabled hidden>הכל</option>
+                            <option value="כלב">כלב</option>
+                            <option value="חתול">חתול</option>
+                            <option value="אחר">אחר</option>
                         </select>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="location">באזור</label>
                         <select id="location" value={location} onChange={handleLocationChange}>
-                            <option value="" disabled hidden>בחר אזור</option>
+                            <option value="" disabled hidden>הכל</option>
                             <option value="צפון">צפון</option>
                             <option value="מרכז">מרכז</option>
                             <option value="דרום">דרום</option>
@@ -72,7 +71,7 @@ const SearchBar = () => {
                     <div className="form-group">
                         <label htmlFor="age">בגיל</label>
                         <select id="age" value={age} onChange={handleAgeChange}>
-                            <option value="" disabled hidden>בחר גיל</option>
+                            <option value="" disabled hidden>הכל</option>
                             <option value="young">צעיר</option>
                             <option value="adult">בוגר</option>
                             <option value="senior">מבוגר</option>

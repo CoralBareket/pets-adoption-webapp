@@ -102,7 +102,7 @@ const matchPet = async (req, res) => {
 
     // Filter based on hours away from home
     if (hoursAway === '10 hours at least') {
-        query.animalType = { $in: ['cat'] }; // Cats are suitable for long hours away
+        query.animalType = { $in: ['חתול'] }; // Cats are suitable for long hours away
     }
 
     // Filter based on activity level
@@ -113,7 +113,7 @@ const matchPet = async (req, res) => {
     } else {
         query.$or = [
             { size: 'קטן' }, // Small pets
-            { animalType: 'cat' },
+            { animalType: 'חתול' },
             { age: { $gte: 7 } } // Older pets (7 years or more)
         ];
     }
@@ -138,12 +138,12 @@ const searchPets = async (req, res) => {
 
         // Add animalType to match stage if provided
         if (animalType) {
-            matchStage.animalType = { $regex: new RegExp(`^${animalType}$`, 'i') };
+            matchStage.animalType = animalType;
         }
 
         // Add location to match stage if provided
         if (location) {
-            matchStage.location = { $regex: new RegExp(location, 'i') };
+            matchStage.location = location;
         }
 
         // Handle age groups with the updated definition

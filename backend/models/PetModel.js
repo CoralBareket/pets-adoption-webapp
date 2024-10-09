@@ -16,7 +16,7 @@ const petSchema = new mongoose.Schema({
     },
     animalType: {
         type: String,
-        enum: ['dog', 'cat', 'other'],
+        enum: ['כלב', 'חתול', 'אחר'],
     },
     breed: {
         type: String,
@@ -57,11 +57,11 @@ const petSchema = new mongoose.Schema({
     },
     size: {
         type: String,
-        enum: ['small', 'medium', 'large']
+        enum: ['קטן', 'בינוני', 'גדול']
     },
     activity: {
         type: String,
-        enum: ['low', 'moderate', 'high']
+        enum: ['נמוכה', 'בינונית', 'גבוהה']
     }
 }, {
     timestamps: true 

@@ -41,7 +41,9 @@ const SearchResults = () => {
                                     <img src={group.pets[0].imageUrl || '/placeholder-image.jpg'} alt={group.breed} />
                                 </div>
                                 <div className="pet-info">
-                                    <h3>{group.breed} - {group.location} - {group.ageGroup}</h3>
+                                <h3>{group.breed}</h3>
+                                    <p>מיקום: {group.location}</p>
+                                    <p>קבוצת גיל: {group.ageGroup}</p>
                                     <p>מספר חיות מחמד: {group.count}</p>
                                     <ul className="pet-details">
                                         {group.pets

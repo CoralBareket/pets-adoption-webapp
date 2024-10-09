@@ -5,42 +5,83 @@ const generateToken = require('../utils/generateToken');
 
 // Function to create a new user if they don't already exist based on ID number
 const createUserIfNotExists = async (idNumber, fullName, phoneNumber, email, address) => {
-  try {
-    let user = await User.findOne({ idNumber });
-
-    if (user) {
-      // If the user exists, update the details
-      console.log('User already exists, updating details...');
-      user.fullName = fullName || user.fullName;
-      user.phoneNumber = phoneNumber || user.phoneNumber;
-      user.email = email || user.email;
-      user.address = address || user.address;
-
-      // Save updated user details
-      await user.save();
-      console.log('User details updated successfully:', user);
-    } else {
-      // If the user does not exist, create a new one
-      console.log('Creating a new user...');
-      user = new User({
-        idNumber,
-        fullName,
-        phoneNumber,
-        email,
-        address
-      });
-
-      // Save the new user
-      await user.save();
-      console.log('User created successfully:', user);
+    try {
+      console.log('Checking if user exists with ID number:', idNumber);
+      let user = await User.findOne({ idNumber });
+  
+      if (user) {
+        console.log('User already exists, updating details...');
+  
+        // בדיקת כפילות מייל אצל יוזרים אחרים (לא אצל היוזר הנוכחי)
+        if (email && email !== user.email) {
+          const emailExists = await User.findOne({ email, _id: { $ne: user._id } });
+          if (emailExists) {
+            const error = new Error('Email already exists');
+            error.statusCode = 400;
+            throw error;
+          }
+        }
+  
+        // בדיקת כפילות טלפון אצל יוזרים אחרים (לא אצל היוזר הנוכחי)
+        if (phoneNumber && phoneNumber !== user.phoneNumber) {
+          const phoneExists = await User.findOne({ phoneNumber, _id: { $ne: user._id } });
+          if (phoneExists) {
+            const error = new Error('Phone number already exists');
+            error.statusCode = 400;
+            throw error;
+          }
+        }
+  
+        // עדכון רק אם הערכים שונים מהערכים הקיימים
+        if (fullName !== user.fullName) {
+          user.fullName = fullName;
+        }
+        if (phoneNumber !== user.phoneNumber) {
+          user.phoneNumber = phoneNumber;
+        }
+        if (email !== user.email) {
+          user.email = email;
+        }
+        if (address !== user.address) {
+          user.address = address;
+        }
+  
+        await user.save();
+        console.log('User details updated successfully:', user);
+      } else {
+        console.log('User does not exist, creating new user...');
+        user = new User({
+          idNumber,
+          fullName,
+          phoneNumber,
+          email,
+          address
+        });
+  
+        await user.save();
+        console.log('New user created successfully:', user);
+      }
+  
+      return user;
+    } catch (error) {
+      if (error.code === 11000) {
+        if (error.keyPattern && error.keyPattern.email) {
+          const customError = new Error('Email already exists');
+          customError.statusCode = 400;
+          throw customError;
+        }
+        if (error.keyPattern && error.keyPattern.phoneNumber) {
+          const customError = new Error('Phone number already exists');
+          customError.statusCode = 400;
+          throw customError;
+        }
+      }
+  
+      console.error('Error in createUserIfNotExists function:', error);
+      throw error;
     }
-
-    return user;
-  } catch (error) {
-    console.error('Error in createUserIfNotExists function:', error);
-    throw new Error('Failed to create or update user');
-  }
-};
+  };
+  
 
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
@@ -87,7 +128,7 @@ const loginUser = asyncHandler(async (req, res) => {
         res.json({
             _id: user._id,
             idNumber: user.idNumber,
-            fullName: user.fullName, // Ensure full name is sent
+            fullName: user.fullName, 
             phoneNumber: user.phoneNumber,
             email: user.email,
             admin: user.admin,
