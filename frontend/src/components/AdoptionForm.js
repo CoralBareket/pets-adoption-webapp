@@ -161,8 +161,8 @@ const AdoptionForm = ({ pet, onClose }) => {
               value={formData.cardNumber}
               onChange={handleChange}
               placeholder="מספר כרטיס אשראי"
-              pattern="[0-9]{12}" // ולידציה עבור 12 ספרות בלבד
-              title="מספר כרטיס האשראי חייב לכלול 12 ספרות"
+              pattern="[0-9]{16}" // ולידציה עבור 16 ספרות בלבד
+              title="מספר כרטיס האשראי חייב לכלול 16 ספרות"
               required
             />
             <input
