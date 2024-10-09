@@ -6,11 +6,21 @@ import PetForm from '../components/PetForm';
 import '../../src/assets/styles/PetsPage.css';
 import logo2 from '../assets/images/logos/logo2.png';
 
-const PetsPage = ({ petsToShow, isAdmin }) => {
+const PetsPage = ({ petsToShow }) => {
     const [pets, setPets] = useState([]);
     const [selectedPet, setSelectedPet] = useState(null);
     const [showAddPetForm, setShowAddPetForm] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false); // ניהול ה-state של isAdmin
     const navigate = useNavigate();
+
+    // שליפת פרטי המשתמש מ-localStorage
+    useEffect(() => {
+        const savedUser = localStorage.getItem('loggedInUser');
+        if (savedUser) {
+            const user = JSON.parse(savedUser);
+            setIsAdmin(user.isAdmin || false); // קביעת ה-state של isAdmin
+        }
+    }, []); // הרצת useEffect פעם אחת בתחילת הטעינה
 
     useEffect(() => {
         if (petsToShow) {

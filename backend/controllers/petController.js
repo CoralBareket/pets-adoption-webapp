@@ -138,12 +138,12 @@ const searchPets = async (req, res) => {
 
         // Add animalType to match stage if provided
         if (animalType) {
-            matchStage.animalType = { $regex: new RegExp(`^${animalType}$`, 'i') };
+            matchStage.animalType = animalType;
         }
 
         // Add location to match stage if provided
         if (location) {
-            matchStage.location = { $regex: new RegExp(location, 'i') };
+            matchStage.location = location;
         }
 
         // Handle age groups with the updated definition
