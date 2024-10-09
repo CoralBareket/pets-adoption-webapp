@@ -96,7 +96,7 @@
 .delete-button {
     background-color: #ec7979;
     color: white;
-    padding: 12px 20px;
+    padding: 8px 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -213,7 +213,7 @@
     .adopt-button,
     .delete-button {
         font-size: 14px;
-        padding: 10px 16px;
+        padding: 12px 16px;
     }
 }
 
