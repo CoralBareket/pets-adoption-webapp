@@ -80,23 +80,20 @@ const PetsPage = ({ petsToShow }) => {
             <ul className="pets-list">
                 {pets.map(pet => (
                     <li key={pet._id} className="pet-item">
-                        <img src={pet.imageUrl} alt={pet.name} />
-                        <div className="pet-info">
-                            <h2>{pet.name}</h2>
-                            <p>גיל: {pet.age}</p>
-                            <p>גזע: {pet.breed}</p>
-                            <p>{pet.description}</p>
-                            <button className="adopt-button" onClick={() => handleAdoptClick(pet)}>אמץ אותי</button>
-                            {isAdmin && (
-                                <button 
-                                    className="delete-button" 
-                                    onClick={() => handleDeletePet(pet._id)}
-                                >
-                                מחק
-                                </button>
-                            )}
-                        </div>
-                    </li>
+                    <div className="pet-image">
+                        <img src={pet.imageUrl || '/placeholder-image.jpg'} alt={pet.name} />
+                        <button className="adopt-button" onClick={() => handleAdoptClick(pet)}>אמץ אותי</button>
+                    </div>
+                    <div className="pet-info">
+                        <h3>{pet.name}</h3>
+                        {pet.breed && <p><strong>גזע:</strong> {pet.breed}</p>}
+                        {pet.gender && <p><strong>מין:</strong> {pet.gender}</p>}
+                        {pet.description && <p><strong>תיאור:</strong> {pet.description}</p>}
+                        {pet.size && <p><strong>גודל:</strong> {pet.size}</p>}
+                        {pet.age && <p><strong>גיל:</strong> {pet.age} שנים</p>}
+                        {pet.activity && <p><strong>רמת פעילות:</strong> {pet.activity}</p>}
+                    </div>
+                </li>
                 ))}
             </ul>
             {selectedPet && <AdoptionForm pet={selectedPet} onClose={handleCloseForm} />}

@@ -28,7 +28,7 @@
 }
 
 .pets-page h1 {
-    font-size: 48px;
+    font-size: 42px;
     font-weight: bold;
     color: #333;
     margin-bottom: 20px;
@@ -42,7 +42,7 @@
 
 .pet-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 30px;
     border-bottom: 1px solid #ccc;
     padding-bottom: 20px;
@@ -64,33 +64,43 @@
 
 .pet-info {
     flex: 1;
+    font-family: 'Arial', sans-serif;
 }
 
 .pet-info h2 {
     margin: 0;
-    font-size: 24px;
+    font-size: 26px;
     color: #333;
     margin-bottom: 10px;
+    font-weight: bold;
+    border-bottom: 2px solid #7bd8de;
+    display: inline-block;
 }
 
 .pet-info p {
     margin: 5px 0;
-    font-size: 16px;
-    color: #666;
+    font-size: 18px;
+    color: #444;
+    line-height: 1.6;
 }
 
 .adopt-button {
     background-color: #7bd8de;
     color: white;
-    padding: 12px 20px;
+    padding: 8px 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     transition: background-color 0.3s ease;
-    margin-top: 15px;
-    display: inline-block;
+    margin-top: 5px;
+    width: 100%; /* הכפתור יתפוס את כל רוחב התמונה */
+    text-align: center;
+}
+
+.adopt-button:hover {
+    background-color: #5cc0c7;
 }
 
 .delete-button {
@@ -105,11 +115,7 @@
     transition: background-color 0.3s ease;
     margin-top: 15px;
     display: inline-block;
-    margin-right: 10px
-}
-
-.adopt-button:hover {
-    background-color: #5cc0c7;
+    margin-right: 10px;
 }
 
 .add-pet-button {
@@ -118,7 +124,7 @@
     left: 20px;
     width: 60px;
     height: 60px;
-    background-color: #5cc0c7; 
+    background-color: #5cc0c7;
     color: white;
     border: none;
     border-radius: 50%;
@@ -128,52 +134,12 @@
     align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    z-index: 1000; 
+    z-index: 1000;
     transition: background-color 0.3s ease;
 }
 
 .add-pet-button:hover {
-    background-color: #45a049; 
-}
-
-.no-pets {
-    font-size: 20px;
-    color: #ff4444;
-    text-align: center;
-    margin-top: 30px;
-}
-
-.view-all-link {
-    display: block;
-    text-align: center;
-    margin-top: 30px;
-    font-size: 18px;
-    color: #7bd8de;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.view-all-link:hover {
-    color: #5cc0c7;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.pet-item {
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: right;
-    margin-left: 10%;
-    direction: rtl;
-    width: 90%;
-    background-color: white;
+    background-color: #45a049;
 }
 
 /* Responsive design */
@@ -181,7 +147,7 @@
     .pets-header {
         flex-direction: column;
         align-items: center;
-        padding-top: 90px; /* Make room for the logo */
+        padding-top: 90px;
     }
 
     .logo-container {
@@ -219,11 +185,11 @@
 
 @media screen and (max-width: 480px) {
     .pets-header {
-        padding-top: 80px; /* Adjust for smaller logo size */
+        padding-top: 80px;
     }
 
     .logo-small {
-        width: 60px; /* Slightly smaller logo for very small screens */
+        width: 60px;
     }
 
     .pets-page h1 {

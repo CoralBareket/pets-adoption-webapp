@@ -36,33 +36,25 @@ const SearchResults = () => {
                     <p className="results-count">מצאנו {searchResults.length} תוצאות שמתאימות לחיפוש שלך!</p>
                     <ul className="results-list">
                         {searchResults.map((group, index) => (
-                            <li key={index} className="pet-item">
-                                <div className="pet-image">
-                                    <img src={group.pets[0].imageUrl || '/placeholder-image.jpg'} alt={group.breed} />
-                                </div>
-                                <div className="pet-info">
-                                <h3>{group.breed}</h3>
-                                    <p>מיקום: {group.location}</p>
-                                    <p>קבוצת גיל: {group.ageGroup}</p>
-                                    <p>מספר חיות מחמד: {group.count}</p>
-                                    <ul className="pet-details">
-                                        {group.pets
-                                            .filter(pet => pet.status === 'חדש באתר') 
-                                            .map(pet => (
-                                                <li key={pet._id}>
-                                                    <span className="pet-name">
-                                                        <Link to={`/pet/${pet._id}`}>{pet.name}</Link>
-                                                    </span>
-                                                    <span className="pet-age">גיל: {pet.age}</span>
-                                                    <button className="adopt-button" onClick={() => handleAdoptClick(pet)}>אמץ אותי</button>
-                                                </li>
-                                            ))}
-                                    </ul>
-                                </div>
-                            </li>
+                            group.pets.map((pet) => (
+                                <li key={pet._id} className="pet-item">
+                                    <div className="pet-image">
+                                        <img src={pet.imageUrl || '/placeholder-image.jpg'} alt={pet.name} />
+                                        <button className="adopt-button" onClick={() => handleAdoptClick(pet)}>אמץ אותי</button>
+                                    </div>
+                                    <div className="pet-info">
+                                        <h3>{pet.name}</h3>
+                                        {pet.breed && <p><strong>גזע:</strong> {pet.breed}</p>}
+                                        {pet.gender && <p><strong>מין:</strong> {pet.gender}</p>}
+                                        {pet.description && <p><strong>תיאור:</strong> {pet.description}</p>}
+                                        {pet.size && <p><strong>גודל:</strong> {pet.size}</p>}
+                                        {pet.age && <p><strong>גיל:</strong> {pet.age} שנים</p>}
+                                        {pet.activity && <p><strong>רמת פעילות:</strong> {pet.activity}</p>}
+                                    </div>
+                                </li>
+                            ))
                         ))}
                     </ul>
-                    <Link to="/pets" className="view-all-link">צפה בכל החיות לאימוץ</Link>
                 </>
             ) : (
                 <div className="no-results">

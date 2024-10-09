@@ -198,13 +198,17 @@ const searchPets = async (req, res) => {
             }
         ]);
 
-        // Send the response
-        res.json(results);
+        // Calculate the total number of pets
+        const totalPets = results.reduce((acc, group) => acc + group.count, 0);
+
+        // Send the response with total pets count and the grouped results
+        res.json({ totalPets, groups: results });
     } catch (error) {
         console.error('Error in searchPets:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
-};  
+};
+ 
 
 module.exports = {
     getPets,
