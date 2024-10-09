@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../../src/assets/styles/LoginModal.css';
 import { useGoogleLogin } from '@react-oauth/google'; 
 import { FaGoogle } from 'react-icons/fa'; 
+import LoginWithGoogle from '../components/LoginWithGoogle';
 
 const LoginModal = ({ isOpen, onClose, onLogin }) => {
     const [idNumber, setIdNumber] = useState('');
