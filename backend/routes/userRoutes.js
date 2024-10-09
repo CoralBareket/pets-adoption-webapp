@@ -4,7 +4,6 @@ const {
     loginUser,
     getUserProfile,
     updateUserProfile,
-    getUsersOverTime 
 } = require('../controllers/userController');
 const { protect } = require('../middleware/authMiddleware');
 

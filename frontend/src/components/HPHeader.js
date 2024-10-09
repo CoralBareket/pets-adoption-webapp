@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../../src/assets/styles/HPHeader.css';
@@ -40,21 +39,17 @@ const HPHeader = ({ onLogin, onLogout }) => {
 
     const handlePersonalArea = () => {
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-    
+
         if (loggedInUser) {
             if (loggedInUser.isAdmin) {
                 console.log("Navigating to admin dashboard");
-                navigate('/admin-dashboard'); // ניווט לדשבורד אדמין
+                navigate('/admin-dashboard');
             } else {
                 console.log("Navigating to user profile");
-                navigate('/profile'); // ניווט לפרופיל משתמש רגיל
+                navigate('/profile');
             }
-        } else {
-            console.log("No logged in user found, redirecting to login");
-            navigate('/login'); // ניווט לדף התחברות אם אין משתמש מחובר
         }
     };
-    
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);

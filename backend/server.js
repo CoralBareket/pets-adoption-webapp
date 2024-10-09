@@ -4,7 +4,7 @@ const cors = require('cors');
 const connectDB = require('./config/db');
 const petRoutes = require('./routes/petRoutes');
 const userRoutes = require('./routes/userRoutes');
-const adoptionRoutes = require('./routes/adoptionRoutes'); // וודא שזה מיובא
+const adoptionRoutes = require('./routes/adoptionRoutes');
 
 dotenv.config();
 

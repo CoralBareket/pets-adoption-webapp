@@ -6,7 +6,6 @@ import PetsPage from './pages/PetsPage';
 import MatchingQuiz from './pages/MatchingQuiz';
 import QuizResultsPage from './pages/QuizResultsPage';
 import SearchResultsPage from './pages/SearchResultsPage';
-import AdminProfile from './pages/AdminProfile';
 import UserProfile from './pages/UserProfile';
 import AdminDashboard from './pages/AdminDashboard';
 import SosPage from './pages/SosPage';
@@ -42,7 +41,6 @@ function App() {
                 <Route path="/results" element={<QuizResultsPage />} />
                 <Route path="/search-results" element={<SearchResultsPage />} />
                 <Route path="/profile" element={<UserProfile />} />
-                <Route path="/admin-profile" element={<AdminProfile />} />
                 <Route path="/lost-pets" element={<SosPage />} />
                 <Route path="*"  element={<HomePage onLogin={handleLogin} onLogout={handleLogout} />} />
                 <Route path="/admin-dashboard" element={<AdminDashboard />} />
