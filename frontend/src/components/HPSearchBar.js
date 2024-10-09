@@ -40,7 +40,6 @@ const SearchBar = () => {
             navigate('/search-results', { state: { searchResults } });
         } catch (error) {
             console.error('Error during search:', error);
-            // Handle error (e.g., show an error message to the user)
         }
     };
 
@@ -53,9 +52,9 @@ const SearchBar = () => {
                         <label htmlFor="animalType">אני רוצה לאמץ</label>
                         <select id="animalType" value={animalType} onChange={handleAnimalTypeChange}>
                             <option value="" disabled hidden>הכל</option>
-                            <option value="dog">כלב</option>
-                            <option value="cat">חתול</option>
-                            <option value="other">אחר</option>
+                            <option value="כלב">כלב</option>
+                            <option value="חתול">חתול</option>
+                            <option value="אחר">אחר</option>
                         </select>
                     </div>
 

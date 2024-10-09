@@ -18,9 +18,9 @@ const PetForm = ({ onClose }) => {
 
   // רשימת הגזעים מסונן לפי סוג חיה
   const breeds = {
-    dog: ['מעורב', 'שועלי', 'פינצר', 'האסקי סיבירי', 'טרייר', 'ביגל', 'לברדור', 'רועה גרמני', 'שיצו'],
-    cat: ['חתול פרסי', 'חתול חבשי', 'חתול סיאמי'],  // הוספתי את הגזעים החדשים
-    other: ['אחר']
+    כלב: ['מעורב', 'שועלי', 'פינצר', 'האסקי סיבירי', 'טרייר', 'ביגל', 'לברדור', 'רועה גרמני', 'שיצו'],
+    חתול: ['חתול פרסי', 'חתול חבשי', 'חתול סיאמי'], 
+    אחר: ['אחר']
   };
 
   const filteredBreeds = formData.animalType ? breeds[formData.animalType] : [];
@@ -117,9 +117,9 @@ const PetForm = ({ onClose }) => {
               required
             >
               <option value="" disabled>בחר סוג חיה</option>
-              <option value="dog">כלב</option>
-              <option value="cat">חתול</option>
-              <option value="other">אחר</option>
+              <option value="כלב">כלב</option>
+              <option value="חתול">חתול</option>
+              <option value="אחר">אחר</option>
             </select>
 
             <select
@@ -168,9 +168,9 @@ const PetForm = ({ onClose }) => {
               required
             >
               <option value="" disabled>בחר גודל</option>
-              <option value="small">קטן</option>
-              <option value="medium">בינוני</option>
-              <option value="large">גדול</option>
+              <option value="קטן">קטן</option>
+              <option value="בינוני">בינוני</option>
+              <option value="גדול">גדול</option>
             </select>
             <select
               name="activity"
@@ -179,9 +179,9 @@ const PetForm = ({ onClose }) => {
               required
             >
               <option value="" disabled>בחר רמת פעילות</option>
-              <option value="low">נמוכה</option>
-              <option value="moderate">בינונית</option>
-              <option value="high">גבוהה</option>
+              <option value="נמוכה">נמוכה</option>
+              <option value="בינונית">בינונית</option>
+              <option value="גבוהה">גבוהה</option>
             </select>
             <div className="form-buttons">
               <button type="submit">הוסף חיה</button>
