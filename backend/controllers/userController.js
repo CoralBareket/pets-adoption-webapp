@@ -87,7 +87,7 @@ const loginUser = asyncHandler(async (req, res) => {
         res.json({
             _id: user._id,
             idNumber: user.idNumber,
-            fullName: user.fullName, // Ensure full name is sent
+            fullName: user.fullName, 
             phoneNumber: user.phoneNumber,
             email: user.email,
             admin: user.admin,

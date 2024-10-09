@@ -16,6 +16,7 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
         if (idNumber === 'admin' && phoneNumber === 'admin') {
             const adminUser = { fullName: 'מנהל', isAdmin: true };
             localStorage.setItem('loggedInUser', JSON.stringify(adminUser));
+            onLogin(adminUser);
             onClose();
             return;
         }
