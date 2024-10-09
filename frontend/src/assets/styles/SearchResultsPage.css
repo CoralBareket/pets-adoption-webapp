@@ -79,9 +79,27 @@
 
 .pet-info h3 {
     margin: 0;
-    font-size: 24px;
+    font-size: 28px;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #7bd8de;
+    display: inline-block;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.pet-info h3::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 50%;
+    height: 2px;
+    background-color: #5cc0c7;
+    transition: width 0.3s ease;
 }
 
 .pet-info p {
@@ -228,7 +246,8 @@
     .results-header {
         flex-direction: column;
         align-items: center;
-        padding-top: 90px; /* Make room for the logo */
+        padding-top: 90px;
+        /* Make room for the logo */
     }
 
     .logo-container {
@@ -257,10 +276,7 @@
 
     .pet-info h3 {
         font-size: 22px;
-    }
-
-    .pet-info p {
-        font-size: 14px;
+        padding-bottom: 8px;
     }
 
     .adopt-button {
@@ -271,11 +287,11 @@
 
 @media screen and (max-width: 480px) {
     .results-header {
-        padding-top: 80px; 
+        padding-top: 80px;
     }
 
     .logo-small {
-        width: 60px; 
+        width: 60px;
     }
 
     .results-page h2 {

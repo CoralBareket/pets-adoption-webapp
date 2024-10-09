@@ -1,0 +1,189 @@
+/* AdminProfile.css */
+
+.admin-profile {
+    background-color: #ffffff;
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 30px;
+    color: #333;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    direction: rtl;
+    text-align: right;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    padding: 0 0 20px 0;
+    color: #333;
+}
+
+.profile-header h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+    color: #7bd8de;
+}
+
+.logo-small {
+    width: 80px;
+    height: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.user-info {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-right: 5px solid #7bd8de;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.user-info p {
+    margin: 10px 0;
+    color: #555;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.user-info input {
+    padding: 5px;
+    font-size: 14px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.user-info button,
+.add-animal-form button {
+    background-color: #7bd8de;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.user-info button:hover,
+.add-animal-form button:hover {
+    background-color: #55c0c7;
+}
+
+.admin-actions {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 30px;
+    border-right: 5px solid #7bd8de;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.admin-actions h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.add-animal-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.add-animal-form input,
+.add-animal-form select {
+    flex: 1;
+    min-width: 150px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.animals-list {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.animals-list h3 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.animals-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.animals-list li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.animals-list li:last-child {
+    border-bottom: none;
+}
+
+.animals-list li img {
+    margin-left: 10px;
+    border-radius: 50%;
+}
+
+.animals-list li button {
+    background-color: #ff6b6b;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: auto;
+}
+
+.animals-list li button:hover {
+    background-color: #ff4757;
+}
+
+@media screen and (max-width: 768px) {
+    .admin-profile {
+        padding: 20px;
+    }
+
+    .profile-header h1 {
+        font-size: 28px;
+    }
+
+    .add-animal-form {
+        flex-direction: column;
+    }
+
+    .add-animal-form input,
+    .add-animal-form select {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .profile-header h1 {
+        font-size: 24px;
+    }
+
+    .admin-actions h2 {
+        font-size: 20px;
+    }
+}

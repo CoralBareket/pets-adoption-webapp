@@ -39,8 +39,20 @@ const HPHeader = ({ onLogin, onLogout }) => {
     };
 
     const handlePersonalArea = () => {
-        navigate('/profile');
-    };
+        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+        
+        if (loggedInUser) {
+            if (loggedInUser.isAdmin) {
+                console.log("Navigating to admin profile");
+                navigate('/admin-profile');
+            } else {
+                console.log("Navigating to user profile");
+                navigate('/profile');
+            }
+        } else {
+            console.log("No logged in user found.");
+        }
+    };       
 
     const handleDashboard = () => {
         navigate('/admin-dashboard');
