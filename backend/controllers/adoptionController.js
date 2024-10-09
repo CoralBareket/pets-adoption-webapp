@@ -32,8 +32,8 @@ const createAdoption = async (adoptionData) => {
 
         // יצירת האימוץ וקישורו ליוזר
         const adoption = new Adoption({
-            idNumber,  // ודא שאנחנו מעבירים את תעודת הזהות
-            userId: user._id,  // קישור האימוץ ליוזר הקיים או החדש
+            idNumber,  
+            userId: user._id, 
             petId,     
             address,  
             cardNumber,

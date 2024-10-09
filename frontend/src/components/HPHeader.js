@@ -40,23 +40,21 @@ const HPHeader = ({ onLogin, onLogout }) => {
 
     const handlePersonalArea = () => {
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-        
+    
         if (loggedInUser) {
             if (loggedInUser.isAdmin) {
-                console.log("Navigating to admin profile");
-                navigate('/admin-profile');
+                console.log("Navigating to admin dashboard");
+                navigate('/admin-dashboard'); // ניווט לדשבורד אדמין
             } else {
                 console.log("Navigating to user profile");
-                navigate('/profile');
+                navigate('/profile'); // ניווט לפרופיל משתמש רגיל
             }
         } else {
-            console.log("No logged in user found.");
+            console.log("No logged in user found, redirecting to login");
+            navigate('/login'); // ניווט לדף התחברות אם אין משתמש מחובר
         }
-    };       
-
-    const handleDashboard = () => {
-        navigate('/admin-dashboard');
     };
+    
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -89,11 +87,6 @@ const HPHeader = ({ onLogin, onLogout }) => {
                 <div className="top-bar">
                     <div className="user-menu">
                         <button className="logout-button" onClick={handleLogout}>התנתקות</button>
-                        {loggedInUser.isAdmin && (
-                            <button className="dashboard-button" onClick={handleDashboard}>
-                                דשבורד מנהל
-                            </button>
-                        )}
                         <button className="personal-area-button" onClick={handlePersonalArea}>אזור אישי</button>
                         <span className="greeting">שלום, {loggedInUser.fullName}</span>
                     </div>

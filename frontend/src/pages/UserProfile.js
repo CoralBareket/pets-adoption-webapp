@@ -15,17 +15,25 @@ const UserProfile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const loggedInUser = localStorage.getItem('loggedInUser');
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
     if (!loggedInUser) {
-      navigate('/');
+      navigate('/'); // ניווט לדף הבית אם אין יוזר מחובר
       return;
     }
 
+    // אם המשתמש הוא אדמין, לא מושכים נתוני פרופיל
+    if (loggedInUser.isAdmin) {
+      console.log('Admin logged in, skipping user data fetch');
+      return; // לא מושכים מידע כאשר זה אדמין
+    }
+
+    // עבור יוזר רגיל מושכים את נתוני הפרופיל
     const fetchUserData = async () => {
       try {
         const response = await axios.get('/api/users/profile', {
           headers: { 
-            Authorization: `Bearer ${JSON.parse(loggedInUser).token}` 
+            Authorization: `Bearer ${loggedInUser.token}` 
           }
         });
         setUserData(response.data);
@@ -41,7 +49,8 @@ const UserProfile = () => {
       }
     };
     fetchUserData();
-  }, [navigate]);
+}, [navigate]);
+
 
   const handleEdit = () => {
     setIsEditing(true); 
