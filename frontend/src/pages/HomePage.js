@@ -4,6 +4,7 @@ import HPSearchBar from '../components/HPSearchBar';
 import HPFeaturedPets from '../components/HPFeaturedPets';
 import HPPartnershipLogos from '../components/HPPartnershipLogos';
 import HPFooter from '../components/HPFooter';
+import LoginWithGoogle from '../components/LoginWithGoogle';
 
 const HomePage = ({ onLogin, onLogout }) => {
     return (
@@ -13,6 +14,7 @@ const HomePage = ({ onLogin, onLogout }) => {
             <HPFeaturedPets />
             <HPPartnershipLogos />
             <HPFooter />
+            <LoginWithGoogle onLogin={onLogin} />
         </div>
     );
 };

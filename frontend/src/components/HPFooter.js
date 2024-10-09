@@ -1,9 +1,21 @@
 import React from 'react';
 import '../../src/assets/styles/HPFooter.css';
-import { FaFacebook, FaInstagram, FaYoutube, FaTwitter } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaYoutube, FaTwitter, FaGoogle } from 'react-icons/fa';
 import logo from '../../src/assets/images/Pawfect-match-logo.png';
+import { useGoogleLogin } from '@react-oauth/google';
 
-const HPFooter = () => {
+const HPFooter = ({ onLogin }) => { 
+    // login with google function
+    const login = useGoogleLogin({
+        onSuccess: (credentialResponse) => {
+            console.log('Login Success:', credentialResponse);
+            onLogin(credentialResponse); 
+        },
+        onError: (error) => {
+            console.log('Login Failed:', error);
+        },
+    });
+
     return (
         <footer className="footer">
             <div className="footer-content">
@@ -47,6 +59,9 @@ const HPFooter = () => {
                         </a>
                         <a href="#facebook">
                             <FaFacebook className="social-icon" />
+                        </a>
+                        <a href="Google" onClick={login}>
+                            <FaGoogle className="social-icon" />
                         </a>
                     </div>
                 </div>
