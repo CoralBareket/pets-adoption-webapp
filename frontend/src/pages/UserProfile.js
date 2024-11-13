@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../assets/styles/UserProfile.css';
-import logo2 from '../assets/images/logos/logo2.png'; 
+import logo2 from '../assets/images/logos/logo2.png';
 
 const UserProfile = () => {
   const [userData, setUserData] = useState(null);
-  const [isEditing, setIsEditing] = useState(false); 
-  const [isSaving, setIsSaving] = useState(false); 
+  const [isEditing, setIsEditing] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [editData, setEditData] = useState({
     phoneNumber: '',
     email: '',
@@ -18,23 +18,22 @@ const UserProfile = () => {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
     if (!loggedInUser) {
-      navigate('/'); // ניווט לדף הבית אם אין יוזר מחובר
+      navigate('/'); // Navigate to home if no user is logged in
       return;
     }
 
-    // אם המשתמש הוא אדמין, לא מושכים נתוני פרופיל
+    // If admin is logged in, skip user profile data fetching
     if (loggedInUser.isAdmin) {
       console.log('Admin logged in, skipping user data fetch');
-      return; // לא מושכים מידע כאשר זה אדמין
+      return;
     }
 
-    // עבור יוזר רגיל מושכים את נתוני הפרופיל
     const fetchUserData = async () => {
       try {
         const response = await axios.get('/api/users/profile', {
-          headers: { 
-            Authorization: `Bearer ${loggedInUser.token}` 
-          }
+          headers: {
+            Authorization: `Bearer ${loggedInUser.token}`,
+          },
         });
         setUserData(response.data);
         setEditData({
@@ -49,15 +48,14 @@ const UserProfile = () => {
       }
     };
     fetchUserData();
-}, [navigate]);
-
+  }, [navigate]);
 
   const handleEdit = () => {
-    setIsEditing(true); 
+    setIsEditing(true);
   };
 
   const handleCancel = () => {
-    setIsEditing(false); 
+    setIsEditing(false);
     setEditData({
       phoneNumber: userData.phoneNumber,
       email: userData.email,
@@ -65,19 +63,19 @@ const UserProfile = () => {
   };
 
   const handleSave = async () => {
-    setIsSaving(true); 
+    setIsSaving(true);
     try {
       const response = await axios.put('/api/users/profile', editData, {
         headers: {
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).token}`
-        }
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).token}`,
+        },
       });
-      setUserData(response.data); 
-      setIsEditing(false); 
-      setIsSaving(false); 
+      setUserData(response.data);
+      setIsEditing(false);
+      setIsSaving(false);
     } catch (error) {
       console.error('Failed to update user data', error);
-      setIsSaving(false); 
+      setIsSaving(false);
     }
   };
 
@@ -98,16 +96,16 @@ const UserProfile = () => {
           src={logo2}
           alt="Logo"
           className="logo-small"
-          onClick={() => navigate('/')} 
+          onClick={() => navigate('/')}
         />
       </div>
       <div className="user-info">
         {isEditing ? (
           <>
-            <p>
             <p>שם מלא: {userData.fullName}</p>
             <p>תעודת זהות: {userData.idNumber}</p>
-              מספר טלפון: 
+            <p>
+              מספר טלפון:
               <input
                 type="text"
                 name="phoneNumber"
@@ -116,7 +114,7 @@ const UserProfile = () => {
               />
             </p>
             <p>
-              אימייל: 
+              אימייל:
               <input
                 type="email"
                 name="email"
@@ -145,13 +143,17 @@ const UserProfile = () => {
       <div className="adoption-history">
         {userData.adoptionHistory && userData.adoptionHistory.length > 0 ? (
           <ul>
-            {userData.adoptionHistory.map(adoption => (
-              <li key={adoption.pet._id}>
-                <h3>{adoption.pet.name}</h3>
-                <img src={adoption.pet.imageUrl} alt={adoption.pet.name} width="100" /> 
-                <p>מין: {adoption.pet.gender}</p>
-                <p>גזע: {adoption.pet.breed}</p>
-                <p>אומץ בתאריך: {new Date(adoption.adoptionDate).toLocaleDateString('he-IL')}</p>
+            {userData.adoptionHistory.map((adoption) => (
+              <li key={adoption.pet._id} className="adoption-item">
+                <div className="adoption-image">
+                  <img src={adoption.pet.imageUrl} alt={adoption.pet.name} />
+                </div>
+                <div className="adoption-details">
+                  <h3>{adoption.pet.name}</h3>
+                  <p>מין: {adoption.pet.gender}</p>
+                  <p>גזע: {adoption.pet.breed}</p>
+                  <p>אומץ בתאריך: {new Date(adoption.adoptionDate).toLocaleDateString('he-IL')}</p>
+                </div>
               </li>
             ))}
           </ul>

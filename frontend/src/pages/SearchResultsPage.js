@@ -31,11 +31,11 @@ const SearchResults = () => {
                 </div>
                 <h2>תוצאות החיפוש</h2>
             </div>
-            {searchResults.length > 0 ? (
+            {searchResults.groups.length > 0 ? (
                 <>
-                    <p className="results-count">מצאנו {searchResults.length} תוצאות שמתאימות לחיפוש שלך!</p>
+                    <p className="results-count">מצאנו {searchResults.groups.length} תוצאות שמתאימות לחיפוש שלך!</p>
                     <ul className="results-list">
-                        {searchResults.map((group, index) => (
+                        {searchResults.groups.map((group, index) => (
                             group.pets.map((pet) => (
                                 <li key={pet._id} className="pet-item">
                                     <div className="pet-image">

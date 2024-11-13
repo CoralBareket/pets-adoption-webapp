@@ -37,6 +37,7 @@ const SearchBar = () => {
             }
 
             const searchResults = await response.json();
+            console.log("search-results:", searchResults);
             navigate('/search-results', { state: { searchResults } });
         } catch (error) {
             console.error('Error during search:', error);

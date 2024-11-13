@@ -1,3 +1,5 @@
+/* LoginModal.css */
+
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -16,8 +18,10 @@
     background-color: white;
     padding: 20px;
     border-radius: 10px;
-    width: 400px;
+    width: 90%;
+    max-width: 400px;
     text-align: right;
+    overflow: hidden;
 }
 
 .login-form {
@@ -30,29 +34,51 @@
 }
 
 .form-input {
-    width: 90%;
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
 }
 
 .modal-login-button {
     background-color: #7bd8de;
     color: white;
-    width: fit-content;
-    margin-left: 5%;
-    padding: 10px;
+    padding: 8px 12px; /* Reduced padding to make buttons smaller */
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    text-align: center;
     transition: background-color 0.3s ease;
+    font-size: 14px; /* Reduced font size */
+    flex: 0 1 auto; /* Allow buttons to shrink if needed */
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.modal-login-button:hover {
+    background-color: #5cc1c7;
+}
+
+.google-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.google-icon {
+    margin-left: 12px; /* Increased margin to create more space between icon and text */
+    font-size: 18px; /* Adjust icon size if needed */
 }
 
 .close-button {
     position: absolute;
-    margin-top: 1%;
-    margin-right: 88%;
+    top: 10px;
+    left: 10px;
     background: none;
     border: none;
     font-size: 20px;
@@ -70,6 +96,23 @@
     text-align: right;
 }
 
-.google-icon {
-    margin-right: 8px;
+h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    .button-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .modal-login-button {
+        margin-bottom: 10px;
+    }
 }
