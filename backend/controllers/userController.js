@@ -1,6 +1,10 @@
 const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
 const generateToken = require('../utils/generateToken');
+const Adoption = require('../models/adoptionModel'); 
+const { getPetByIdInternal } = require('./petController');
+
+
 
 
 // Function to create a new user if they don't already exist based on ID number
@@ -143,19 +147,35 @@ const loginUser = asyncHandler(async (req, res) => {
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id).populate('adoptionHistory.pet');
-
-    if (user) {
-        res.json({
-            _id: user._id,
-            idNumber: user.idNumber,
-            phoneNumber: user.phoneNumber,
-            email: user.email,
-            adoptionHistory: user.adoptionHistory, // Including adoption history
-        });
-    } else {
+    if (!user) {
         res.status(404);
         throw new Error('User not found');
     }
+    const adoptions = await Adoption.find({ idNumber: user.idNumber });
+    
+    const adoptionHistory = await Promise.all(
+        adoptions.map(async (adoption) => {
+            const pet = await getPetByIdInternal(adoption.petId);  
+            return {
+                ...adoption.toObject(),  
+                pet: {
+                    name: pet.name,
+                    imageUrl: pet.imageUrl,  
+                    gender: pet.gender,      
+                    breed: pet.breed         
+                }
+            };
+        })
+    );
+    res.json({
+        _id: user._id,
+        idNumber: user.idNumber,
+        fullName: user.fullName,
+        phoneNumber: user.phoneNumber,
+        email: user.email,
+        adoptionHistory: adoptionHistory, 
+   
+    });
 });
 
 

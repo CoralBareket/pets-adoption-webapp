@@ -32,7 +32,7 @@ const pets = [
         status: "חדש באתר",
         size: "בינוני",
         location: "דרום",
-        animalType: "כלב"
+        animalType: "חתול"
     },
     {
         name: "אש",
@@ -104,7 +104,7 @@ const pets = [
         status: "חדש באתר",
         size: "קטן",
         location: "צפון",
-        animalType: "כלב"
+        animalType: "חתול"
     },
     {
         name: "ג'וני",
@@ -261,6 +261,20 @@ const pets = [
         size: "קטן",
         activity: "גבוהה",
         animalType: "חתול"
+    },
+
+    {
+        name: "לוקה",
+        age: 10,
+        gender: "נקבה",
+        breed: "האסקי סיבירי",
+        description: "מחפשים משפחה מאמצת ללוקה המדהים שלנו בעקבות פטירה של אמנו האהובה. לוקה כלב נוח ועדין, מתאים לבית עם ילדים.",
+        imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFYCd8CZ0v9hPS1Fhq6tNFtt0PeTV47ewh0A&s",
+        status: "חדש באתר",
+        location: "דרום",
+        size: "קטן",
+        activity: "בינונית",
+        animalType: "כלב"
     }
 
 ];

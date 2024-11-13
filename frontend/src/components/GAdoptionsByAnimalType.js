@@ -3,17 +3,15 @@ import axios from 'axios';
 import { PieChart, Pie, Tooltip, Cell, Legend, ResponsiveContainer } from 'recharts';
 import '../assets/styles/AdminDashboard.css';
 
-
 const AdoptionsByAnimalType = () => {
     const [data, setData] = useState([]);
 
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']; // צבעים לכל חתך בעוגה
 
-    // מיפוי סוגי החיות לשמות בעברית
     const animalTypeLabels = {
-        dog: 'כלב',
-        cat: 'חתול',
-        other: 'אחר',
+        כלב: 'כלב',
+        חתול: 'חתול',
+        אחר: 'אחר',
         null: 'לא ידוע'
     };
 

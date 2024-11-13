@@ -1,8 +1,8 @@
 /* Header styles */
 .profile-header {
     display: flex;
-    justify-content: space-between; /* מפזר את הכותרת בצד ימין ואת התמונה בצד שמאל */
-    align-items: center; /* מיישר את התוכן בצורה אנכית */
+    justify-content: space-between;
+    align-items: center;
     background-color: transparent;
     padding: 0 0 20px 0;
     color: #333;
@@ -15,15 +15,15 @@
     color: #7bd8de;
 }
 
-/* לוגו בעיצוב קטן ומיקום בצד שמאל */
+/* Small logo for header */
 .logo-small {
-    width: 80px; /* הגדרת רוחב הלוגו */
-    height: auto; /* שומר על יחס הגובה-רוחב */
-    margin-right: auto; /* כדי לדחוף את הלוגו לצד שמאל */
-    cursor: pointer; /* סמן לחיץ */
+    width: 80px;
+    height: auto;
+    margin-right: auto;
+    cursor: pointer;
 }
 
-/* Profile page styles */
+/* Profile page container */
 .user-profile {
     background-color: #ffffff;
     max-width: 900px;
@@ -37,7 +37,7 @@
     text-align: right;
 }
 
-/* User info styles */
+/* User information card */
 .user-info {
     background-color: #f9f9f9;
     border-radius: 8px;
@@ -54,7 +54,31 @@
     line-height: 1.6;
 }
 
-/* Adoption history */
+/* Edit form inputs */
+.user-info input {
+    padding: 5px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+/* Edit form buttons */
+.user-info button {
+    background-color: #7bd8de;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.user-info button:hover {
+    background-color: #55c0c7;
+}
+
+/* Adoption history section */
 .adoption-history {
     background-color: #ffffff;
     border: 1px solid #ddd;
@@ -64,23 +88,55 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
+/* Adoption card list */
 .adoption-history ul {
     list-style-type: none;
     padding: 0;
 }
 
+/* Adoption card */
 .adoption-history li {
+    display: flex;
+    align-items: center;
     margin-bottom: 15px;
     padding: 15px;
     background-color: #f9f9f9;
     border-right: 5px solid #7bd8de;
     border-radius: 5px;
-    color: #333;
-    font-size: 16px;
-    line-height: 1.6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
 }
 
-/* No adoption message */
+.adoption-history li:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Pet image inside the adoption card */
+.adoption-history img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-left: 20px;
+}
+
+/* Pet name */
+.adoption-history h3 {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+    font-weight: bold;
+}
+
+/* Adoption card details */
+.adoption-history p {
+    margin: 5px 0;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* No adoption history message */
 .no-adoptions {
     color: #333;
     font-style: italic;
@@ -99,7 +155,7 @@
     text-decoration: underline;
 }
 
-/* Responsive styles for smaller screens */
+/* Responsive adjustments for smaller screens */
 @media screen and (max-width: 768px) {
     .user-profile {
         padding: 20px;
@@ -115,6 +171,15 @@
 
     .adoption-history li {
         padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .adoption-history img {
+        width: 80px;
+        height: 80px;
+        margin-left: 0;
+        margin-bottom: 10px;
     }
 
     .user-info {
@@ -130,25 +195,13 @@
     .user-profile h2 {
         font-size: 18px;
     }
-}
-.user-info input {
-    padding: 5px;
-    font-size: 14px;
-    margin-left: 10px;
-}
 
-.user-info button {
-    background-color: #7bd8de;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-top: 20px;
-    cursor: pointer;
-    border: none;
-    font-size: 16px;
-    margin-right: 10px;
-}
+    .adoption-history li {
+        padding: 8px;
+    }
 
-.user-info button:hover {
-    background-color: #55c0c7;
+    .adoption-history img {
+        width: 60px;
+        height: 60px;
+    }
 }
