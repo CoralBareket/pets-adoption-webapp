@@ -21,15 +21,7 @@ This project is a pet adoption web application designed to connect potential ado
 
 ## Team Members
 
-- **Coral Bareket** - ID: 209226562
-- **Yam Belz** - ID: 211364252
-- **Ron Rismany** - ID: 322372970
-- **Nathanel Hacham** - ID: 207686940
-
-## Installation
-
-To set up the project locally:
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/CoralBareket/pets-adoption-webapp.git
+- **Coral Bareket**
+- **Yam Balas**
+- **Ron Rismany**
+- **Nathanel Hacham**
